@@ -47,9 +47,92 @@ def about():
     content = load_data('content.json')
     return render_template('about.html', content=content)
 
-@app.route('/contact')
+@app.route('/contact', methods=['GET', 'POST'])
 def contact():
     content = load_data('content.json')
+    
+    if request.method == 'POST':
+        # Get form data
+        name = request.form.get('name')
+        email = request.form.get('email')
+        phone = request.form.get('phone')
+        subject = request.form.get('subject')
+        message = request.form.get('message')
+        travel_dates = request.form.get('travel_dates')
+        group_size = request.form.get('group_size')
+        budget = request.form.get('budget')
+        
+        # Validate required fields
+        if not name or not email or not subject or not message:
+            flash('Please fill in all required fields.', 'error')
+            return render_template('contact.html', content=content)
+        
+        try:
+            # Send email to admin
+            admin_msg = Message(
+                subject=f"New Contact Form Submission: {subject}",
+                sender=app.config['MAIL_DEFAULT_SENDER'],
+                recipients=[app.config['MAIL_DEFAULT_SENDER']]
+            )
+            
+            admin_msg.body = f"""
+New Contact Form Submission
+
+Name: {name}
+Email: {email}
+Phone: {phone or 'Not provided'}
+Subject: {subject}
+Travel Dates: {travel_dates or 'Not specified'}
+Group Size: {group_size or 'Not specified'}
+Budget: {budget or 'Not specified'}
+
+Message:
+{message}
+
+Please respond to this inquiry within 24 hours.
+"""
+            
+            # Send confirmation email to customer
+            customer_msg = Message(
+                subject="Thank you for contacting 254 Kenya Safaris",
+                sender=app.config['MAIL_DEFAULT_SENDER'],
+                recipients=[email]
+            )
+            
+            customer_msg.body = f"""
+Dear {name},
+
+Thank you for contacting 254 Kenya Safaris! We have received your message regarding: {subject}
+
+We will review your inquiry and respond within 24 hours. Our team is excited to help you plan your perfect Kenyan safari experience.
+
+Your message details:
+- Subject: {subject}
+- Travel Dates: {travel_dates or 'Not specified'}
+- Group Size: {group_size or 'Not specified'}
+- Budget: {budget or 'Not specified'}
+
+If you have any urgent questions, please don't hesitate to contact us directly at {content.contact.phone}.
+
+Best regards,
+The 254 Kenya Safaris Team
+
+---
+This is an automated confirmation. Please do not reply to this email.
+"""
+            
+            # Send both emails
+            mail.send(admin_msg)
+            mail.send(customer_msg)
+            
+            flash('Your message has been sent successfully! We will get back to you within 24 hours.', 'success')
+            return redirect(url_for('contact'))
+            
+        except Exception as e:
+            flash('There was an error sending your message. Please try again or contact us directly.', 'error')
+            print(f"Email error: {e}")
+            return render_template('contact.html', content=content)
+    
     return render_template('contact.html', content=content)
 
 # Booking submission

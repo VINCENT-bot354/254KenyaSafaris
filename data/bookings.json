@@ -1,1 +1,26 @@
-[]
+[
+  {
+    "name": "Vincent Nguthiru ",
+    "email": "vincentnguthiru123@gmail.com",
+    "phone": "0791584278",
+    "people": "5",
+    "days": "8",
+    "destinations": [
+      "Maasai Mara National Reserve",
+      "Amboseli National Park",
+      "Tsavo East & West",
+      "Lake Nakuru National Park",
+      "Mount Kenya National Park",
+      "Samburu National Reserve"
+    ],
+    "activities": [
+      "Game Drives",
+      "Wildlife Photography",
+      "Cultural Village Visits",
+      "Hot Air Balloon Safaris",
+      "Nature Walks",
+      "Bird Watching"
+    ],
+    "message": "for food kales is a must, SIM cards and Wi-Fi"
+  }
+]
