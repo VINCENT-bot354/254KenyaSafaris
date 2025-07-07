@@ -90,15 +90,13 @@ def get_default_content():
             'description': 'Get in touch with our safari experts to plan your perfect Kenyan adventure.',
             'address': 'Nairobi, Kenya',
             'phone': '+254 700 000 000',
-            'email': 'info@254kenyasafaris.com',
-            'hours': 'Monday - Sunday: 8:00 AM - 6:00 PM EAT',
+            'email': '254kenyasafaris@gmail.com',
+            'hours': 'Monday - Friday: 8:00 AM - 6:00 PM',
             'instagram': '',
             'tiktok': '',
             'whatsapp': '',
             'twitter': '',
-            'facebook': '',
-            'email': '254kenyasafaris@gmail.com',
-            'hours': 'Monday - Friday: 8:00 AM - 6:00 PM'
+            'facebook': ''
         }
     }
 

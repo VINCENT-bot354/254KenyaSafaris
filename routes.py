@@ -346,7 +346,12 @@ def update_content():
                 'address': request.form.get('address'),
                 'phone': request.form.get('phone'),
                 'email': request.form.get('email'),
-                'hours': request.form.get('hours')
+                'hours': request.form.get('hours'),
+                'instagram': request.form.get('instagram', ''),
+                'tiktok': request.form.get('tiktok', ''),
+                'whatsapp': request.form.get('whatsapp', ''),
+                'twitter': request.form.get('twitter', ''),
+                'facebook': request.form.get('facebook', '')
             }
         
         save_data('content.json', content)
