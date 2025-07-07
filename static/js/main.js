@@ -516,8 +516,28 @@ function initializeLazyLoading() {
 // Initialize lazy loading
 document.addEventListener('DOMContentLoaded', initializeLazyLoading);
 
+function initializeServiceCards() {
+    // Add hover effects to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    if (serviceCards.length > 0) {
+        serviceCards.forEach(card => {
+            if (card) {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow-lg');
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow-lg');
+                });
+            }
+        });
+    }
+}
+
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing components...');
+
     // Initialize mobile menu
     initializeMobileMenu();
 
@@ -532,6 +552,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize modal functionality
     initializeModals();
+
+    console.log('All components initialized successfully');
 });
 
 function initializeMobileMenu() {
@@ -539,8 +561,16 @@ function initializeMobileMenu() {
     const navbarCollapse = document.querySelector('.navbar-collapse');
 
     if (navbarToggler && navbarCollapse) {
-        navbarToggler.addEventListener('click', function() {
+        navbarToggler.addEventListener('click', function(e) {
+            e.preventDefault();
             navbarCollapse.classList.toggle('show');
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navbarToggler.contains(e.target) && !navbarCollapse.contains(e.target)) {
+                navbarCollapse.classList.remove('show');
+            }
         });
     }
 }
@@ -550,58 +580,136 @@ function initializeAnimations() {
     const fadeElements = document.querySelectorAll('.fade-in');
 
     if (fadeElements.length > 0) {
+        // Add CSS for fade-in effect
+        if (!document.querySelector('#fade-in-styles')) {
+            const style = document.createElement('style');
+            style.id = 'fade-in-styles';
+            style.textContent = `
+                .fade-in {
+                    opacity: 0;
+                    transform: translateY(20px);
+                    transition: opacity 0.6s ease, transform 0.6s ease;
+                }
+                .fade-in-visible {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            `;
+            document.head.appendChild(style);
+        }
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
+                if (entry.isIntersecting && entry.target) {
                     entry.target.classList.add('fade-in-visible');
                 }
             });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
         });
 
         fadeElements.forEach(element => {
-            observer.observe(element);
+            if (element) {
+                observer.observe(element);
+            }
         });
     }
 }
 
 function initializeModals() {
-    // Handle modal close buttons
-    const modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
-    if (modalCloseButtons.length > 0) {
-        modalCloseButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const modal = button.closest('.modal');
-                if (modal) {
-                    modal.classList.remove('show');
-                    modal.style.display = 'none';
-                    document.body.classList.remove('modal-open');
-
-                    // Remove backdrop
-                    const backdrop = document.querySelector('.modal-backdrop');
-                    if (backdrop) {
-                        backdrop.remove();
+    // Handle Bootstrap modal functionality
+    const modals = document.querySelectorAll('.modal');
+    if (modals.length > 0) {
+        modals.forEach(modal => {
+            if (modal) {
+                // Handle close buttons
+                const closeButtons = modal.querySelectorAll('[data-bs-dismiss="modal"]');
+                closeButtons.forEach(button => {
+                    if (button) {
+                        button.addEventListener('click', function() {
+                            hideModal(modal);
+                        });
                     }
-                }
-            });
+                });
+
+                // Handle backdrop click
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        hideModal(modal);
+                    }
+                });
+            }
         });
     }
 }
 
-function initializeForms() {
-    // Add any form-specific JavaScript here
-    console.log('Forms initialized');
+function hideModal(modal) {
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('show');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('modal-open');
+
+        // Remove backdrop
+        const backdrop = document.querySelector('.modal-backdrop');
+        if (backdrop) {
+            backdrop.remove();
+        }
+    }
 }
 
-function initializeServiceCards() {
-    // Add hover effects to service cards
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.transform = 'translateY(-5px)';
-        });
+function initializeForms() {
+    console.log('Forms initialized');
 
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'translateY(0)';
+    // Handle form validation
+    const forms = document.querySelectorAll('form');
+    if (forms.length > 0) {
+        forms.forEach(form => {
+            if (form) {
+                form.addEventListener('submit', function(e) {
+                    // Add loading state to submit buttons
+                    const submitButton = form.querySelector('button[type="submit"]');
+                    if (submitButton) {
+                        submitButton.disabled = true;
+                        const originalText = submitButton.innerHTML;
+                        submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+
+                        // Re-enable after 3 seconds (in case of errors)
+                        setTimeout(() => {
+                            submitButton.disabled = false;
+                            submitButton.innerHTML = originalText;
+                        }, 3000);
+                    }
+                });
+            }
         });
-    });
+    }
+}
+
+// Service page specific functionality
+function initializeServicePage() {
+    // Add enhanced service card interactions
+    const serviceCategories = document.querySelectorAll('.service-card');
+    if (serviceCategories.length > 0) {
+        serviceCategories.forEach((card, index) => {
+            if (card) {
+                // Add animation delay
+                card.style.animationDelay = `${index * 0.1}s`;
+
+                // Add click to expand functionality
+                card.addEventListener('click', function() {
+                    const items = this.querySelector('.service-items');
+                    if (items) {
+                        items.classList.toggle('expanded');
+                    }
+                });
+            }
+        });
+    }
+}
+
+// Initialize service page specific features if on services page
+if (window.location.pathname.includes('services')) {
+    document.addEventListener('DOMContentLoaded', initializeServicePage);
 }
