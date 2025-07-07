@@ -1,0 +1,161 @@
+> Build a full-featured, editable website for a Kenyan travel coordination company called:
+
+254 KENYA SAFARIS [flag image]
+
+The flag is manually uploaded through the admin panel and should appear after the name "254 KENYA SAFARIS" on all pages. The logo is also uploaded via the admin panel and must appear at the top-left of every page. The size of the logo and every image used throughout the website should be customizable when added or updated via admin pages. There should be default dimensions, but admins can override them directly.
+
+
+
+
+---
+
+🌐 Public Pages (Viewable by Users)
+
+Homepage
+
+Destinations
+
+Activities
+
+Travel Packages
+
+Bookings
+
+Gallery (Photos & Videos)
+
+About Us
+
+Contact Us
+
+
+
+---
+
+🔧 Admin Pages (Editable by Non-Programmer)
+
+Each public page has a corresponding admin page (admin-home, admin-destinations, etc.).
+
+Admin pages must:
+
+Be editable versions of their public counterparts
+
+Reflect all changes immediately on public pages
+
+Allow uploading:
+
+Photos with editable dimensions
+
+Video links (YouTube, Instagram)
+
+A logo image (positioned top-left site-wide)
+
+A flag image (displayed after the site title everywhere)
+
+
+Allow editing of all visible text on every page — nothing should be hardcoded, including the About Us page and all descriptions
+
+Support price editing in the format: $X / KSH X
+
+If no price is entered, leave it blank (not zero)
+
+
+Support adding and editing of travel packages:
+
+Each package has editable services and pricing via admin-packages
+
+
+
+
+---
+
+📸 Photos
+
+Uploaded via admin pages
+
+Default size values applied
+
+Admin can override the size values manually when uploading
+
+
+
+---
+
+🎥 Videos (Gallery)
+
+Accept YouTube and Instagram links via admin-gallery
+
+Use official embed code
+
+Expected aspect ratio: 9:16
+
+If not 9:16, apply black bars top and bottom
+
+Videos must open in fullscreen when clicked
+
+
+
+---
+
+🧾 Booking Form
+
+User fills in:
+
+Exact number of people
+
+Exact number of days
+
+Select destinations and activities
+
+
+On submission:
+
+Send a confirmation email to the user:
+
+From: 254kenyasafaris@gmail.com
+
+App password: vketdytghckvgscl
+
+Subject: "Thank you for booking with 254 KENYA SAFARIS"
+
+Body: Thank-you message + bullet list of selected activities and destinations
+
+
+Send the same email to the admin inbox (same address)
+
+Show popup: “✅ Booking received! Please check your email for confirmation.”
+
+
+
+
+---
+
+⚙️ Technical Specs
+
+Use Python
+
+Do not use a database
+
+Use JSON files to store and retrieve content (text, images, prices, videos, etc.)
+
+Fully deployable on Render.com
+
+Mobile-friendly and responsive design
+
+
+
+---
+
+🎨 Design Theme
+
+African / Kenyan aesthetic
+
+Colors: Black, Green, Blue, White (from the Kenyan flag)
+
+Use of tribal patterns, safari imagery, acacia trees, and nature textures
+
+Layout is simple, modern, and clean — fully editable via admin without coding
+
+
+
+---
+
