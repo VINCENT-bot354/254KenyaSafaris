@@ -1,0 +1,213 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Manage Gallery - Admin - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Manage Gallery{% endblock %}
+{% block page_description %}Upload images and add video links to your safari gallery{% endblock %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <button class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#addImageModal">
+            <i class="fas fa-image"></i> Add Image
+        </button>
+        <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addVideoModal">
+            <i class="fas fa-video"></i> Add Video
+        </button>
+    </div>
+</div>
+
+<div class="row">
+    {% for item in gallery %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+            {% if item.type == 'image' %}
+            <img src="{{ item.url }}" class="card-img-top" alt="{{ item.title }}" style="height: 200px; object-fit: cover;">
+            {% elif item.type == 'video' %}
+            <div class="video-thumbnail" style="height: 200px; background: linear-gradient(45deg, #000, #333); display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-play-circle fa-3x text-white"></i>
+            </div>
+            {% endif %}
+            <div class="card-body">
+                <h6 class="card-title">{{ item.title }}</h6>
+                <p class="card-text small">{{ item.description }}</p>
+                <div class="d-flex justify-content-between align-items-center">
+                    <span class="badge bg-{{ 'primary' if item.type == 'image' else 'success' }}">
+                        {{ item.type.title() }}
+                    </span>
+                    <small class="text-muted">{{ item.width }}x{{ item.height }}</small>
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-sm btn-outline-primary" onclick="editGalleryItem({{ item.id }})">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="btn btn-sm btn-outline-danger" onclick="deleteItem('gallery', {{ item.id }})">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<!-- Add Image Modal -->
+<div class="modal fade" id="addImageModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Image to Gallery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_gallery_item') }}">
+                <input type="hidden" name="type" value="image">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Title *</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Image URL *</label>
+                        <input type="url" class="form-control" name="url" required placeholder="https://example.com/image.jpg">
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Width (pixels)</label>
+                                <input type="number" class="form-control" name="width" value="400">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Height (pixels)</label>
+                                <input type="number" class="form-control" name="height" value="300">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Add Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Add Video Modal -->
+<div class="modal fade" id="addVideoModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Video to Gallery</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <form method="POST" action="{{ url_for('add_gallery_item') }}">
+                <input type="hidden" name="type" value="video">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label class="form-label">Title *</label>
+                        <input type="text" class="form-control" name="title" required>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Description</label>
+                        <textarea class="form-control" name="description" rows="3"></textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Video URL *</label>
+                        <input type="url" class="form-control" name="url" required placeholder="YouTube, Instagram, or TikTok URL" oninput="validateVideoUrl(this)">
+                        <small class="form-text text-muted">Supported: YouTube, Instagram, TikTok links</small>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Width (pixels)</label>
+                                <input type="number" class="form-control" name="width" value="400">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Height (pixels)</label>
+                                <input type="number" class="form-control" name="height" value="711">
+                                <small class="form-text text-muted">711px for 9:16 aspect ratio</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Add Video</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Gallery Tips -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Gallery Management Tips</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-image text-primary"></i> Images</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Use high-quality wildlife photos</li>
+                            <li>• Landscape orientation works best</li>
+                            <li>• Standard size: 400x300 pixels</li>
+                            <li>• Add descriptive titles</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-video text-success"></i> Videos</h6>
+                        <ul class="list-unstyled small">
+                            <li>• YouTube links are preferred</li>
+                            <li>• Instagram Reels supported</li>
+                            <li>• TikTok videos supported</li>
+                            <li>• 9:16 aspect ratio recommended</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-cog text-info"></i> Dimensions</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Default: 400x300 (4:3 ratio)</li>
+                            <li>• Mobile videos: 400x711 (9:16)</li>
+                            <li>• Customize as needed</li>
+                            <li>• Maintains aspect ratio</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6><i class="fas fa-lightbulb text-warning"></i> Best Practices</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Mix photos and videos</li>
+                            <li>• Update regularly</li>
+                            <li>• Use engaging titles</li>
+                            <li>• Test video links</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function editGalleryItem(itemId) {
+    // Implementation for editing gallery items
+    alert('Edit functionality - to be implemented based on item type');
+}
+</script>
+{% endblock %}

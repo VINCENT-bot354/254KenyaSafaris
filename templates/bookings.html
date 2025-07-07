@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block title %}Book Your Safari - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/gb9fe85f32dbf318a1efff986aaff5862715abbdda5c6806c38336814133735f47e2cc54c5bf7bcd22c558ee6c397e3c1186ddbbbc5f707be591fe9077a9fcd4b_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>Book Your Safari</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">Reserve your spot for an unforgettable Kenya safari experience</p>
+        </div>
+    </div>
+</section>
+
+<!-- Booking Form -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-calendar-check"></i> Safari Booking Form</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('submit_booking') }}" id="bookingForm">
+                            <!-- Personal Information -->
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-4">
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number *</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="people" class="form-label">Number of People *</label>
+                                    <input type="number" class="form-control" id="people" name="people" min="1" max="20" required>
+                                </div>
+                                <div class="col-md-3">
+                                    <label for="days" class="form-label">Number of Days *</label>
+                                    <input type="number" class="form-control" id="days" name="days" min="1" max="30" required>
+                                </div>
+                            </div>
+                            
+                            <!-- Destinations -->
+                            <div class="mb-4">
+                                <h5><i class="fas fa-map-marker-alt"></i> Select Destinations *</h5>
+                                <div class="row">
+                                    {% for destination in content.destinations.featured_destinations %}
+                                    <div class="col-md-6 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="destinations" value="{{ destination }}" id="dest_{{ loop.index }}">
+                                            <label class="form-check-label" for="dest_{{ loop.index }}">
+                                                {{ destination }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <!-- Activities -->
+                            <div class="mb-4">
+                                <h5><i class="fas fa-binoculars"></i> Select Activities *</h5>
+                                <div class="row">
+                                    {% for activity in content.activities.featured_activities %}
+                                    <div class="col-md-6 mb-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="activities" value="{{ activity }}" id="act_{{ loop.index }}">
+                                            <label class="form-check-label" for="act_{{ loop.index }}">
+                                                {{ activity }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                            
+                            <!-- Additional Message -->
+                            <div class="mb-4">
+                                <label for="message" class="form-label">Additional Requirements/Message</label>
+                                <textarea class="form-control" id="message" name="message" rows="4" placeholder="Any special requests, dietary requirements, or additional information..."></textarea>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane"></i> Submit Booking Request
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <!-- Booking Summary -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Booking Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success"></i>
+                                <strong>Instant Confirmation</strong>
+                                <p class="small mb-0">You'll receive email confirmation immediately</p>
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-phone text-success"></i>
+                                <strong>Personal Contact</strong>
+                                <p class="small mb-0">Our team will contact you within 24 hours</p>
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-calendar text-success"></i>
+                                <strong>Flexible Dates</strong>
+                                <p class="small mb-0">We'll work with your preferred schedule</p>
+                            </li>
+                            <li class="mb-2">
+                                <i class="fas fa-shield-alt text-success"></i>
+                                <strong>Secure Booking</strong>
+                                <p class="small mb-0">Your information is protected and secure</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- Popular Packages -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-star"></i> Popular Packages</h5>
+                    </div>
+                    <div class="card-body">
+                        {% for package in packages[:3] %}
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="flex-shrink-0">
+                                <div class="safari-icon">
+                                    <i class="fas fa-suitcase"></i>
+                                </div>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h6 class="mb-1">{{ package.name }}</h6>
+                                <p class="mb-0 small text-muted">{{ package.duration }}</p>
+                                <p class="mb-0 small">
+                                    {% if package.price_usd and package.price_ksh %}
+                                        ${{ package.price_usd }} / KSH {{ package.price_ksh }}
+                                    {% elif package.price_usd %}
+                                        ${{ package.price_usd }}
+                                    {% elif package.price_ksh %}
+                                        KSH {{ package.price_ksh }}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-sm w-100">
+                            <i class="fas fa-eye"></i> View All Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 fade-in">
+                <h3>Need Help with Your Booking?</h3>
+                <p class="lead">Our safari experts are here to help you plan the perfect Kenya adventure.</p>
+                <div class="contact-info">
+                    <p><i class="fas fa-phone"></i> <strong>Phone:</strong> {{ content.contact.phone }}</p>
+                    <p><i class="fas fa-envelope"></i> <strong>Email:</strong> {{ content.contact.email }}</p>
+                    <p><i class="fas fa-clock"></i> <strong>Hours:</strong> {{ content.contact.hours }}</p>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Location:</strong> {{ content.contact.address }}</p>
+                </div>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <h3>What Happens Next?</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-marker">1</div>
+                        <div class="timeline-content">
+                            <h6>Booking Submission</h6>
+                            <p>You submit your booking request through our form</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">2</div>
+                        <div class="timeline-content">
+                            <h6>Confirmation Email</h6>
+                            <p>You receive immediate email confirmation</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">3</div>
+                        <div class="timeline-content">
+                            <h6>Personal Contact</h6>
+                            <p>Our team contacts you within 24 hours</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-marker">4</div>
+                        <div class="timeline-content">
+                            <h6>Safari Planning</h6>
+                            <p>We finalize your itinerary and arrangements</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Timeline styling
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--kenyan-green);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .timeline-marker {
+            position: absolute;
+            left: -22px;
+            top: 0;
+            width: 30px;
+            height: 30px;
+            background: var(--kenyan-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        .timeline-content h6 {
+            color: var(--kenyan-green);
+            margin-bottom: 5px;
+        }
+        
+        .timeline-content p {
+            margin: 0;
+            color: #666;
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
+{% endblock %}

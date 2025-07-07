@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Safari Packages - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/g0f3dd39779974552feb01ccfd9b948a4e049739c1f1fb736f8353e749672118a7b68530c54003de89d7820c3d86966ce777a9ca68307065136d12b9bf595caab_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>Safari Packages</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">Carefully crafted safari experiences for every adventurer</p>
+        </div>
+    </div>
+</section>
+
+<!-- Packages Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Our Safari Packages</h2>
+            <p class="lead">Choose from our expertly designed safari packages or let us create a custom experience just for you</p>
+        </div>
+        
+        <div class="row">
+            {% for package in packages %}
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card package-card h-100">
+                    {% if package.image %}
+                    <img src="{{ package.image }}" class="card-img-top" alt="{{ package.name }}" style="height: 250px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ package.name }}</h5>
+                        <p class="card-text">{{ package.description }}</p>
+                        
+                        <div class="price-tag">
+                            {% if package.price_usd and package.price_ksh %}
+                                ${{ package.price_usd }} / KSH {{ package.price_ksh }}
+                            {% elif package.price_usd %}
+                                ${{ package.price_usd }}
+                            {% elif package.price_ksh %}
+                                KSH {{ package.price_ksh }}
+                            {% endif %}
+                        </div>
+                        
+                        <p class="text-muted mb-3">
+                            <i class="fas fa-clock"></i> {{ package.duration }}
+                        </p>
+                        
+                        <div class="services-included">
+                            <h6><i class="fas fa-check-circle text-success"></i> Services Included:</h6>
+                            <ul class="list-unstyled small">
+                                {% for service in package.services %}
+                                <li><i class="fas fa-check text-success"></i> {{ service }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{{ url_for('bookings') }}?package={{ package.id }}" class="btn btn-primary w-100">
+                            <i class="fas fa-calendar-check"></i> Book This Package
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Package Features -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Why Choose Our Packages?</h2>
+            <p class="lead">Every package is designed with your comfort and adventure in mind</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h5>Expert Guides</h5>
+                        <p>Professional guides with extensive knowledge of Kenya's wildlife and culture</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-car"></i>
+                        </div>
+                        <h5>Quality Vehicles</h5>
+                        <p>Modern 4WD safari vehicles with pop-up roofs for optimal wildlife viewing</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-bed"></i>
+                        </div>
+                        <h5>Premium Accommodation</h5>
+                        <p>Carefully selected lodges and camps that offer comfort in the wilderness</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h5>Excellent Meals</h5>
+                        <p>Delicious meals featuring local and international cuisine</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Custom Package -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h2>Need a Custom Package?</h2>
+                <p class="lead">We specialize in creating tailor-made safari experiences that match your specific interests, budget, and schedule.</p>
+                <ul class="list-unstyled">
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Personalized itineraries</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Flexible scheduling</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Special interest safaris</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Photography-focused tours</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Cultural immersion experiences</li>
+                    <li class="mb-2"><i class="fas fa-check text-success"></i> Luxury and budget options</li>
+                </ul>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-comments"></i> Discuss Custom Package
+                </a>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://pixabay.com/get/gaf29ec73c761fbce0d5ea3b3306a55c6eaa599873d715f75fe5f72c59fb0d31a69a3268715ae5fdfa5d501d2b2b85f9844704a40722bd998c5bf6ebc52c95633_1280.jpg" 
+                     alt="Custom Safari Experience" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Ready to Book Your Safari?</h2>
+            <p class="lead">Start planning your unforgettable Kenya safari adventure today</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-phone"></i> Get Quote
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

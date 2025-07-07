@@ -1,0 +1,178 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Manage Activities - Admin - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Manage Activities{% endblock %}
+{% block page_description %}Edit activities page content and featured activities{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-edit"></i> Activities Page Content</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_content') }}" class="admin-form">
+                    <input type="hidden" name="page" value="activities">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Title</label>
+                        <input type="text" class="form-control" name="title" value="{{ content.activities.title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Description</label>
+                        <textarea class="form-control" name="description" rows="4">{{ content.activities.description }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Featured Activities</label>
+                        <small class="form-text text-muted">Enter each activity on a new line</small>
+                        <textarea class="form-control" name="featured_activities" rows="8">{{ content.activities.featured_activities | join('\n') }}</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Current Activities</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for activity in content.activities.featured_activities %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            {% if 'Game' in activity %}
+                                <i class="fas fa-binoculars text-primary"></i>
+                            {% elif 'Photography' in activity %}
+                                <i class="fas fa-camera text-primary"></i>
+                            {% elif 'Cultural' in activity %}
+                                <i class="fas fa-users text-primary"></i>
+                            {% elif 'Balloon' in activity %}
+                                <i class="fas fa-hot-tub text-primary"></i>
+                            {% elif 'Nature' in activity %}
+                                <i class="fas fa-hiking text-primary"></i>
+                            {% elif 'Bird' in activity %}
+                                <i class="fas fa-dove text-primary"></i>
+                            {% else %}
+                                <i class="fas fa-star text-primary"></i>
+                            {% endif %}
+                            <strong>{{ activity }}</strong>
+                        </div>
+                        <span class="badge bg-success rounded-pill">Active</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Activity Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-lightbulb text-warning"></i>
+                        <strong>Activity Names</strong>
+                        <p class="small mb-0">Use clear, descriptive names that visitors understand</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-star text-info"></i>
+                        <strong>Popular Activities</strong>
+                        <p class="small mb-0">Include game drives, photography, cultural visits</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-diversity text-success"></i>
+                        <strong>Variety</strong>
+                        <p class="small mb-0">Mix wildlife, cultural, and adventure activities</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-edit text-primary"></i>
+                        <strong>Easy Updates</strong>
+                        <p class="small mb-0">Add seasonal or special activities anytime</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-eye"></i> Preview</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('activities') }}" class="btn btn-outline-primary w-100" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Activities Page
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Safari Activities Reference -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-reference"></i> Safari Activities Reference</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6>Wildlife Activities</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Game Drives</li>
+                            <li>• Wildlife Photography</li>
+                            <li>• Night Game Drives</li>
+                            <li>• Walking Safaris</li>
+                            <li>• Bird Watching</li>
+                            <li>• Big Five Tracking</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Cultural Activities</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Cultural Village Visits</li>
+                            <li>• Maasai Cultural Experience</li>
+                            <li>• Traditional Dance Shows</li>
+                            <li>• Local Market Tours</li>
+                            <li>• Community Projects</li>
+                            <li>• Craft Workshops</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Adventure Activities</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Hot Air Balloon Safaris</li>
+                            <li>• Nature Walks</li>
+                            <li>• Rock Climbing</li>
+                            <li>• Canopy Walks</li>
+                            <li>• Horseback Riding</li>
+                            <li>• Camping Experiences</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Special Experiences</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Sunset Drives</li>
+                            <li>• Bush Breakfast</li>
+                            <li>• Sundowner Cocktails</li>
+                            <li>• Conservation Tours</li>
+                            <li>• Photography Workshops</li>
+                            <li>• Stargazing</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

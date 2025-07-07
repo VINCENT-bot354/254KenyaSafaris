@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.activities.title }} - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/gb4b7fb8e67e1002ddb9b62fa04fa9e7dc424a3a1e35ceb356cd10a0700b56f84ea12236f462eb198c0896242d372173f59c6e626d66cc109b4114fdd66b9584f_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>{{ content.activities.title }}</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">{{ content.activities.description }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Activities Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for activity in content.activities.featured_activities %}
+                    <div class="col-md-6 mb-4 fade-in">
+                        <div class="activity-item">
+                            <h4>{{ activity }}</h4>
+                            <p>Immerse yourself in {{ activity.lower() }} with experienced guides and quality equipment.</p>
+                            <div class="d-flex align-items-center">
+                                <div class="safari-icon me-3">
+                                    {% if 'Game' in activity %}
+                                        <i class="fas fa-binoculars"></i>
+                                    {% elif 'Photography' in activity %}
+                                        <i class="fas fa-camera"></i>
+                                    {% elif 'Cultural' in activity %}
+                                        <i class="fas fa-users"></i>
+                                    {% elif 'Balloon' in activity %}
+                                        <i class="fas fa-hot-tub"></i>
+                                    {% elif 'Nature' in activity %}
+                                        <i class="fas fa-hiking"></i>
+                                    {% elif 'Bird' in activity %}
+                                        <i class="fas fa-dove"></i>
+                                    {% else %}
+                                        <i class="fas fa-star"></i>
+                                    {% endif %}
+                                </div>
+                                <div>
+                                    <small class="text-muted">Adventure activity</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-star"></i> Activity Features</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-user-tie text-primary"></i>
+                                <strong>Expert Guides</strong>
+                                <p class="small mb-0">Professional guides with extensive local knowledge</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-shield-alt text-primary"></i>
+                                <strong>Safety First</strong>
+                                <p class="small mb-0">All activities conducted with highest safety standards</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-tools text-primary"></i>
+                                <strong>Quality Equipment</strong>
+                                <p class="small mb-0">Professional-grade equipment for all activities</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-clock text-primary"></i>
+                                <strong>Flexible Timing</strong>
+                                <p class="small mb-0">Activities scheduled based on optimal conditions</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calendar-check"></i> Book Activities</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Ready to experience these amazing activities?</p>
+                        <a href="{{ url_for('bookings') }}" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-calendar-plus"></i> Book Now
+                        </a>
+                        <a href="{{ url_for('packages') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-suitcase"></i> Activity Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Activity Details -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Activity Details</h2>
+            <p class="lead">What to expect from each safari activity</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-binoculars"></i>
+                        </div>
+                        <h5 class="card-title">Game Drives</h5>
+                        <p class="card-text">Experience Kenya's wildlife up close in specially designed safari vehicles with pop-up roofs for optimal viewing and photography.</p>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check text-success"></i> Early morning drives</li>
+                            <li><i class="fas fa-check text-success"></i> Evening game drives</li>
+                            <li><i class="fas fa-check text-success"></i> Full-day excursions</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5 class="card-title">Wildlife Photography</h5>
+                        <p class="card-text">Capture stunning images of Kenya's wildlife with guidance from professional photographers and access to prime locations.</p>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check text-success"></i> Photography workshops</li>
+                            <li><i class="fas fa-check text-success"></i> Prime shooting locations</li>
+                            <li><i class="fas fa-check text-success"></i> Equipment assistance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title">Cultural Experiences</h5>
+                        <p class="card-text">Visit local communities and learn about traditional Kenyan culture, customs, and way of life from the people themselves.</p>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-check text-success"></i> Village visits</li>
+                            <li><i class="fas fa-check text-success"></i> Traditional ceremonies</li>
+                            <li><i class="fas fa-check text-success"></i> Local crafts</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Create Your Activity Experience</h2>
+            <p class="lead">Mix and match activities to create your perfect Kenya safari adventure</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Activities
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-phone"></i> Custom Planning
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

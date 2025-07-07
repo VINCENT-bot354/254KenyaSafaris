@@ -1,0 +1,62 @@
+{
+  "settings": {
+    "logo": {
+      "filename": "",
+      "width": "200",
+      "height": "80"
+    },
+    "flag": {
+      "filename": "",
+      "width": "40",
+      "height": "30"
+    }
+  },
+  "homepage": {
+    "hero_title": "254 KENYA SAFARIS",
+    "hero_subtitle": "Experience the Wild Beauty of Kenya",
+    "hero_description": "Discover Kenya's breathtaking landscapes, incredible wildlife, and rich cultural heritage with our expertly crafted safari experiences.",
+    "about_title": "About Our Safari Adventures",
+    "about_description": "We specialize in creating unforgettable safari experiences that showcase the best of Kenya. From the iconic Maasai Mara to the stunning Mount Kenya, we offer personalized tours that connect you with nature and local culture.",
+    "services_title": "Our Services",
+    "services_description": "Professional safari coordination, wildlife photography tours, cultural experiences, and adventure activities across Kenya."
+  },
+  "destinations": {
+    "title": "Explore Kenya's Premier Destinations",
+    "description": "From the world-famous Maasai Mara to the pristine beaches of the coast, Kenya offers diverse landscapes and incredible wildlife experiences.",
+    "featured_destinations": [
+      "Maasai Mara National Reserve",
+      "Amboseli National Park",
+      "Tsavo East & West",
+      "Lake Nakuru National Park",
+      "Mount Kenya National Park",
+      "Samburu National Reserve"
+    ]
+  },
+  "activities": {
+    "title": "Safari Activities & Adventures",
+    "description": "Experience Kenya through various exciting activities designed to showcase the country's natural beauty and wildlife.",
+    "featured_activities": [
+      "Game Drives",
+      "Wildlife Photography",
+      "Cultural Village Visits",
+      "Hot Air Balloon Safaris",
+      "Nature Walks",
+      "Bird Watching"
+    ]
+  },
+  "about": {
+    "title": "About 254 Kenya Safaris",
+    "description": "Your trusted partner for authentic Kenyan safari experiences.",
+    "mission": "To provide exceptional safari experiences that showcase Kenya's natural beauty while supporting local communities and conservation efforts.",
+    "vision": "To be Kenya's leading safari operator, known for our commitment to sustainable tourism and unforgettable wildlife encounters.",
+    "values": "Conservation, Community, Authenticity, Excellence, and Sustainability are at the heart of everything we do."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "description": "Get in touch with our safari experts to plan your perfect Kenyan adventure.",
+    "address": "Nairobi, Kenya",
+    "phone": "+254 700 000 000",
+    "email": "254kenyasafaris@gmail.com",
+    "hours": "Monday - Friday: 8:00 AM - 6:00 PM"
+  }
+}

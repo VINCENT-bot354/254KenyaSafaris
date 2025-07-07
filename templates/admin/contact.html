@@ -1,0 +1,241 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Manage Contact Page - Admin - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Manage Contact Page{% endblock %}
+{% block page_description %}Edit contact page content and contact information{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-edit"></i> Contact Page Content</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_content') }}" class="admin-form">
+                    <input type="hidden" name="page" value="contact">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Title</label>
+                        <input type="text" class="form-control" name="title" value="{{ content.contact.title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Description</label>
+                        <textarea class="form-control" name="description" rows="3">{{ content.contact.description }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Business Address</label>
+                        <textarea class="form-control" name="address" rows="2">{{ content.contact.address }}</textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="text" class="form-control" name="phone" value="{{ content.contact.phone }}">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" value="{{ content.contact.email }}">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Business Hours</label>
+                        <input type="text" class="form-control" name="hours" value="{{ content.contact.hours }}">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Contact Information Guidelines</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-map-marker-alt text-primary"></i>
+                        <strong>Address</strong>
+                        <p class="small mb-0">Include city and country. Be specific enough for visitors to find you.</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-phone text-success"></i>
+                        <strong>Phone</strong>
+                        <p class="small mb-0">Use international format (+254) for Kenya numbers</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-envelope text-info"></i>
+                        <strong>Email</strong>
+                        <p class="small mb-0">Use a professional email address that's regularly monitored</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-clock text-warning"></i>
+                        <strong>Hours</strong>
+                        <p class="small mb-0">Include timezone information (EAT - East Africa Time)</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-lightbulb"></i> Contact Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success"></i>
+                        <strong>Response Time:</strong> Set clear expectations
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success"></i>
+                        <strong>Multiple Channels:</strong> Provide various contact options
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success"></i>
+                        <strong>Emergency Contact:</strong> Include 24/7 support for guests
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success"></i>
+                        <strong>Social Media:</strong> Consider adding social media links
+                    </li>
+                    <li class="mb-2">
+                        <i class="fas fa-check text-success"></i>
+                        <strong>Languages:</strong> Mention languages you speak
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-eye"></i> Preview</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-primary w-100" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Contact Page
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Current Contact Information Preview -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-address-card"></i> Current Contact Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fas fa-map-marker-alt fa-2x text-primary mb-2"></i>
+                            <h6>Address</h6>
+                            <p class="small">{{ content.contact.address }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fas fa-phone fa-2x text-success mb-2"></i>
+                            <h6>Phone</h6>
+                            <p class="small">{{ content.contact.phone }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fas fa-envelope fa-2x text-info mb-2"></i>
+                            <h6>Email</h6>
+                            <p class="small">{{ content.contact.email }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fas fa-clock fa-2x text-warning mb-2"></i>
+                            <h6>Business Hours</h6>
+                            <p class="small">{{ content.contact.hours }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Email Configuration Info -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-mail-bulk"></i> Email System Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i>
+                    <strong>Booking Email System:</strong> The system is configured to send booking confirmations from 
+                    <code>254kenyasafaris@gmail.com</code>. Booking notifications will be sent to both the customer and this admin email address.
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-cog"></i> Current Email Settings</h6>
+                        <ul class="list-unstyled small">
+                            <li><strong>SMTP Server:</strong> smtp.gmail.com</li>
+                            <li><strong>Port:</strong> 587 (TLS)</li>
+                            <li><strong>From Address:</strong> 254kenyasafaris@gmail.com</li>
+                            <li><strong>Admin Notifications:</strong> Same address</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h6><i class="fas fa-envelope-open"></i> Email Functions</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Booking confirmations to customers</li>
+                            <li>• Booking notifications to admin</li>
+                            <li>• Contact form submissions (if enabled)</li>
+                            <li>• Emergency contact support</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.contact-preview-item {
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    height: 100%;
+}
+
+.contact-preview-item h6 {
+    color: var(--kenyan-green);
+    margin-bottom: 10px;
+}
+
+.contact-preview-item p {
+    color: #666;
+    margin: 0;
+}
+</style>
+{% endblock %}

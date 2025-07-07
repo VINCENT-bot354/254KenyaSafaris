@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.about.title }} - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/g720840d246bc43ddba254d9c1aa1ec6c0237f74765a0a2366dc01c7ea559cf2cd4cf121043d179b16ad52ec3983bb4626efcb80697fe15b4f386f18b5a9e7d10_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>{{ content.about.title }}</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">{{ content.about.description }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- About Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 fade-in">
+                <h2>Our Story</h2>
+                <p class="lead">{{ content.about.description }}</p>
+                <p>254 Kenya Safaris was born from a passion for Kenya's incredible wildlife and a desire to share the magic of this beautiful country with travelers from around the world. Our name "254" represents Kenya's international dialing code, symbolizing our deep connection to this magnificent land.</p>
+                <p>We believe that every safari should be more than just a trip - it should be a transformative experience that connects you with nature, wildlife, and the rich cultural heritage of Kenya. Our team of experienced guides and safari coordinators work tirelessly to ensure that your adventure exceeds your expectations.</p>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://pixabay.com/get/g36c3885c540e9e48f036586713c0bd3f7b74d15e8261905a2a79e1dc873bca3a87c2bc81488f2c7bc8c8f9536e532b5254df00d1c6f92c241e19fc885ddba372_1280.jpg" 
+                     alt="Kenya Safari Team" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Mission, Vision, Values -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h4>Our Mission</h4>
+                        <p>{{ content.about.mission }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Our Vision</h4>
+                        <p>{{ content.about.vision }}</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Our Values</h4>
+                        <p>{{ content.about.values }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Why Choose 254 Kenya Safaris?</h2>
+            <p class="lead">What sets us apart in the world of safari tourism</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6 mb-4 fade-in">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <div class="safari-icon me-3">
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5>Expert Local Knowledge</h5>
+                        <p>Our guides are born and raised in Kenya, with deep knowledge of wildlife behavior, local customs, and the best spots for incredible sightings. They don't just show you Kenya - they help you understand and connect with it.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4 fade-in">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <div class="safari-icon me-3">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5>Sustainable Tourism</h5>
+                        <p>We're committed to responsible tourism that benefits local communities and supports conservation efforts. Your safari helps protect Kenya's wildlife and supports local livelihoods.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4 fade-in">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <div class="safari-icon me-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5>Personalized Experience</h5>
+                        <p>Every safari is tailored to your interests, whether you're a wildlife photographer, bird watcher, or cultural enthusiast. We create experiences that match your passion and exceed your expectations.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4 fade-in">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <div class="safari-icon me-3">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                    </div>
+                    <div class="flex-grow-1">
+                        <h5>Safety & Reliability</h5>
+                        <p>Your safety is our priority. We maintain the highest standards for vehicles, equipment, and safety protocols. Our team is trained in first aid and emergency procedures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Meet Our Team</h2>
+            <p class="lead">The passionate individuals who make your safari dreams come true</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h5>Safari Guides</h5>
+                        <p>Our certified guides are passionate about wildlife and culture, with years of experience in Kenya's national parks and reserves.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <h5>Support Team</h5>
+                        <p>Our dedicated support team handles all logistics, ensuring smooth operations and exceptional customer service from booking to departure.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5>Photography Experts</h5>
+                        <p>Our photography specialists help capture your safari memories, providing tips and techniques for stunning wildlife photography.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Certifications & Awards -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Certifications & Recognition</h2>
+            <p class="lead">Trusted by travelers and recognized by industry leaders</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <h6>Licensed Safari Operator</h6>
+                        <p class="small">Officially licensed by Kenya Tourism Board</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-award"></i>
+                        </div>
+                        <h6>Safety Certified</h6>
+                        <p class="small">All guides certified in wilderness first aid</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h6>Eco-Tourism Member</h6>
+                        <p class="small">Member of Kenya Eco-Tourism Association</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h6>Community Partner</h6>
+                        <p class="small">Supporting local communities and conservation</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Ready to Experience Kenya with Us?</h2>
+            <p class="lead">Join thousands of satisfied travelers who have discovered the magic of Kenya</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Your Safari
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-comments"></i> Get In Touch
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

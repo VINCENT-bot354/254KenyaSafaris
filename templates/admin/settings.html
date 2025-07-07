@@ -1,0 +1,346 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Site Settings - Admin - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Site Settings{% endblock %}
+{% block page_description %}Manage site-wide settings including logo, flag, and global configurations{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <!-- Logo Upload -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-image"></i> Logo Management</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('upload_file') }}" enctype="multipart/form-data" class="admin-form">
+                    <input type="hidden" name="file_type" value="logo">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Logo File</label>
+                                <input type="file" class="form-control" name="file" accept="image/*" onchange="previewFile(this)">
+                                <small class="form-text text-muted">Recommended: PNG or SVG format, transparent background</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Width (pixels)</label>
+                                <input type="number" class="form-control" name="width" value="{{ content.settings.logo.width }}" min="50" max="500">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Height (pixels)</label>
+                                <input type="number" class="form-control" name="height" value="{{ content.settings.logo.height }}" min="30" max="200">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <img id="logoPreview" src="#" alt="Logo Preview" style="display: none; max-width: 200px; max-height: 100px;" class="img-thumbnail">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload Logo
+                    </button>
+                </form>
+                
+                {% if content.settings.logo.filename %}
+                <div class="current-logo mt-3">
+                    <h6>Current Logo:</h6>
+                    <img src="{{ url_for('static', filename='uploads/' + content.settings.logo.filename) }}" 
+                         alt="Current Logo" 
+                         style="width: {{ content.settings.logo.width }}px; height: {{ content.settings.logo.height }}px;"
+                         class="img-thumbnail">
+                    <p class="small text-muted mt-2">
+                        File: {{ content.settings.logo.filename }} | 
+                        Size: {{ content.settings.logo.width }}x{{ content.settings.logo.height }}px
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Flag Upload -->
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5><i class="fas fa-flag"></i> Flag Management</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('upload_file') }}" enctype="multipart/form-data" class="admin-form">
+                    <input type="hidden" name="file_type" value="flag">
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Flag File</label>
+                                <input type="file" class="form-control" name="file" accept="image/*" onchange="previewFile(this)">
+                                <small class="form-text text-muted">Recommended: Kenya flag image, PNG format</small>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Width (pixels)</label>
+                                <input type="number" class="form-control" name="width" value="{{ content.settings.flag.width }}" min="20" max="100">
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label class="form-label">Height (pixels)</label>
+                                <input type="number" class="form-control" name="height" value="{{ content.settings.flag.height }}" min="15" max="75">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <img id="flagPreview" src="#" alt="Flag Preview" style="display: none; max-width: 100px; max-height: 75px;" class="img-thumbnail">
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-upload"></i> Upload Flag
+                    </button>
+                </form>
+                
+                {% if content.settings.flag.filename %}
+                <div class="current-flag mt-3">
+                    <h6>Current Flag:</h6>
+                    <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                         alt="Current Flag" 
+                         style="width: {{ content.settings.flag.width }}px; height: {{ content.settings.flag.height }}px;"
+                         class="img-thumbnail">
+                    <p class="small text-muted mt-2">
+                        File: {{ content.settings.flag.filename }} | 
+                        Size: {{ content.settings.flag.width }}x{{ content.settings.flag.height }}px
+                    </p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Site Information -->
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Site Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h6>Data Storage</h6>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-file-code text-primary"></i> Content: JSON files in /data directory</li>
+                            <li><i class="fas fa-images text-success"></i> Uploads: /static/uploads directory</li>
+                            <li><i class="fas fa-envelope text-info"></i> Bookings: Stored in bookings.json</li>
+                            <li><i class="fas fa-camera text-warning"></i> Gallery: Links and metadata in gallery.json</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <h6>Current Configuration</h6>
+                        <ul class="list-unstyled small">
+                            <li><i class="fas fa-server text-primary"></i> Platform: Flask + Python</li>
+                            <li><i class="fas fa-database text-success"></i> Storage: File-based (no database)</li>
+                            <li><i class="fas fa-envelope text-info"></i> Email: Gmail SMTP configured</li>
+                            <li><i class="fas fa-mobile-alt text-warning"></i> Mobile: Responsive design enabled</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-question-circle"></i> Upload Guidelines</h5>
+            </div>
+            <div class="card-body">
+                <h6><i class="fas fa-image text-primary"></i> Logo Guidelines</h6>
+                <ul class="list-unstyled small mb-3">
+                    <li>• PNG or SVG format preferred</li>
+                    <li>• Transparent background recommended</li>
+                    <li>• Maximum width: 500px</li>
+                    <li>• Appears top-left on all pages</li>
+                    <li>• Keep it simple and readable</li>
+                </ul>
+                
+                <h6><i class="fas fa-flag text-success"></i> Flag Guidelines</h6>
+                <ul class="list-unstyled small mb-3">
+                    <li>• Kenya flag image preferred</li>
+                    <li>• Small size (40x30px default)</li>
+                    <li>• Appears after site title</li>
+                    <li>• PNG format with transparency</li>
+                    <li>• High quality despite small size</li>
+                </ul>
+                
+                <h6><i class="fas fa-cog text-info"></i> Technical Notes</h6>
+                <ul class="list-unstyled small">
+                    <li>• Images are stored locally</li>
+                    <li>• Dimensions are customizable</li>
+                    <li>• Changes apply immediately</li>
+                    <li>• Files persist across deployments</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-palette"></i> Brand Colors</h5>
+            </div>
+            <div class="card-body">
+                <p class="small mb-3">Your site uses the Kenyan flag color scheme:</p>
+                
+                <div class="color-palette">
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #000000;"></div>
+                        <span class="small">Black</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #006600;"></div>
+                        <span class="small">Green</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #003366;"></div>
+                        <span class="small">Blue</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #ffffff; border: 1px solid #ddd;"></div>
+                        <span class="small">White</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-swatch" style="background-color: #cc0000;"></div>
+                        <span class="small">Red</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-tools"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('index') }}" class="btn btn-outline-primary w-100 mb-2" target="_blank">
+                    <i class="fas fa-eye"></i> View Live Site
+                </a>
+                <a href="{{ url_for('admin_index') }}" class="btn btn-outline-success w-100 mb-2">
+                    <i class="fas fa-tachometer-alt"></i> Admin Dashboard
+                </a>
+                <a href="{{ url_for('admin_gallery') }}" class="btn btn-outline-info w-100">
+                    <i class="fas fa-camera"></i> Manage Gallery
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- File Size and Type Information -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> File Upload Information</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-file text-primary"></i> Supported Formats</h6>
+                        <ul class="list-unstyled small">
+                            <li>• PNG (recommended for logos)</li>
+                            <li>• JPEG/JPG</li>
+                            <li>• GIF (for simple graphics)</li>
+                            <li>• SVG (best for logos)</li>
+                            <li>• WEBP (modern format)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-weight text-success"></i> File Size Limits</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Maximum file size: 16MB</li>
+                            <li>• Recommended: Under 2MB</li>
+                            <li>• Logo files: Under 500KB</li>
+                            <li>• Flag files: Under 100KB</li>
+                            <li>• Optimize images before upload</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="col-md-4">
+                        <h6><i class="fas fa-shield-alt text-warning"></i> Security & Storage</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Files are securely stored</li>
+                            <li>• Automatic filename sanitization</li>
+                            <li>• Images served via static URL</li>
+                            <li>• File type validation enforced</li>
+                            <li>• No executable files allowed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.color-palette {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.color-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+.color-swatch {
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    display: inline-block;
+}
+</style>
+
+<script>
+function previewFile(input) {
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        const fileType = input.name;
+        
+        reader.onload = function(e) {
+            let previewId = fileType === 'file' ? 
+                (input.form.querySelector('input[name="file_type"]').value === 'logo' ? 'logoPreview' : 'flagPreview') : 
+                'filePreview';
+            
+            const preview = document.getElementById(previewId);
+            if (preview) {
+                preview.src = e.target.result;
+                preview.style.display = 'block';
+            }
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+// Form submission feedback
+document.querySelectorAll('.admin-form').forEach(form => {
+    form.addEventListener('submit', function() {
+        const submitBtn = this.querySelector('button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...';
+        submitBtn.disabled = true;
+        
+        // Re-enable after delay (in case of redirect)
+        setTimeout(() => {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }, 5000);
+    });
+});
+</script>
+{% endblock %}

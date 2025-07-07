@@ -1,0 +1,255 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Admin Dashboard - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Admin Dashboard{% endblock %}
+{% block page_description %}Manage your website content and bookings{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                            Total Bookings
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ (load_data('bookings.json') | length) if load_data is defined else 0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar-check fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                            Active Packages
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ packages | length }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-suitcase fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                            Gallery Items
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ (load_data('gallery.json') | length) if load_data is defined else 0 }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-camera fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                            Destinations
+                        </div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {{ content.destinations.featured_destinations | length }}
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-bolt"></i> Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('admin_packages') }}" class="btn btn-primary w-100">
+                            <i class="fas fa-plus"></i> Add Package
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('admin_gallery') }}" class="btn btn-success w-100">
+                            <i class="fas fa-upload"></i> Upload Media
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('admin_settings') }}" class="btn btn-info w-100">
+                            <i class="fas fa-cog"></i> Site Settings
+                        </a>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <a href="{{ url_for('index') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-eye"></i> View Site
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Homepage Content Editor -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-edit"></i> Homepage Content</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_content') }}" class="admin-form">
+                    <input type="hidden" name="page" value="homepage">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Hero Title</label>
+                        <input type="text" class="form-control" name="hero_title" value="{{ content.homepage.hero_title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Hero Subtitle</label>
+                        <input type="text" class="form-control" name="hero_subtitle" value="{{ content.homepage.hero_subtitle }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Hero Description</label>
+                        <textarea class="form-control" name="hero_description" rows="3">{{ content.homepage.hero_description }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">About Title</label>
+                        <input type="text" class="form-control" name="about_title" value="{{ content.homepage.about_title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">About Description</label>
+                        <textarea class="form-control" name="about_description" rows="4">{{ content.homepage.about_description }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Services Title</label>
+                        <input type="text" class="form-control" name="services_title" value="{{ content.homepage.services_title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Services Description</label>
+                        <textarea class="form-control" name="services_description" rows="3">{{ content.homepage.services_description }}</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Admin Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-lightbulb text-warning"></i>
+                        <strong>Content Updates</strong>
+                        <p class="small mb-0">Changes are applied immediately to the live site</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-image text-info"></i>
+                        <strong>Image Management</strong>
+                        <p class="small mb-0">Upload logo and flag images in Settings</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-shield-alt text-success"></i>
+                        <strong>Backup</strong>
+                        <p class="small mb-0">Content is automatically saved in JSON files</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-mobile-alt text-primary"></i>
+                        <strong>Mobile Ready</strong>
+                        <p class="small mb-0">All changes are responsive and mobile-friendly</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-link"></i> Quick Links</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{{ url_for('admin_destinations') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-map-marker-alt"></i> Manage Destinations
+                    </a>
+                    <a href="{{ url_for('admin_activities') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-binoculars"></i> Manage Activities
+                    </a>
+                    <a href="{{ url_for('admin_packages') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-suitcase"></i> Manage Packages
+                    </a>
+                    <a href="{{ url_for('admin_gallery') }}" class="list-group-item list-group-item-action">
+                        <i class="fas fa-camera"></i> Manage Gallery
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.border-left-primary {
+    border-left: 4px solid #007bff !important;
+}
+.border-left-success {
+    border-left: 4px solid #28a745 !important;
+}
+.border-left-info {
+    border-left: 4px solid #17a2b8 !important;
+}
+.border-left-warning {
+    border-left: 4px solid #ffc107 !important;
+}
+.text-gray-300 {
+    color: #dddfeb !important;
+}
+.text-gray-800 {
+    color: #5a5c69 !important;
+}
+</style>
+{% endblock %}

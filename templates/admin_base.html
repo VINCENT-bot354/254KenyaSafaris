@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Admin - 254 KENYA SAFARIS{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
+    
+    <!-- Admin-specific styles -->
+    <style>
+        .admin-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .admin-sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #006600, #003366);
+            color: white;
+            padding: 20px 0;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .admin-content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+            background: #f8f9fa;
+        }
+        
+        .admin-sidebar .nav-link {
+            color: white;
+            padding: 12px 20px;
+            border-radius: 0;
+            border-left: 4px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .admin-sidebar .nav-link:hover,
+        .admin-sidebar .nav-link.active {
+            background: rgba(255,255,255,0.1);
+            border-left-color: #ffcc00;
+            color: #ffcc00;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #003366, #000000);
+            color: white;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-sidebar {
+                width: 100%;
+                position: relative;
+                height: auto;
+            }
+            
+            .admin-content {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <!-- Admin Sidebar -->
+        <nav class="admin-sidebar">
+            <div class="px-3 mb-4">
+                <h4 class="text-center">
+                    <i class="fas fa-cog"></i> Admin Panel
+                </h4>
+                <p class="text-center text-muted">254 Kenya Safaris</p>
+            </div>
+            
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_index') }}">
+                        <i class="fas fa-home"></i> Dashboard
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_destinations') }}">
+                        <i class="fas fa-map-marker-alt"></i> Destinations
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_activities') }}">
+                        <i class="fas fa-binoculars"></i> Activities
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_packages') }}">
+                        <i class="fas fa-suitcase"></i> Packages
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_gallery') }}">
+                        <i class="fas fa-camera"></i> Gallery
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_about') }}">
+                        <i class="fas fa-info-circle"></i> About Page
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_contact') }}">
+                        <i class="fas fa-envelope"></i> Contact Page
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('admin_settings') }}">
+                        <i class="fas fa-cog"></i> Settings
+                    </a>
+                </li>
+                <li class="nav-item mt-4">
+                    <a class="nav-link" href="{{ url_for('index') }}">
+                        <i class="fas fa-eye"></i> View Site
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <!-- Admin Content -->
+        <div class="admin-content">
+            <!-- Flash Messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <!-- Page Header -->
+            <div class="admin-header">
+                <h1>{% block page_title %}Admin Dashboard{% endblock %}</h1>
+                <p class="mb-0">{% block page_description %}Manage your website content{% endblock %}</p>
+            </div>
+            
+            <!-- Main Content -->
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    <!-- Additional Scripts -->
+    {% block scripts %}{% endblock %}
+</body>
+</html>

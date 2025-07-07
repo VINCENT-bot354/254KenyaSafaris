@@ -1,0 +1,286 @@
+{% extends "base.html" %}
+
+{% block title %}Photo & Video Gallery - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/gcb9c4439bcc697fb7ee6c1a672940150639767d3316b458e2986bb7a409953c41ea2fd6b55c79cc18cf8b3e81d5b60eb0273cfc0dd02b5eefa62e236601bd793_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>Safari Gallery</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">Witness the breathtaking beauty of Kenya's wildlife and landscapes</p>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Navigation -->
+<section class="py-3 bg-light">
+    <div class="container">
+        <div class="text-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-primary active" onclick="filterGallery('all')">All</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterGallery('image')">Photos</button>
+                <button type="button" class="btn btn-outline-primary" onclick="filterGallery('video')">Videos</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row" id="galleryContainer">
+            {% for item in gallery %}
+            <div class="col-lg-4 col-md-6 mb-4 gallery-filter-item fade-in" data-type="{{ item.type }}">
+                {% if item.type == 'image' %}
+                <div class="gallery-item">
+                    <img src="{{ item.url }}" 
+                         alt="{{ item.title }}" 
+                         class="img-fluid"
+                         style="width: {{ item.width }}px; height: {{ item.height }}px; object-fit: cover;">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h5>{{ item.title }}</h5>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% elif item.type == 'video' %}
+                <div class="video-container {% if '9:16' in item.description or 'instagram' in item.url.lower() or 'tiktok' in item.url.lower() %}aspect-9-16{% endif %}">
+                    <div class="video-overlay">
+                        <h5 class="text-white">{{ item.title }}</h5>
+                        <p class="text-white">{{ item.description }}</p>
+                        <button class="btn btn-primary" onclick="playVideo('{{ item.url }}')">
+                            <i class="fas fa-play"></i> Play Video
+                        </button>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Features -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Experience Kenya Through Our Lens</h2>
+            <p class="lead">Every image tells a story of adventure, wildlife, and natural beauty</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5>Wildlife Photography</h5>
+                        <p>Stunning captures of Kenya's incredible wildlife in their natural habitat</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-mountain"></i>
+                        </div>
+                        <h5>Landscape Views</h5>
+                        <p>Breathtaking vistas of Kenya's diverse landscapes and natural wonders</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Cultural Moments</h5>
+                        <p>Authentic glimpses into Kenya's rich cultural heritage and traditions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 mb-4 fade-in">
+                <div class="card h-100 text-center">
+                    <div class="card-body">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-video"></i>
+                        </div>
+                        <h5>Safari Videos</h5>
+                        <p>Dynamic videos showcasing the movement and life of Kenya's wilderness</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Photo Tips -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 fade-in">
+                <h2>Photography Tips for Your Safari</h2>
+                <p class="lead">Make the most of your Kenya safari photography experience</p>
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-camera text-primary"></i>
+                        <strong>Golden Hour Magic</strong>
+                        <p class="mb-0">Early morning and late afternoon provide the best lighting for wildlife photography</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-battery-full text-primary"></i>
+                        <strong>Extra Batteries</strong>
+                        <p class="mb-0">Bring spare batteries and memory cards - you'll be taking lots of photos!</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-binoculars text-primary"></i>
+                        <strong>Telephoto Lens</strong>
+                        <p class="mb-0">A good zoom lens helps capture distant wildlife without disturbing them</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-cog text-primary"></i>
+                        <strong>Camera Settings</strong>
+                        <p class="mb-0">Use burst mode and higher ISO for moving animals</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 fade-in">
+                <img src="https://pixabay.com/get/g47b822ecbbf6ccab32d962ec085e5f702fe29f66283d886e173c9d8ec429806b4817b4e39d63f09b19e5849f5dfba1d11bc42bb9cc5732138a3ee01462fef9f5_1280.jpg" 
+                     alt="Wildlife Photography" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Create Your Own Safari Gallery</h2>
+            <p class="lead">Join us and capture your own unforgettable Kenya safari moments</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Your Safari
+                </a>
+                <a href="{{ url_for('packages') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-camera"></i> Photography Tours
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+// Gallery filtering
+function filterGallery(type) {
+    const items = document.querySelectorAll('.gallery-filter-item');
+    const buttons = document.querySelectorAll('.btn-group button');
+    
+    // Update active button
+    buttons.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    
+    // Filter items
+    items.forEach(item => {
+        if (type === 'all' || item.dataset.type === type) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+// Video player
+function playVideo(url) {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Safari Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="${getEmbedUrl(url)}" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+    
+    modal.addEventListener('hidden.bs.modal', function() {
+        document.body.removeChild(modal);
+    });
+}
+
+function getEmbedUrl(url) {
+    if (url.includes('youtube.com/watch')) {
+        const videoId = url.split('v=')[1].split('&')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes('youtu.be/')) {
+        const videoId = url.split('youtu.be/')[1];
+        return `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes('instagram.com')) {
+        return url + '/embed';
+    }
+    return url;
+}
+
+// Video overlay styling
+document.addEventListener('DOMContentLoaded', function() {
+    const style = document.createElement('style');
+    style.textContent = `
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.7));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .video-container {
+            position: relative;
+            background: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-container:hover {
+            transform: scale(1.05);
+        }
+    `;
+    document.head.appendChild(style);
+});
+</script>
+{% endblock %}

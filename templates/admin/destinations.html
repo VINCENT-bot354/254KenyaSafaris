@@ -1,0 +1,164 @@
+{% extends "admin_base.html" %}
+
+{% block title %}Manage Destinations - Admin - 254 Kenya Safaris{% endblock %}
+
+{% block page_title %}Manage Destinations{% endblock %}
+{% block page_description %}Edit destinations page content and featured destinations{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-edit"></i> Destinations Page Content</h5>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('update_content') }}" class="admin-form">
+                    <input type="hidden" name="page" value="destinations">
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Title</label>
+                        <input type="text" class="form-control" name="title" value="{{ content.destinations.title }}">
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Page Description</label>
+                        <textarea class="form-control" name="description" rows="4">{{ content.destinations.description }}</textarea>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">Featured Destinations</label>
+                        <small class="form-text text-muted">Enter each destination on a new line</small>
+                        <textarea class="form-control" name="featured_destinations" rows="8">{{ content.destinations.featured_destinations | join('\n') }}</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Save Changes
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-4">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-list"></i> Current Destinations</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for destination in content.destinations.featured_destinations %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <i class="fas fa-map-marker-alt text-primary"></i>
+                            <strong>{{ destination }}</strong>
+                        </div>
+                        <span class="badge bg-primary rounded-pill">Active</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-info-circle"></i> Destination Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-3">
+                        <i class="fas fa-lightbulb text-warning"></i>
+                        <strong>Naming Convention</strong>
+                        <p class="small mb-0">Use official park/reserve names for consistency</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-map text-info"></i>
+                        <strong>Popular Destinations</strong>
+                        <p class="small mb-0">Include major parks like Maasai Mara, Amboseli, Tsavo</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-star text-success"></i>
+                        <strong>Variety</strong>
+                        <p class="small mb-0">Mix national parks, reserves, and special locations</p>
+                    </li>
+                    <li class="mb-3">
+                        <i class="fas fa-edit text-primary"></i>
+                        <strong>Easy Updates</strong>
+                        <p class="small mb-0">Add or remove destinations anytime</p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-eye"></i> Preview</h5>
+            </div>
+            <div class="card-body">
+                <a href="{{ url_for('destinations') }}" class="btn btn-outline-primary w-100" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> View Destinations Page
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Popular Kenya Destinations Reference -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5><i class="fas fa-reference"></i> Kenya Destinations Reference</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h6>National Parks</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Maasai Mara National Reserve</li>
+                            <li>• Amboseli National Park</li>
+                            <li>• Tsavo East National Park</li>
+                            <li>• Tsavo West National Park</li>
+                            <li>• Lake Nakuru National Park</li>
+                            <li>• Mount Kenya National Park</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Game Reserves</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Samburu National Reserve</li>
+                            <li>• Ol Pejeta Conservancy</li>
+                            <li>• Laikipia Conservancy</li>
+                            <li>• Meru National Park</li>
+                            <li>• Aberdare National Park</li>
+                            <li>• Hell's Gate National Park</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Coastal Areas</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Diani Beach</li>
+                            <li>• Malindi</li>
+                            <li>• Watamu</li>
+                            <li>• Lamu Island</li>
+                            <li>• Mombasa</li>
+                            <li>• Kilifi</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-3">
+                        <h6>Special Locations</h6>
+                        <ul class="list-unstyled small">
+                            <li>• Lake Naivasha</li>
+                            <li>• Lake Bogoria</li>
+                            <li>• Ol Donyo Sabuk</li>
+                            <li>• Chyulu Hills</li>
+                            <li>• Shimba Hills</li>
+                            <li>• Kakamega Forest</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

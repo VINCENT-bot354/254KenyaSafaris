@@ -1,0 +1,164 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.destinations.title }} - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/g258f08c919a8441dc0cb8ad34afa7798fe7d1167f6c6b4495b8200d8ac1816c254e10b08622b82d88add5849151e92747af3969299a26a57d3ec6d44a1ae189a_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>{{ content.destinations.title }}</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">{{ content.destinations.description }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Destinations Content -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="row">
+                    {% for destination in content.destinations.featured_destinations %}
+                    <div class="col-md-6 mb-4 fade-in">
+                        <div class="destination-card">
+                            <h4>{{ destination }}</h4>
+                            <p>Experience the unique beauty and wildlife of {{ destination }}.</p>
+                            <div class="d-flex align-items-center">
+                                <div class="safari-icon me-3">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <small class="text-muted">Premier destination</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-info-circle"></i> Destination Highlights</h5>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-camera text-primary"></i>
+                                <strong>Wildlife Photography</strong>
+                                <p class="small mb-0">Capture stunning wildlife moments in their natural habitat</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-binoculars text-primary"></i>
+                                <strong>Game Viewing</strong>
+                                <p class="small mb-0">Spot the Big Five and other magnificent creatures</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-users text-primary"></i>
+                                <strong>Cultural Experiences</strong>
+                                <p class="small mb-0">Meet local communities and learn about their traditions</p>
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-mountain text-primary"></i>
+                                <strong>Scenic Landscapes</strong>
+                                <p class="small mb-0">Enjoy breathtaking views of Kenya's diverse terrain</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5><i class="fas fa-calendar-check"></i> Plan Your Visit</h5>
+                    </div>
+                    <div class="card-body">
+                        <p>Ready to explore these amazing destinations?</p>
+                        <a href="{{ url_for('bookings') }}" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-calendar-plus"></i> Book Your Safari
+                        </a>
+                        <a href="{{ url_for('packages') }}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-suitcase"></i> View Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Destination Gallery -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Destination Gallery</h2>
+            <p class="lead">Visual journey through Kenya's premier safari destinations</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="gallery-item">
+                    <img src="https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg" 
+                         alt="Maasai Mara" class="img-fluid">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h5>Maasai Mara</h5>
+                            <p>World's greatest wildlife spectacle</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="gallery-item">
+                    <img src="https://pixabay.com/get/g258f08c919a8441dc0cb8ad34afa7798fe7d1167f6c6b4495b8200d8ac1816c254e10b08622b82d88add5849151e92747af3969299a26a57d3ec6d44a1ae189a_1280.jpg" 
+                         alt="Amboseli" class="img-fluid">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h5>Amboseli</h5>
+                            <p>Elephants with Kilimanjaro backdrop</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="gallery-item">
+                    <img src="https://pixabay.com/get/g0f3dd39779974552feb01ccfd9b948a4e049739c1f1fb736f8353e749672118a7b68530c54003de89d7820c3d86966ce777a9ca68307065136d12b9bf595caab_1280.jpg" 
+                         alt="Tsavo" class="img-fluid">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h5>Tsavo</h5>
+                            <p>Kenya's largest wilderness</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Choose Your Destination</h2>
+            <p class="lead">Each destination offers unique experiences and wildlife encounters</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Your Adventure
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-question-circle"></i> Ask Questions
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

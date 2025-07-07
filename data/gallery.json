@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "type": "image",
+    "title": "Maasai Mara Landscape",
+    "description": "Stunning views of the Maasai Mara savanna",
+    "url": "https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg",
+    "width": "400",
+    "height": "300"
+  },
+  {
+    "id": 2,
+    "type": "image",
+    "title": "African Elephant",
+    "description": "Majestic elephants in their natural habitat",
+    "url": "https://pixabay.com/get/g599e0c061cf6ffeb62964ebb8335cd5d47efafdd5c8272e5cda2f2e306f328a7704c43a0a216a9945a53393d3aa7589c98ec74f92995319604dfc00515375578_1280.jpg",
+    "width": "400",
+    "height": "300"
+  },
+  {
+    "id": 3,
+    "type": "image",
+    "title": "Acacia Tree Silhouette",
+    "description": "Classic African savanna scene",
+    "url": "https://pixabay.com/get/gaf29ec73c761fbce0d5ea3b3306a55c6eaa599873d715f75fe5f72c59fb0d31a69a3268715ae5fdfa5d501d2b2b85f9844704a40722bd998c5bf6ebc52c95633_1280.jpg",
+    "width": "400",
+    "height": "300"
+  },
+  {
+    "id": 4,
+    "type": "image",
+    "title": "Lions in the Wild",
+    "description": "Big cats of the African savanna",
+    "url": "https://pixabay.com/get/gb4b7fb8e67e1002ddb9b62fa04fa9e7dc424a3a1e35ceb356cd10a0700b56f84ea12236f462eb198c0896242d372173f59c6e626d66cc109b4114fdd66b9584f_1280.jpg",
+    "width": "400",
+    "height": "300"
+  },
+  {
+    "id": 5,
+    "type": "image",
+    "title": "Zebra Herd",
+    "description": "Zebras grazing in the African plains",
+    "url": "https://pixabay.com/get/gbb9097546aaf1fcf2efce2831de1d6519c1c583ce6d125e3917a6eede9c01b2707d1126a1fd2d18c0e2eaed0230c8e30a173782cbed9884f24fe2fab61abf42f_1280.jpg",
+    "width": "400",
+    "height": "300"
+  },
+  {
+    "id": 6,
+    "type": "image",
+    "title": "Giraffe Portrait",
+    "description": "Graceful giants of the African wilderness",
+    "url": "https://pixabay.com/get/g47b822ecbbf6ccab32d962ec085e5f702fe29f66283d886e173c9d8ec429806b4817b4e39d63f09b19e5849f5dfba1d11bc42bb9cc5732138a3ee01462fef9f5_1280.jpg",
+    "width": "400",
+    "height": "300"
+  }
+]

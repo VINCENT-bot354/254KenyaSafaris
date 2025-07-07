@@ -1,0 +1,485 @@
+/* Kenyan Safari Theme - Custom CSS */
+:root {
+    --kenyan-black: #000000;
+    --kenyan-green: #006600;
+    --kenyan-blue: #003366;
+    --kenyan-white: #ffffff;
+    --kenyan-red: #cc0000;
+    --kenyan-gold: #ffcc00;
+    --safari-brown: #8B4513;
+    --earth-orange: #CD853F;
+    --savanna-yellow: #F4A460;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: var(--kenyan-black);
+    background-color: var(--kenyan-white);
+}
+
+/* Header Styles */
+.navbar {
+    background: linear-gradient(135deg, var(--kenyan-black) 0%, var(--kenyan-green) 100%);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--kenyan-white) !important;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-nav .nav-link {
+    color: var(--kenyan-white) !important;
+    font-weight: 500;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: var(--kenyan-gold) !important;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                url('https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    color: var(--kenyan-white);
+    text-align: center;
+    padding: 150px 0;
+    position: relative;
+}
+
+.hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="tribal" patternUnits="userSpaceOnUse" width="20" height="20"><path d="M10 0L20 10L10 20L0 10Z" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23tribal)"/></svg>') repeat;
+    opacity: 0.3;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
+
+.hero-section .lead {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Tribal Pattern Backgrounds */
+.tribal-pattern {
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60"><defs><pattern id="tribal-bg" patternUnits="userSpaceOnUse" width="30" height="30"><path d="M15 0L30 15L15 30L0 15Z" fill="none" stroke="rgba(0,102,0,0.1)" stroke-width="2"/><circle cx="15" cy="15" r="3" fill="rgba(0,102,0,0.1)"/></pattern></defs><rect width="60" height="60" fill="url(%23tribal-bg)"/></svg>') repeat;
+}
+
+/* Buttons */
+.btn-primary {
+    background: linear-gradient(45deg, var(--kenyan-green), var(--kenyan-blue));
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background: linear-gradient(45deg, var(--kenyan-blue), var(--kenyan-green));
+}
+
+.btn-outline-primary {
+    border: 2px solid var(--kenyan-green);
+    color: var(--kenyan-green);
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-primary:hover {
+    background: var(--kenyan-green);
+    color: var(--kenyan-white);
+    transform: translateY(-2px);
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--kenyan-green), var(--kenyan-blue));
+    color: var(--kenyan-white);
+    border: none;
+    padding: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.package-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.package-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--kenyan-green), var(--kenyan-blue), var(--kenyan-red));
+}
+
+.price-tag {
+    background: linear-gradient(45deg, var(--kenyan-red), var(--kenyan-gold));
+    color: var(--kenyan-white);
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 1rem 0;
+}
+
+/* Gallery */
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.gallery-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.8));
+    display: flex;
+    align-items: flex-end;
+    padding: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
+.gallery-overlay-content {
+    color: var(--kenyan-white);
+}
+
+/* Video Gallery */
+.video-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%; /* 16:9 aspect ratio */
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.video-container.aspect-9-16 {
+    padding-bottom: 177.78%; /* 9:16 aspect ratio */
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Forms */
+.form-control {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--kenyan-green);
+    box-shadow: 0 0 0 0.2rem rgba(0, 102, 0, 0.25);
+}
+
+/* Alerts */
+.alert {
+    border-radius: 10px;
+    border: none;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+}
+
+.alert-success {
+    background: linear-gradient(45deg, var(--kenyan-green), #00cc00);
+    color: var(--kenyan-white);
+}
+
+.alert-error {
+    background: linear-gradient(45deg, var(--kenyan-red), #ff0000);
+    color: var(--kenyan-white);
+}
+
+/* Footer */
+.footer {
+    background: linear-gradient(135deg, var(--kenyan-black), var(--kenyan-green));
+    color: var(--kenyan-white);
+    padding: 3rem 0 1rem;
+    margin-top: 4rem;
+}
+
+.footer h5 {
+    color: var(--kenyan-gold);
+    margin-bottom: 1rem;
+}
+
+.footer a {
+    color: var(--kenyan-white);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer a:hover {
+    color: var(--kenyan-gold);
+}
+
+/* Admin Styles */
+.admin-header {
+    background: linear-gradient(135deg, var(--kenyan-blue), var(--kenyan-black));
+    color: var(--kenyan-white);
+    padding: 2rem 0;
+    margin-bottom: 2rem;
+}
+
+.admin-sidebar {
+    background: var(--kenyan-white);
+    border-right: 3px solid var(--kenyan-green);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+.admin-sidebar .nav-link {
+    color: var(--kenyan-black);
+    font-weight: 500;
+    padding: 12px 20px;
+    margin: 5px 0;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+}
+
+.admin-sidebar .nav-link:hover,
+.admin-sidebar .nav-link.active {
+    background: var(--kenyan-green);
+    color: var(--kenyan-white);
+}
+
+.admin-content {
+    padding: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 100px 0;
+    }
+    
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero-section .lead {
+        font-size: 1.1rem;
+    }
+    
+    .navbar-brand {
+        font-size: 1.2rem;
+    }
+    
+    .gallery-item img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn-primary,
+    .btn-outline-primary {
+        padding: 10px 20px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Animation Classes */
+.fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+.fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.slide-in-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: all 0.6s ease;
+}
+
+.slide-in-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.slide-in-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: all 0.6s ease;
+}
+
+.slide-in-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Safari-specific styles */
+.safari-icon {
+    background: linear-gradient(45deg, var(--kenyan-green), var(--kenyan-gold));
+    color: var(--kenyan-white);
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.destination-card {
+    background: var(--kenyan-white);
+    border-left: 5px solid var(--kenyan-green);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.activity-item {
+    background: linear-gradient(45deg, var(--kenyan-white), #f8f9fa);
+    border: 2px solid var(--kenyan-green);
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+.activity-item:hover {
+    background: var(--kenyan-green);
+    color: var(--kenyan-white);
+    transform: translateX(10px);
+}
+
+/* Contact page styles */
+.contact-info {
+    background: var(--kenyan-white);
+    border: 2px solid var(--kenyan-green);
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.contact-info h5 {
+    color: var(--kenyan-green);
+    margin-bottom: 1rem;
+}
+
+.contact-info i {
+    color: var(--kenyan-green);
+    margin-right: 10px;
+}
+
+/* Fullscreen modal for gallery */
+.modal-content {
+    background: var(--kenyan-black);
+    border: none;
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--kenyan-green);
+}
+
+.modal-header .btn-close {
+    filter: invert(1);
+}
+
+.modal-body {
+    padding: 0;
+}
+
+.modal-body img {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    object-fit: contain;
+}

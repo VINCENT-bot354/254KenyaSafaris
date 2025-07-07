@@ -1,0 +1,261 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.contact.title }} - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/gce3775582e8820f7ac71e7c45ff8bf8dbd3c07df931bdd8363c8d74f2dcf01ebe683cd61365d7bc71069f18131cdd1c755a1c056cecd6d2d532961d78fa463da_1280.jpg'); background-size: cover; background-position: center;">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>{{ content.contact.title }}</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">{{ content.contact.description }}</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4><i class="fas fa-envelope"></i> Get In Touch</h4>
+                    </div>
+                    <div class="card-body">
+                        <form method="POST" action="{{ url_for('contact') }}">
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    <input type="tel" class="form-control" id="phone" name="phone">
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="subject" class="form-label">Subject *</label>
+                                    <select class="form-control" id="subject" name="subject" required>
+                                        <option value="">Select a subject</option>
+                                        <option value="Safari Booking">Safari Booking</option>
+                                        <option value="Custom Package">Custom Package</option>
+                                        <option value="General Inquiry">General Inquiry</option>
+                                        <option value="Photography Tour">Photography Tour</option>
+                                        <option value="Group Booking">Group Booking</option>
+                                        <option value="Other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message *</label>
+                                <textarea class="form-control" id="message" name="message" rows="6" required placeholder="Tell us about your safari interests, preferred dates, group size, or any questions you have..."></textarea>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="travel_dates" class="form-label">Preferred Travel Dates</label>
+                                <input type="text" class="form-control" id="travel_dates" name="travel_dates" placeholder="e.g., March 2024, or flexible dates">
+                            </div>
+                            
+                            <div class="row mb-3">
+                                <div class="col-md-6">
+                                    <label for="group_size" class="form-label">Group Size</label>
+                                    <select class="form-control" id="group_size" name="group_size">
+                                        <option value="">Select group size</option>
+                                        <option value="1-2">1-2 people</option>
+                                        <option value="3-5">3-5 people</option>
+                                        <option value="6-10">6-10 people</option>
+                                        <option value="11+">11+ people</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="budget" class="form-label">Budget Range (per person)</label>
+                                    <select class="form-control" id="budget" name="budget">
+                                        <option value="">Select budget range</option>
+                                        <option value="Under $500">Under $500</option>
+                                        <option value="$500-$1000">$500-$1000</option>
+                                        <option value="$1000-$2000">$1000-$2000</option>
+                                        <option value="$2000+">$2000+</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">
+                                    <i class="fas fa-paper-plane"></i> Send Message
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="contact-info">
+                    <h4><i class="fas fa-info-circle"></i> Contact Information</h4>
+                    <div class="mb-4">
+                        <p><i class="fas fa-map-marker-alt"></i> <strong>Address:</strong><br>{{ content.contact.address }}</p>
+                        <p><i class="fas fa-phone"></i> <strong>Phone:</strong><br>{{ content.contact.phone }}</p>
+                        <p><i class="fas fa-envelope"></i> <strong>Email:</strong><br>{{ content.contact.email }}</p>
+                        <p><i class="fas fa-clock"></i> <strong>Business Hours:</strong><br>{{ content.contact.hours }}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-comments"></i> Quick Response</h5>
+                        <p>We typically respond to inquiries within 24 hours. For urgent matters, please call us directly.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h5><i class="fas fa-language"></i> Languages</h5>
+                        <p>We speak English, Swahili, and local tribal languages to ensure clear communication.</p>
+                    </div>
+                    
+                    <div class="social-links">
+                        <h5><i class="fas fa-share-alt"></i> Follow Us</h5>
+                        <a href="#" class="btn btn-outline-primary me-2 mb-2">
+                            <i class="fab fa-facebook"></i> Facebook
+                        </a>
+                        <a href="#" class="btn btn-outline-primary me-2 mb-2">
+                            <i class="fab fa-instagram"></i> Instagram
+                        </a>
+                        <a href="#" class="btn btn-outline-primary me-2 mb-2">
+                            <i class="fab fa-twitter"></i> Twitter
+                        </a>
+                        <a href="#" class="btn btn-outline-primary me-2 mb-2">
+                            <i class="fab fa-youtube"></i> YouTube
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Frequently Asked Questions</h2>
+            <p class="lead">Quick answers to common questions about Kenya safaris</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="accordion" id="faqAccordion1">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                                What's the best time to visit Kenya?
+                            </button>
+                        </h2>
+                        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body">
+                                Kenya is a year-round destination, but the best time depends on your interests. The Great Migration typically occurs from July to October, while the dry season (June to October) offers excellent wildlife viewing.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                                Do I need a visa to visit Kenya?
+                            </button>
+                        </h2>
+                        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body">
+                                Most visitors need a visa to enter Kenya. We recommend checking with the Kenyan embassy or applying for an e-visa online before your trip. We can provide guidance on the visa application process.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                                What should I pack for a safari?
+                            </button>
+                        </h2>
+                        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                            <div class="accordion-body">
+                                Pack neutral-colored clothing, comfortable walking shoes, sun protection, binoculars, camera with extra batteries, and any personal medications. We provide a detailed packing list upon booking.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="accordion" id="faqAccordion2">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                                Are safaris safe?
+                            </button>
+                        </h2>
+                        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                            <div class="accordion-body">
+                                Yes, our safaris are very safe. We maintain high safety standards, use experienced guides, and follow strict protocols. All our guides are trained in first aid and emergency procedures.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+                                Can you accommodate dietary restrictions?
+                            </button>
+                        </h2>
+                        <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                            <div class="accordion-body">
+                                Absolutely! We can accommodate various dietary requirements including vegetarian, vegan, halal, and other special diets. Please inform us of any dietary restrictions when booking.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+                                What's included in the safari packages?
+                            </button>
+                        </h2>
+                        <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion2">
+                            <div class="accordion-body">
+                                Our packages typically include transportation, accommodation, meals, park fees, and professional guide services. Specific inclusions vary by package - check individual package details for complete information.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Contact -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Emergency Contact</h2>
+            <p class="lead">24/7 emergency support for our safari guests</p>
+            <div class="mt-4">
+                <a href="tel:{{ content.contact.phone }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-phone"></i> Call Emergency Line
+                </a>
+                <a href="mailto:{{ content.contact.email }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-envelope"></i> Email Support
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

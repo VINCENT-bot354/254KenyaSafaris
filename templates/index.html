@@ -1,0 +1,228 @@
+{% extends "base.html" %}
+
+{% block title %}{{ content.homepage.hero_title }} - Safari Tours Kenya{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="hero-content fade-in">
+            <h1>{{ content.homepage.hero_title }}</h1>
+            {% if content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
+                     alt="Kenya Flag" 
+                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+            {% endif %}
+            <p class="lead">{{ content.homepage.hero_subtitle }}</p>
+            <p>{{ content.homepage.hero_description }}</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Your Safari
+                </a>
+                <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-suitcase"></i> View Packages
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-5 tribal-pattern">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 slide-in-left">
+                <h2>{{ content.homepage.about_title }}</h2>
+                <p class="lead">{{ content.homepage.about_description }}</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="safari-icon d-inline-block">
+                            <i class="fas fa-binoculars"></i>
+                        </div>
+                        <h5>Wildlife Tours</h5>
+                        <p>Professional guided wildlife viewing experiences</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="safari-icon d-inline-block">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5>Photography</h5>
+                        <p>Capture stunning moments with expert guidance</p>
+                    </div>
+                </div>
+                <a href="{{ url_for('about') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Learn More
+                </a>
+            </div>
+            <div class="col-lg-6 slide-in-right">
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <img src="https://pixabay.com/get/g599e0c061cf6ffeb62964ebb8335cd5d47efafdd5c8272e5cda2f2e306f328a7704c43a0a216a9945a53393d3aa7589c98ec74f92995319604dfc00515375578_1280.jpg" 
+                             alt="African Elephant" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <img src="https://pixabay.com/get/gb4b7fb8e67e1002ddb9b62fa04fa9e7dc424a3a1e35ceb356cd10a0700b56f84ea12236f462eb198c0896242d372173f59c6e626d66cc109b4114fdd66b9584f_1280.jpg" 
+                             alt="African Lions" class="img-fluid rounded">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>{{ content.homepage.services_title }}</h2>
+            <p class="lead">{{ content.homepage.services_description }}</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h5 class="card-title">Premier Destinations</h5>
+                        <p class="card-text">Explore Kenya's most iconic national parks and reserves with expert guides.</p>
+                        <a href="{{ url_for('destinations') }}" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Explore
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-hiking"></i>
+                        </div>
+                        <h5 class="card-title">Adventure Activities</h5>
+                        <p class="card-text">From game drives to cultural experiences, discover Kenya's diverse offerings.</p>
+                        <a href="{{ url_for('activities') }}" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Activities
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4 mb-4 fade-in">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <div class="safari-icon d-inline-block mb-3">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5 class="card-title">Custom Packages</h5>
+                        <p class="card-text">Tailored safari experiences designed to match your interests and schedule.</p>
+                        <a href="{{ url_for('packages') }}" class="btn btn-primary">
+                            <i class="fas fa-arrow-right"></i> Packages
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Packages -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Featured Safari Packages</h2>
+            <p class="lead">Discover our most popular safari experiences</p>
+        </div>
+        
+        <div class="row">
+            {% for package in packages %}
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="card package-card h-100">
+                    {% if package.image %}
+                    <img src="{{ package.image }}" class="card-img-top" alt="{{ package.name }}" style="height: 200px; object-fit: cover;">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ package.name }}</h5>
+                        <p class="card-text">{{ package.description }}</p>
+                        <div class="price-tag">
+                            {% if package.price_usd and package.price_ksh %}
+                                ${{ package.price_usd }} / KSH {{ package.price_ksh }}
+                            {% elif package.price_usd %}
+                                ${{ package.price_usd }}
+                            {% elif package.price_ksh %}
+                                KSH {{ package.price_ksh }}
+                            {% endif %}
+                        </div>
+                        <p class="text-muted">
+                            <i class="fas fa-clock"></i> {{ package.duration }}
+                        </p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="{{ url_for('packages') }}" class="btn btn-primary w-100">
+                            <i class="fas fa-eye"></i> View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-suitcase"></i> View All Packages
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Gallery Preview -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5 fade-in">
+            <h2>Safari Gallery</h2>
+            <p class="lead">Glimpse the beauty of Kenya's wilderness</p>
+        </div>
+        
+        <div class="row">
+            {% for item in gallery %}
+            <div class="col-lg-4 col-md-6 mb-4 fade-in">
+                <div class="gallery-item">
+                    <img src="{{ item.url }}" alt="{{ item.title }}" class="img-fluid">
+                    <div class="gallery-overlay">
+                        <div class="gallery-overlay-content">
+                            <h5>{{ item.title }}</h5>
+                            <p>{{ item.description }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('gallery') }}" class="btn btn-outline-primary btn-lg">
+                <i class="fas fa-camera"></i> View Full Gallery
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="fade-in">
+            <h2>Ready for Your Kenya Safari Adventure?</h2>
+            <p class="lead">Let us create an unforgettable experience tailored just for you</p>
+            <div class="mt-4">
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                    <i class="fas fa-phone"></i> Contact Us
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
