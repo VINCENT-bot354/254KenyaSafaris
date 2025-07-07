@@ -538,21 +538,6 @@ def delete_gallery_item(item_id):
         flash('Error deleting gallery item. Please try again.', 'error')
         return redirect(url_for('admin_gallery'))
 
-@app.route('/admin/delete_service_category/<int:category_id>')
-@admin_required
-def delete_service_category(category_id):
-    try:
-        content = load_data('content.json')
-        content['services']['categories'] = [cat for cat in content['services']['categories'] if cat['id'] != category_id]
-        save_data('content.json', content)
-        flash('Service category deleted successfully!', 'success')
-        return redirect(url_for('admin_services'))
-
-    except Exception as e:
-        app.logger.error(f"Service category delete error: {str(e)}")
-        flash('Error deleting service category. Please try again.', 'error')
-        return redirect(url_for('admin_services'))
-
 @app.route('/admin/add_service_category', methods=['POST'])
 @admin_required
 def add_service_category():
