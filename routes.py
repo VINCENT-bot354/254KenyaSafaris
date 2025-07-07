@@ -59,6 +59,11 @@ def about():
     content = load_data('content.json')
     return render_template('about.html', content=content)
 
+@app.route('/services')
+def services():
+    content = load_data('content.json')
+    return render_template('services.html', content=content)
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     content = load_data('content.json')
@@ -294,6 +299,12 @@ def admin_contact():
     content = load_data('content.json')
     return render_template('admin/contact.html', content=content)
 
+@app.route('/admin/services')
+@admin_required
+def admin_services():
+    content = load_data('content.json')
+    return render_template('admin/services.html', content=content)
+
 @app.route('/admin/settings')
 @admin_required
 def admin_settings():
@@ -352,6 +363,11 @@ def update_content():
                 'whatsapp': request.form.get('whatsapp', ''),
                 'twitter': request.form.get('twitter', ''),
                 'facebook': request.form.get('facebook', '')
+            }
+        elif page == 'services':
+            content['services'] = {
+                'title': request.form.get('title'),
+                'description': request.form.get('description')
             }
 
         save_data('content.json', content)
@@ -532,6 +548,67 @@ def delete_service_category(category_id):
         flash('Service category deleted successfully!', 'success')
         return redirect(url_for('admin_services'))
 
+    except Exception as e:
+        app.logger.error(f"Service category delete error: {str(e)}")
+        flash('Error deleting service category. Please try again.', 'error')
+        return redirect(url_for('admin_services'))
+
+@app.route('/admin/add_service_category', methods=['POST'])
+@admin_required
+def add_service_category():
+    try:
+        content = load_data('content.json')
+        
+        new_category = {
+            'id': len(content['services']['categories']) + 1,
+            'icon': request.form.get('icon'),
+            'name': request.form.get('name'),
+            'items': []
+        }
+        
+        content['services']['categories'].append(new_category)
+        save_data('content.json', content)
+        flash('Service category added successfully!', 'success')
+        return redirect(url_for('admin_services'))
+    
+    except Exception as e:
+        app.logger.error(f"Service category add error: {str(e)}")
+        flash('Error adding service category. Please try again.', 'error')
+        return redirect(url_for('admin_services'))
+
+@app.route('/admin/update_service_category', methods=['POST'])
+@admin_required
+def update_service_category():
+    try:
+        category_id = int(request.form.get('category_id'))
+        content = load_data('content.json')
+        
+        for category in content['services']['categories']:
+            if category['id'] == category_id:
+                category['icon'] = request.form.get('icon')
+                category['name'] = request.form.get('name')
+                category['items'] = [item.strip() for item in request.form.get('items').split('\n') if item.strip()]
+                break
+        
+        save_data('content.json', content)
+        flash('Service category updated successfully!', 'success')
+        return redirect(url_for('admin_services'))
+    
+    except Exception as e:
+        app.logger.error(f"Service category update error: {str(e)}")
+        flash('Error updating service category. Please try again.', 'error')
+        return redirect(url_for('admin_services'))
+
+@app.route('/admin/delete_service_category/<int:category_id>')
+@admin_required
+def delete_service_category(category_id):
+    try:
+        content = load_data('content.json')
+        content['services']['categories'] = [cat for cat in content['services']['categories'] if cat['id'] != category_id]
+        save_data('content.json', content)
+        flash('Service category deleted successfully!', 'success')
+        return redirect(url_for('admin_services'))
+    
     except Exception as e:
         app.logger.error(f"Service category delete error: {str(e)}")
         flash('Error deleting service category. Please try again.', 'error')

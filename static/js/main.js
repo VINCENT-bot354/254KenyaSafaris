@@ -516,3 +516,40 @@ function initializeLazyLoading() {
 // Initialize lazy loading
 document.addEventListener('DOMContentLoaded', initializeLazyLoading);
 
+// Initialize all components
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded, initializing components...');
+
+    // Initialize forms
+    initializeFormHandling();
+
+    // Initialize navbar
+    initializeNavbar();
+
+    // Initialize smooth scrolling
+    initializeNavbar();
+
+    // Initialize gallery if present
+    initializeGallery();
+
+    console.log('All components initialized successfully');
+});
+
+// Add null checks to prevent errors
+function safeAddClass(element, className) {
+    if (element && element.classList) {
+        element.classList.add(className);
+    }
+}
+
+function safeRemoveClass(element, className) {
+    if (element && element.classList) {
+        element.classList.remove(className);
+    }
+}
+
+function safeToggleClass(element, className) {
+    if (element && element.classList) {
+        element.classList.toggle(className);
+    }
+}

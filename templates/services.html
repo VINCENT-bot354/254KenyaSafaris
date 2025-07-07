@@ -1,0 +1,143 @@
+
+{% extends "base.html" %}
+
+{% block title %}Our Services - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center min-vh-100">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-white mb-4">{{ content.services.title }}</h1>
+                <p class="lead text-white mb-4">{{ content.services.description }}</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope"></i> Get Started
+                </a>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg" 
+                     alt="254 Kenya Safaris Services" class="img-fluid rounded shadow">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="services-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="text-center mb-5">Our Complete Service Portfolio</h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for category in content.services.categories %}
+            <div class="col-lg-6 col-md-12 mb-4">
+                <div class="card h-100 service-card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="card-title mb-0">
+                            <span class="fs-3 me-2">{{ category.icon }}</span>
+                            {{ category.name }}
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled mb-0">
+                            {% for item in category.items %}
+                            <li class="mb-2">
+                                <i class="fas fa-check text-success me-2"></i>
+                                {{ item }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Call to Action -->
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <div class="card bg-light">
+                    <div class="card-body py-5">
+                        <h3 class="mb-3">Ready to Plan Your Kenyan Adventure?</h3>
+                        <p class="lead mb-4">Let our expert team coordinate every detail of your perfect safari experience.</p>
+                        <div class="d-flex flex-column flex-md-row gap-3 justify-content-center">
+                            <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                                <i class="fas fa-envelope"></i> Contact Us
+                            </a>
+                            <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
+                                <i class="fas fa-suitcase"></i> View Packages
+                            </a>
+                            <a href="{{ url_for('bookings') }}" class="btn btn-success btn-lg">
+                                <i class="fas fa-calendar-check"></i> Book Now
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Information -->
+<section class="contact-info-section py-5 bg-light">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 text-center mb-4">
+                <div class="contact-item">
+                    <i class="fas fa-phone fa-3x text-primary mb-3"></i>
+                    <h5>Call Us</h5>
+                    <p>{{ content.contact.phone }}</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="contact-item">
+                    <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+                    <h5>Email Us</h5>
+                    <p>{{ content.contact.email }}</p>
+                </div>
+            </div>
+            <div class="col-md-4 text-center mb-4">
+                <div class="contact-item">
+                    <i class="fas fa-clock fa-3x text-primary mb-3"></i>
+                    <h5>Business Hours</h5>
+                    <p>{{ content.contact.hours }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<style>
+.hero-section {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.service-card {
+    transition: transform 0.3s ease;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.2);
+}
+
+.contact-item {
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    height: 100%;
+}
+</style>
+{% endblock %}
