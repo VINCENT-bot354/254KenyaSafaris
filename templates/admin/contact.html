@@ -51,6 +51,45 @@
                         <input type="text" class="form-control" name="hours" value="{{ content.contact.hours }}">
                     </div>
                     
+                    <hr class="my-4">
+                    <h6><i class="fas fa-share-alt"></i> Social Media Links</h6>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Facebook Page URL</label>
+                                <input type="url" class="form-control" name="facebook" value="{{ content.contact.facebook }}" placeholder="https://facebook.com/254kenyasafaris">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">Instagram Profile URL</label>
+                                <input type="url" class="form-control" name="instagram" value="{{ content.contact.instagram }}" placeholder="https://instagram.com/254kenyasafaris">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">X (Twitter) Profile URL</label>
+                                <input type="url" class="form-control" name="twitter" value="{{ content.contact.twitter }}" placeholder="https://x.com/254kenyasafaris">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label">TikTok Profile URL</label>
+                                <input type="url" class="form-control" name="tiktok" value="{{ content.contact.tiktok }}" placeholder="https://tiktok.com/@254kenyasafaris">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label">WhatsApp Channel URL</label>
+                        <input type="url" class="form-control" name="whatsapp" value="{{ content.contact.whatsapp }}" placeholder="https://whatsapp.com/channel/your-channel-id">
+                        <small class="form-text text-muted">WhatsApp Channel for viewing updates only - no direct messaging</small>
+                    </div>
+                    
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Save Changes
                     </button>
@@ -86,8 +125,43 @@
                         <strong>Hours</strong>
                         <p class="small mb-0">Include timezone information (EAT - East Africa Time)</p>
                     </li>
+                    <li class="mb-3">
+                        <i class="fas fa-share-alt text-primary"></i>
+                        <strong>Social Media</strong>
+                        <p class="small mb-0">Use complete URLs including https://</p>
+                    </li>
                 </ul>
             </div>
+        </div>
+        
+        <div class="card mt-4">
+            <div class="card-header">
+                <h5><i class="fas fa-thumbs-up"></i> Social Media Tips</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-unstyled">
+                    <li class="mb-2">
+                        <i class="fab fa-facebook text-primary"></i>
+                        <strong>Facebook:</strong> Share safari photos and customer stories
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-instagram text-danger"></i>
+                        <strong>Instagram:</strong> Post high-quality wildlife and landscape photos
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-x-twitter text-dark"></i>
+                        <strong>X (Twitter):</strong> Share quick updates and engage with travel community
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-tiktok text-dark"></i>
+                        <strong>TikTok:</strong> Create engaging safari videos and behind-the-scenes content
+                    </li>
+                    <li class="mb-2">
+                        <i class="fab fa-whatsapp text-success"></i>
+                        <strong>WhatsApp Channel:</strong> Share updates, no direct messaging
+                    </li>
+                </ul>
+            </div></div>
         </div>
         
         <div class="card mt-4">
@@ -171,6 +245,50 @@
                             <i class="fas fa-clock fa-2x text-warning mb-2"></i>
                             <h6>Business Hours</h6>
                             <p class="small">{{ content.contact.hours }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <hr class="my-3">
+                <h6><i class="fas fa-share-alt"></i> Social Media Presence</h6>
+                <div class="row">
+                    <div class="col-md-2">
+                        <div class="contact-preview-item">
+                            <i class="fab fa-facebook fa-2x text-primary mb-2"></i>
+                            <h6>Facebook</h6>
+                            <p class="small">{{ content.contact.facebook or 'Not set' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="contact-preview-item">
+                            <i class="fab fa-instagram fa-2x text-danger mb-2"></i>
+                            <h6>Instagram</h6>
+                            <p class="small">{{ content.contact.instagram or 'Not set' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-2">
+                        <div class="contact-preview-item">
+                            <i class="fab fa-x-twitter fa-2x text-dark mb-2"></i>
+                            <h6>X (Twitter)</h6>
+                            <p class="small">{{ content.contact.twitter or 'Not set' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fab fa-tiktok fa-2x text-dark mb-2"></i>
+                            <h6>TikTok</h6>
+                            <p class="small">{{ content.contact.tiktok or 'Not set' }}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <div class="contact-preview-item">
+                            <i class="fab fa-whatsapp fa-2x text-success mb-2"></i>
+                            <h6>WhatsApp Channel</h6>
+                            <p class="small">{{ content.contact.whatsapp or 'Not set' }}</p>
                         </div>
                     </div>
                 </div>
