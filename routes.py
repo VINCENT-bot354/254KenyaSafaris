@@ -1,10 +1,22 @@
 import os
 import json
-from flask import render_template, request, redirect, url_for, flash, jsonify
+from flask import render_template, request, redirect, url_for, flash, jsonify, session
 from flask_mail import Message
 from werkzeug.utils import secure_filename
+from functools import wraps
 from app import app, mail
 from utils import load_data, save_data, allowed_file, get_file_url
+
+# Admin password
+ADMIN_PASSWORD = "254Safaris@2025"
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_authenticated'):
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
 
 # Public routes
 @app.route('/')
@@ -112,7 +124,7 @@ Your message details:
 - Group Size: {group_size or 'Not specified'}
 - Budget: {budget or 'Not specified'}
 
-If you have any urgent questions, please don't hesitate to contact us directly at {content.contact.phone}.
+If you have any urgent questions, please don't hesitate to contact us directly at {content['contact']['phone']}.
 
 Best regards,
 The 254 Kenya Safaris Team
@@ -134,6 +146,24 @@ This is an automated confirmation. Please do not reply to this email.
             return render_template('contact.html', content=content)
     
     return render_template('contact.html', content=content)
+
+# Admin login
+@app.route('/admin/login', methods=['GET', 'POST'])
+def admin_login():
+    if request.method == 'POST':
+        password = request.form.get('password')
+        if password == ADMIN_PASSWORD:
+            session['admin_authenticated'] = True
+            return redirect(url_for('admin_index'))
+        else:
+            flash('Invalid password. Please try again.', 'error')
+    return render_template('admin/login.html')
+
+@app.route('/admin/logout')
+def admin_logout():
+    session.pop('admin_authenticated', None)
+    flash('You have been logged out successfully.', 'info')
+    return redirect(url_for('admin_login'))
 
 # Booking submission
 @app.route('/submit_booking', methods=['POST'])
@@ -221,49 +251,58 @@ Best regards,
 
 # Admin routes
 @app.route('/admin')
+@admin_required
 def admin_index():
     content = load_data('content.json')
     return render_template('admin/index.html', content=content)
 
 @app.route('/admin/destinations')
+@admin_required
 def admin_destinations():
     content = load_data('content.json')
     return render_template('admin/destinations.html', content=content)
 
 @app.route('/admin/activities')
+@admin_required
 def admin_activities():
     content = load_data('content.json')
     return render_template('admin/activities.html', content=content)
 
 @app.route('/admin/packages')
+@admin_required
 def admin_packages():
     content = load_data('content.json')
     packages = load_data('packages.json')
     return render_template('admin/packages.html', content=content, packages=packages)
 
 @app.route('/admin/gallery')
+@admin_required
 def admin_gallery():
     content = load_data('content.json')
     gallery = load_data('gallery.json')
     return render_template('admin/gallery.html', content=content, gallery=gallery)
 
 @app.route('/admin/about')
+@admin_required
 def admin_about():
     content = load_data('content.json')
     return render_template('admin/about.html', content=content)
 
 @app.route('/admin/contact')
+@admin_required
 def admin_contact():
     content = load_data('content.json')
     return render_template('admin/contact.html', content=content)
 
 @app.route('/admin/settings')
+@admin_required
 def admin_settings():
     content = load_data('content.json')
     return render_template('admin/settings.html', content=content)
 
 # Admin update routes
 @app.route('/admin/update_content', methods=['POST'])
+@admin_required
 def update_content():
     try:
         page = request.form.get('page')
@@ -320,6 +359,7 @@ def update_content():
         return redirect(request.referrer)
 
 @app.route('/admin/upload_file', methods=['POST'])
+@admin_required
 def upload_file():
     try:
         if 'file' not in request.files:
@@ -368,6 +408,7 @@ def upload_file():
         return redirect(request.referrer)
 
 @app.route('/admin/add_package', methods=['POST'])
+@admin_required
 def add_package():
     try:
         packages = load_data('packages.json')
@@ -394,6 +435,7 @@ def add_package():
         return redirect(url_for('admin_packages'))
 
 @app.route('/admin/update_package', methods=['POST'])
+@admin_required
 def update_package():
     try:
         package_id = int(request.form.get('package_id'))
@@ -420,6 +462,7 @@ def update_package():
         return redirect(url_for('admin_packages'))
 
 @app.route('/admin/delete_package/<int:package_id>')
+@admin_required
 def delete_package(package_id):
     try:
         packages = load_data('packages.json')
@@ -434,6 +477,7 @@ def delete_package(package_id):
         return redirect(url_for('admin_packages'))
 
 @app.route('/admin/add_gallery_item', methods=['POST'])
+@admin_required
 def add_gallery_item():
     try:
         gallery = load_data('gallery.json')
@@ -459,6 +503,7 @@ def add_gallery_item():
         return redirect(url_for('admin_gallery'))
 
 @app.route('/admin/delete_gallery_item/<int:item_id>')
+@admin_required
 def delete_gallery_item(item_id):
     try:
         gallery = load_data('gallery.json')
