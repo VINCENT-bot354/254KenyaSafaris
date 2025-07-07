@@ -22,5 +22,23 @@
       "Bird Watching"
     ],
     "message": "for food kales is a must, SIM cards and Wi-Fi"
+  },
+  {
+    "name": "VINCENT NGUTHIRU",
+    "email": "vincentnguthiru123@gmail.com",
+    "phone": "0791584278",
+    "people": "4",
+    "days": "8",
+    "destinations": [
+      "Maasai Mara National Reserve",
+      "Amboseli National Park"
+    ],
+    "activities": [
+      "Wildlife Photography",
+      "Cultural Village Visits",
+      "Nature Walks",
+      "Bird Watching"
+    ],
+    "message": "sim cards and wifi"
   }
 ]
