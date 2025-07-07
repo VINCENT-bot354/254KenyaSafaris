@@ -59,15 +59,10 @@ def about():
     content = load_data('content.json')
     return render_template('about.html', content=content)
 
-@app.route('/services')
-def services():
-    content = load_data('content.json')
-    return render_template('services.html', content=content)
-
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     content = load_data('content.json')
-    
+
     if request.method == 'POST':
         # Get form data
         name = request.form.get('name')
@@ -78,12 +73,12 @@ def contact():
         travel_dates = request.form.get('travel_dates')
         group_size = request.form.get('group_size')
         budget = request.form.get('budget')
-        
+
         # Validate required fields
         if not name or not email or not subject or not message:
             flash('Please fill in all required fields.', 'error')
             return render_template('contact.html', content=content)
-        
+
         try:
             # Send email to admin
             admin_msg = Message(
@@ -91,7 +86,7 @@ def contact():
                 sender=app.config['MAIL_DEFAULT_SENDER'],
                 recipients=[app.config['MAIL_DEFAULT_SENDER']]
             )
-            
+
             admin_msg.body = f"""
 New Contact Form Submission
 
@@ -108,14 +103,14 @@ Message:
 
 Please respond to this inquiry within 24 hours.
 """
-            
+
             # Send confirmation email to customer
             customer_msg = Message(
                 subject="Thank you for contacting 254 Kenya Safaris",
                 sender=app.config['MAIL_DEFAULT_SENDER'],
                 recipients=[email]
             )
-            
+
             customer_msg.body = f"""
 Dear {name},
 
@@ -137,19 +132,19 @@ The 254 Kenya Safaris Team
 ---
 This is an automated confirmation. Please do not reply to this email.
 """
-            
+
             # Send both emails
             mail.send(admin_msg)
             mail.send(customer_msg)
-            
+
             flash('Your message has been sent successfully! We will get back to you within 24 hours.', 'success')
             return redirect(url_for('contact'))
-            
+
         except Exception as e:
             flash('There was an error sending your message. Please try again or contact us directly.', 'error')
             print(f"Email error: {e}")
             return render_template('contact.html', content=content)
-    
+
     return render_template('contact.html', content=content)
 
 # Admin login
@@ -183,7 +178,7 @@ def submit_booking():
         destinations = request.form.getlist('destinations')
         activities = request.form.getlist('activities')
         message = request.form.get('message', '')
-        
+
         # Create booking record
         booking = {
             'name': name,
@@ -195,16 +190,16 @@ def submit_booking():
             'activities': activities,
             'message': message
         }
-        
+
         # Save booking
         bookings = load_data('bookings.json')
         bookings.append(booking)
         save_data('bookings.json', bookings)
-        
+
         # Prepare email content
         destinations_list = '\n'.join([f"• {dest}" for dest in destinations])
         activities_list = '\n'.join([f"• {act}" for act in activities])
-        
+
         email_body = f"""
 Thank you for booking with 254 KENYA SAFARIS!
 
@@ -229,7 +224,7 @@ We will contact you shortly to confirm your booking and provide further details.
 Best regards,
 254 KENYA SAFARIS Team
         """
-        
+
         # Send confirmation email to customer
         msg = Message(
             subject="Thank you for booking with 254 KENYA SAFARIS",
@@ -237,7 +232,7 @@ Best regards,
             body=email_body
         )
         mail.send(msg)
-        
+
         # Send notification to admin
         admin_msg = Message(
             subject="New Booking Received - 254 KENYA SAFARIS",
@@ -245,10 +240,10 @@ Best regards,
             body=f"New booking received from {name}.\n\n{email_body}"
         )
         mail.send(admin_msg)
-        
+
         flash('✅ Booking received! Please check your email for confirmation.', 'success')
         return redirect(url_for('bookings'))
-        
+
     except Exception as e:
         app.logger.error(f"Booking submission error: {str(e)}")
         flash('There was an error processing your booking. Please try again.', 'error')
@@ -299,12 +294,6 @@ def admin_contact():
     content = load_data('content.json')
     return render_template('admin/contact.html', content=content)
 
-@app.route('/admin/services')
-@admin_required
-def admin_services():
-    content = load_data('content.json')
-    return render_template('admin/services.html', content=content)
-
 @app.route('/admin/settings')
 @admin_required
 def admin_settings():
@@ -318,7 +307,7 @@ def update_content():
     try:
         page = request.form.get('page')
         content = load_data('content.json')
-        
+
         # Update content based on page
         if page == 'homepage':
             content['homepage'] = {
@@ -364,17 +353,11 @@ def update_content():
                 'twitter': request.form.get('twitter', ''),
                 'facebook': request.form.get('facebook', '')
             }
-        elif page == 'services':
-            content['services'] = {
-                'title': request.form.get('title'),
-                'description': request.form.get('description'),
-                'categories': content['services']['categories']  # Keep existing categories
-            }
-        
+
         save_data('content.json', content)
         flash('Content updated successfully!', 'success')
         return redirect(request.referrer)
-        
+
     except Exception as e:
         app.logger.error(f"Content update error: {str(e)}")
         flash('Error updating content. Please try again.', 'error')
@@ -387,21 +370,21 @@ def upload_file():
         if 'file' not in request.files:
             flash('No file selected', 'error')
             return redirect(request.referrer)
-        
+
         file = request.files['file']
         file_type = request.form.get('file_type')
         width = request.form.get('width')
         height = request.form.get('height')
-        
+
         if file.filename == '':
             flash('No file selected', 'error')
             return redirect(request.referrer)
-        
+
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             filepath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(filepath)
-            
+
             # Update content with file info
             content = load_data('content.json')
             if file_type == 'logo':
@@ -416,14 +399,14 @@ def upload_file():
                     'width': width or '40',
                     'height': height or '30'
                 }
-            
+
             save_data('content.json', content)
             flash('File uploaded successfully!', 'success')
         else:
             flash('Invalid file type', 'error')
-            
+
         return redirect(request.referrer)
-        
+
     except Exception as e:
         app.logger.error(f"File upload error: {str(e)}")
         flash('Error uploading file. Please try again.', 'error')
@@ -434,7 +417,7 @@ def upload_file():
 def add_package():
     try:
         packages = load_data('packages.json')
-        
+
         new_package = {
             'id': len(packages) + 1,
             'name': request.form.get('name'),
@@ -445,12 +428,12 @@ def add_package():
             'services': request.form.get('services').split('\n') if request.form.get('services') else [],
             'image': request.form.get('image', '')
         }
-        
+
         packages.append(new_package)
         save_data('packages.json', packages)
         flash('Package added successfully!', 'success')
         return redirect(url_for('admin_packages'))
-        
+
     except Exception as e:
         app.logger.error(f"Package add error: {str(e)}")
         flash('Error adding package. Please try again.', 'error')
@@ -462,7 +445,7 @@ def update_package():
     try:
         package_id = int(request.form.get('package_id'))
         packages = load_data('packages.json')
-        
+
         for package in packages:
             if package['id'] == package_id:
                 package['name'] = request.form.get('name')
@@ -473,11 +456,11 @@ def update_package():
                 package['services'] = request.form.get('services').split('\n') if request.form.get('services') else []
                 package['image'] = request.form.get('image', '')
                 break
-        
+
         save_data('packages.json', packages)
         flash('Package updated successfully!', 'success')
         return redirect(url_for('admin_packages'))
-        
+
     except Exception as e:
         app.logger.error(f"Package update error: {str(e)}")
         flash('Error updating package. Please try again.', 'error')
@@ -492,7 +475,7 @@ def delete_package(package_id):
         save_data('packages.json', packages)
         flash('Package deleted successfully!', 'success')
         return redirect(url_for('admin_packages'))
-        
+
     except Exception as e:
         app.logger.error(f"Package delete error: {str(e)}")
         flash('Error deleting package. Please try again.', 'error')
@@ -503,7 +486,7 @@ def delete_package(package_id):
 def add_gallery_item():
     try:
         gallery = load_data('gallery.json')
-        
+
         new_item = {
             'id': len(gallery) + 1,
             'type': request.form.get('type'),
@@ -513,12 +496,12 @@ def add_gallery_item():
             'width': request.form.get('width', '400'),
             'height': request.form.get('height', '300')
         }
-        
+
         gallery.append(new_item)
         save_data('gallery.json', gallery)
         flash('Gallery item added successfully!', 'success')
         return redirect(url_for('admin_gallery'))
-        
+
     except Exception as e:
         app.logger.error(f"Gallery add error: {str(e)}")
         flash('Error adding gallery item. Please try again.', 'error')
@@ -533,61 +516,11 @@ def delete_gallery_item(item_id):
         save_data('gallery.json', gallery)
         flash('Gallery item deleted successfully!', 'success')
         return redirect(url_for('admin_gallery'))
-        
+
     except Exception as e:
         app.logger.error(f"Gallery delete error: {str(e)}")
         flash('Error deleting gallery item. Please try again.', 'error')
         return redirect(url_for('admin_gallery'))
-
-@app.route('/admin/add_service_category', methods=['POST'])
-@admin_required
-def add_service_category():
-    try:
-        content = load_data('content.json')
-        categories = content['services']['categories']
-        
-        new_id = max([cat['id'] for cat in categories]) + 1 if categories else 1
-        new_category = {
-            'id': new_id,
-            'icon': request.form.get('icon'),
-            'name': request.form.get('name'),
-            'items': []
-        }
-        
-        categories.append(new_category)
-        save_data('content.json', content)
-        flash('Service category added successfully!', 'success')
-        return redirect(url_for('admin_services'))
-        
-    except Exception as e:
-        app.logger.error(f"Service category add error: {str(e)}")
-        flash('Error adding service category. Please try again.', 'error')
-        return redirect(url_for('admin_services'))
-
-@app.route('/admin/update_service_category', methods=['POST'])
-@admin_required
-def update_service_category():
-    try:
-        content = load_data('content.json')
-        category_id = int(request.form.get('category_id'))
-        
-        for category in content['services']['categories']:
-            if category['id'] == category_id:
-                category['icon'] = request.form.get('icon')
-                category['name'] = request.form.get('name')
-                # Update items
-                items_text = request.form.get('items', '')
-                category['items'] = [item.strip() for item in items_text.split('\n') if item.strip()]
-                break
-        
-        save_data('content.json', content)
-        flash('Service category updated successfully!', 'success')
-        return redirect(url_for('admin_services'))
-        
-    except Exception as e:
-        app.logger.error(f"Service category update error: {str(e)}")
-        flash('Error updating service category. Please try again.', 'error')
-        return redirect(url_for('admin_services'))
 
 @app.route('/admin/delete_service_category/<int:category_id>')
 @admin_required
@@ -598,7 +531,7 @@ def delete_service_category(category_id):
         save_data('content.json', content)
         flash('Service category deleted successfully!', 'success')
         return redirect(url_for('admin_services'))
-        
+
     except Exception as e:
         app.logger.error(f"Service category delete error: {str(e)}")
         flash('Error deleting service category. Please try again.', 'error')
