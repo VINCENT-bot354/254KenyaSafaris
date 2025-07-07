@@ -3,15 +3,15 @@
     "id": 1,
     "name": "Maasai Mara Classic Safari",
     "description": "Experience the world-famous Maasai Mara with game drives, cultural visits, and luxury accommodation.",
-    "price_usd": "450",
-    "price_ksh": "58500",
+    "price_usd": "",
+    "price_ksh": "",
     "duration": "3 Days / 2 Nights",
     "services": [
-      "Transport in 4WD safari vehicle",
-      "Professional guide",
-      "Accommodation",
-      "All meals",
-      "Game drives",
+      "Transport in 4WD safari vehicle\r",
+      "Professional guide\r",
+      "Accommodation\r",
+      "All meals\r",
+      "Game drives\r",
       "Cultural village visit"
     ],
     "image": "https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg"
