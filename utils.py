@@ -96,7 +96,7 @@ def get_default_content():
             'tiktok': '',
             'whatsapp': '',
             'twitter': '',
-            'facebook': ''
+            'facebook': '',
             'email': '254kenyasafaris@gmail.com',
             'hours': 'Monday - Friday: 8:00 AM - 6:00 PM'
         }
