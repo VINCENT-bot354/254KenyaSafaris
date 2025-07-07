@@ -518,37 +518,74 @@ document.addEventListener('DOMContentLoaded', initializeLazyLoading);
 
 // Initialize page
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize navbar toggle
-    const navbarToggler = document.querySelector('.navbar-toggler');
-    if (navbarToggler) {
-        navbarToggler.addEventListener('click', function() {
-            const navbar = document.querySelector('.navbar-collapse');
-            if (navbar) {
-                navbar.classList.toggle('show');
-            }
-        });
-    }
-
-    // Initialize fade-in animations
-    const fadeElements = document.querySelectorAll('.fade-in');
-    if (fadeElements.length > 0) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        });
-
-        fadeElements.forEach(el => observer.observe(el));
-    }
+    // Initialize mobile menu
+    initializeMobileMenu();
 
     // Initialize forms
     initializeForms();
 
-    // Initialize service card animations
+    // Initialize animations
+    initializeAnimations();
+
+    // Initialize service cards
     initializeServiceCards();
+
+    // Initialize modal functionality
+    initializeModals();
 });
+
+function initializeMobileMenu() {
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+
+    if (navbarToggler && navbarCollapse) {
+        navbarToggler.addEventListener('click', function() {
+            navbarCollapse.classList.toggle('show');
+        });
+    }
+}
+
+function initializeAnimations() {
+    // Add fade-in animation to elements
+    const fadeElements = document.querySelectorAll('.fade-in');
+
+    if (fadeElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-visible');
+                }
+            });
+        });
+
+        fadeElements.forEach(element => {
+            observer.observe(element);
+        });
+    }
+}
+
+function initializeModals() {
+    // Handle modal close buttons
+    const modalCloseButtons = document.querySelectorAll('[data-bs-dismiss="modal"]');
+    if (modalCloseButtons.length > 0) {
+        modalCloseButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const modal = button.closest('.modal');
+                if (modal) {
+                    modal.classList.remove('show');
+                    modal.style.display = 'none';
+                    document.body.classList.remove('modal-open');
+
+                    // Remove backdrop
+                    const backdrop = document.querySelector('.modal-backdrop');
+                    if (backdrop) {
+                        backdrop.remove();
+                    }
+                }
+            });
+        });
+    }
+}
 
 function initializeForms() {
     // Add any form-specific JavaScript here
