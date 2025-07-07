@@ -52,5 +52,14 @@
     "url": "https://pixabay.com/get/g47b822ecbbf6ccab32d962ec085e5f702fe29f66283d886e173c9d8ec429806b4817b4e39d63f09b19e5849f5dfba1d11bc42bb9cc5732138a3ee01462fef9f5_1280.jpg",
     "width": "400",
     "height": "300"
+  },
+  {
+    "id": 7,
+    "type": "video",
+    "title": "The Hunt and the heart",
+    "description": "The silent battle of the cheetah",
+    "url": "https://www.instagram.com/reel/DLxxI_SC4tJ/?igsh=MTZwYTBsMm1sMDQ4OQ==",
+    "width": "400",
+    "height": "711"
   }
 ]

@@ -44,11 +44,15 @@ function initializeGallery() {
     
     galleryItems.forEach(item => {
         item.addEventListener('click', function() {
-            const imgSrc = this.querySelector('img').src;
-            const title = this.querySelector('.gallery-overlay-content h5')?.textContent || '';
-            const description = this.querySelector('.gallery-overlay-content p')?.textContent || '';
-            
-            showImageModal(imgSrc, title, description);
+            const img = this.querySelector('img');
+            if (img) {
+                const imgSrc = img.src;
+                const overlayContent = this.querySelector('.gallery-overlay-content');
+                const title = overlayContent?.querySelector('h5')?.textContent || '';
+                const description = overlayContent?.querySelector('p')?.textContent || '';
+                
+                showImageModal(imgSrc, title, description);
+            }
         });
     });
 }
@@ -232,6 +236,89 @@ function initializeVideoHandling() {
             }
         }
     });
+    
+    // Initialize video play buttons
+    const videoPlayButtons = document.querySelectorAll('[onclick^="playVideo"]');
+    videoPlayButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const onclickValue = this.getAttribute('onclick');
+            const urlMatch = onclickValue.match(/playVideo\('([^']+)'\)/);
+            if (urlMatch) {
+                playVideo(urlMatch[1]);
+            }
+        });
+    });
+}
+
+// Video player function
+function playVideo(url) {
+    const modal = document.createElement('div');
+    modal.className = 'modal fade';
+    modal.innerHTML = `
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-white">Safari Video</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe src="${getEmbedUrl(url)}" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    const bootstrapModal = new bootstrap.Modal(modal);
+    bootstrapModal.show();
+    
+    modal.addEventListener('hidden.bs.modal', function() {
+        document.body.removeChild(modal);
+    });
+}
+
+// Get embed URL for videos
+function getEmbedUrl(url) {
+    if (url.includes('youtube.com/watch')) {
+        const videoId = url.split('v=')[1].split('&')[0];
+        return `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes('youtu.be/')) {
+        const videoId = url.split('youtu.be/')[1];
+        return `https://www.youtube.com/embed/${videoId}`;
+    } else if (url.includes('instagram.com')) {
+        return url + '/embed';
+    } else if (url.includes('tiktok.com')) {
+        // TikTok embed format
+        return url.replace('/video/', '/embed/');
+    }
+    return url;
+}
+
+// Gallery filtering function
+function filterGallery(type) {
+    const items = document.querySelectorAll('.gallery-filter-item');
+    const buttons = document.querySelectorAll('.btn-group button');
+    
+    // Update active button
+    buttons.forEach(btn => btn.classList.remove('active'));
+    
+    // Find the clicked button using event.target or find by onclick attribute
+    const activeButton = document.querySelector(`button[onclick="filterGallery('${type}')"]`);
+    if (activeButton) {
+        activeButton.classList.add('active');
+    }
+    
+    // Filter items
+    items.forEach(item => {
+        if (type === 'all' || item.dataset.type === type) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
 }
 
 // Admin-specific functions
@@ -253,6 +340,11 @@ function deleteItem(type, id) {
 
 function toggleEditMode(elementId) {
     const element = document.getElementById(elementId);
+    if (!element) {
+        console.error('Element not found:', elementId);
+        return;
+    }
+    
     const isEditing = element.classList.contains('editing');
     
     if (isEditing) {
@@ -269,6 +361,11 @@ function toggleEditMode(elementId) {
 
 function saveContent(elementId) {
     const element = document.getElementById(elementId);
+    if (!element) {
+        console.error('Element not found:', elementId);
+        return;
+    }
+    
     element.contentEditable = false;
     
     // Here you would typically send the content to the server
