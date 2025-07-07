@@ -97,6 +97,119 @@ def get_default_content():
             'whatsapp': '',
             'twitter': '',
             'facebook': ''
+        },
+        'services': {
+            'title': 'Our Services',
+            'description': 'Comprehensive travel coordination and safari services to make your Kenyan adventure seamless and unforgettable.',
+            'categories': [
+                {
+                    'id': 1,
+                    'icon': '✈️',
+                    'name': 'Travel Coordination',
+                    'items': [
+                        'Flight Booking Support',
+                        'Custom Travel Itinerary Planning',
+                        'Hotel or Lodge Reservations',
+                        'Local SIM Card Pre-Order or Provision',
+                        'Prepaid Internet Packages / WiFi Device Rental'
+                    ]
+                },
+                {
+                    'id': 2,
+                    'icon': '🚖',
+                    'name': 'Arrival & Airport Services',
+                    'items': [
+                        'Airport Pickup / Meet & Greet',
+                        'Luggage Assistance or Porters',
+                        'Currency Exchange Assistance'
+                    ]
+                },
+                {
+                    'id': 3,
+                    'icon': '🛏️',
+                    'name': 'Accommodation & Hospitality',
+                    'items': [
+                        'Hotel Check-in Support',
+                        'Alternative Accommodation (Airbnb, homestays, lodges)',
+                        'Daily Housekeeping (for longer stays)',
+                        '24/7 Local Support / Hotline',
+                        'Car Rental with or without Driver',
+                        'Chauffeur Services',
+                        'Motorbike or Scooter Rental',
+                        'Airport Drop-Off',
+                        'Shuttle Transfers (Hotel ⇄ Parks ⇄ City ⇄ Airport)'
+                    ]
+                },
+                {
+                    'id': 4,
+                    'icon': '🌍',
+                    'name': 'Tour & Activity Services',
+                    'items': [
+                        'City Tours & Excursions',
+                        'National Park Safaris',
+                        'Cultural Tours / Village Visits',
+                        'Adventure Activities (hiking, rafting, ziplining)',
+                        'Beach Trips / Coastal Excursions',
+                        'Photography & Drone Packages',
+                        'Wildlife Guide Services'
+                    ]
+                },
+                {
+                    'id': 5,
+                    'icon': '🍽️',
+                    'name': 'Food & Dining Support',
+                    'items': [
+                        'Restaurant Booking',
+                        'Local Cuisine Recommendations',
+                        'Private Chef or Catering',
+                        'Halal / Vegan / Special Diet Meals'
+                    ]
+                },
+                {
+                    'id': 6,
+                    'icon': '💬',
+                    'name': 'Communication & Connectivity',
+                    'items': [
+                        'Local SIM Card + Airtime / Data',
+                        'WiFi Hotspot Rental',
+                        'Translation / Interpreter Services',
+                        'Tour Guide with Multilingual Skills'
+                    ]
+                },
+                {
+                    'id': 7,
+                    'icon': '🛍️',
+                    'name': 'Shopping & Local Experience',
+                    'items': [
+                        'Souvenir Recommendations',
+                        'Shopping Tour with Local Guide',
+                        'Bargaining Help in Local Markets'
+                    ]
+                },
+                {
+                    'id': 8,
+                    'icon': '🧘',
+                    'name': 'Wellness & Emergency Support',
+                    'items': [
+                        'Medical Assistance / Travel Clinic Info',
+                        'Pharmacy Access',
+                        'COVID-19 Testing (if needed)',
+                        'Massage, Spa, or Wellness Booking'
+                    ]
+                },
+                {
+                    'id': 9,
+                    'icon': '🧾',
+                    'name': 'Other Add-ons',
+                    'items': [
+                        'Photography & Videography Services',
+                        'Laundry Services',
+                        'Special Event Planning (e.g., Honeymoon setup, Birthdays)',
+                        'Childcare or Babysitting',
+                        'Luggage Storage or Delivery'
+                    ]
+                }
+            ]
         }
     }
 

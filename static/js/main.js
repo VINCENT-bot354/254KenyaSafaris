@@ -3,16 +3,16 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize animations
     initializeAnimations();
-    
+
     // Initialize gallery
     initializeGallery();
-    
+
     // Initialize form handling
     initializeFormHandling();
-    
+
     // Initialize navbar toggle
     initializeNavbar();
-    
+
     // Initialize video handling
     initializeVideoHandling();
 });
@@ -23,7 +23,7 @@ function initializeAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     };
-    
+
     const observer = new IntersectionObserver(function(entries) {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -31,7 +31,7 @@ function initializeAnimations() {
             }
         });
     }, observerOptions);
-    
+
     // Observe all elements with animation classes
     document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
         observer.observe(el);
@@ -41,7 +41,7 @@ function initializeAnimations() {
 // Gallery functionality
 function initializeGallery() {
     const galleryItems = document.querySelectorAll('.gallery-item');
-    
+
     galleryItems.forEach(item => {
         item.addEventListener('click', function() {
             const img = this.querySelector('img');
@@ -50,7 +50,7 @@ function initializeGallery() {
                 const overlayContent = this.querySelector('.gallery-overlay-content');
                 const title = overlayContent?.querySelector('h5')?.textContent || '';
                 const description = overlayContent?.querySelector('p')?.textContent || '';
-                
+
                 showImageModal(imgSrc, title, description);
             }
         });
@@ -75,12 +75,12 @@ function showImageModal(src, title, description) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
-    
+
     const bootstrapModal = new bootstrap.Modal(modal);
     bootstrapModal.show();
-    
+
     // Clean up modal after hiding
     modal.addEventListener('hidden.bs.modal', function() {
         document.body.removeChild(modal);
@@ -96,13 +96,13 @@ function initializeFormHandling() {
                 e.preventDefault();
                 return false;
             }
-            
+
             // Show loading state
             const submitBtn = this.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Processing...';
             submitBtn.disabled = true;
-            
+
             // Re-enable button after form submission
             setTimeout(() => {
                 submitBtn.textContent = originalText;
@@ -110,7 +110,7 @@ function initializeFormHandling() {
             }, 3000);
         });
     }
-    
+
     // Admin form handling
     const adminForms = document.querySelectorAll('.admin-form');
     adminForms.forEach(form => {
@@ -119,7 +119,7 @@ function initializeFormHandling() {
             const originalText = submitBtn.textContent;
             submitBtn.textContent = 'Saving...';
             submitBtn.disabled = true;
-            
+
             setTimeout(() => {
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
@@ -136,27 +136,27 @@ function validateBookingForm() {
     const days = document.getElementById('days').value;
     const destinations = document.querySelectorAll('input[name="destinations"]:checked');
     const activities = document.querySelectorAll('input[name="activities"]:checked');
-    
+
     if (!name || !email || !phone || !people || !days) {
         showAlert('Please fill in all required fields.', 'error');
         return false;
     }
-    
+
     if (!isValidEmail(email)) {
         showAlert('Please enter a valid email address.', 'error');
         return false;
     }
-    
+
     if (destinations.length === 0) {
         showAlert('Please select at least one destination.', 'error');
         return false;
     }
-    
+
     if (activities.length === 0) {
         showAlert('Please select at least one activity.', 'error');
         return false;
     }
-    
+
     return true;
 }
 
@@ -172,10 +172,10 @@ function showAlert(message, type) {
         ${message}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
     `;
-    
+
     const container = document.querySelector('.container').firstElementChild;
     container.insertBefore(alertDiv, container.firstChild);
-    
+
     // Auto-dismiss after 5 seconds
     setTimeout(() => {
         if (alertDiv.parentNode) {
@@ -187,7 +187,7 @@ function showAlert(message, type) {
 // Navbar functionality
 function initializeNavbar() {
     const navbar = document.querySelector('.navbar');
-    
+
     window.addEventListener('scroll', function() {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -195,7 +195,7 @@ function initializeNavbar() {
             navbar.classList.remove('scrolled');
         }
     });
-    
+
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
@@ -214,7 +214,7 @@ function initializeNavbar() {
 // Video handling
 function initializeVideoHandling() {
     const videoContainers = document.querySelectorAll('.video-container');
-    
+
     videoContainers.forEach(container => {
         const iframe = container.querySelector('iframe');
         if (iframe) {
@@ -228,7 +228,7 @@ function initializeVideoHandling() {
                     iframe.msRequestFullscreen();
                 }
             });
-            
+
             // Adjust aspect ratio based on video type
             const src = iframe.src;
             if (src.includes('instagram.com') || src.includes('tiktok.com')) {
@@ -236,7 +236,7 @@ function initializeVideoHandling() {
             }
         }
     });
-    
+
     // Initialize video play buttons
     const videoPlayButtons = document.querySelectorAll('[onclick^="playVideo"]');
     videoPlayButtons.forEach(button => {
@@ -270,11 +270,11 @@ function playVideo(url) {
             </div>
         </div>
     `;
-    
+
     document.body.appendChild(modal);
     const bootstrapModal = new bootstrap.Modal(modal);
     bootstrapModal.show();
-    
+
     modal.addEventListener('hidden.bs.modal', function() {
         document.body.removeChild(modal);
     });
@@ -301,16 +301,16 @@ function getEmbedUrl(url) {
 function filterGallery(type) {
     const items = document.querySelectorAll('.gallery-filter-item');
     const buttons = document.querySelectorAll('.btn-group button');
-    
+
     // Update active button
     buttons.forEach(btn => btn.classList.remove('active'));
-    
+
     // Find the clicked button using event.target or find by onclick attribute
     const activeButton = document.querySelector(`button[onclick="filterGallery('${type}')"]`);
     if (activeButton) {
         activeButton.classList.add('active');
     }
-    
+
     // Filter items
     items.forEach(item => {
         if (type === 'all' || item.dataset.type === type) {
@@ -326,13 +326,13 @@ function deleteItem(type, id) {
     if (confirm(`Are you sure you want to delete this ${type}?`)) {
         const form = document.createElement('form');
         form.method = 'POST';
-        
+
         if (type === 'package') {
             form.action = `/admin/delete_package/${id}`;
         } else if (type === 'gallery') {
             form.action = `/admin/delete_gallery_item/${id}`;
         }
-        
+
         document.body.appendChild(form);
         form.submit();
     }
@@ -344,9 +344,9 @@ function toggleEditMode(elementId) {
         console.error('Element not found:', elementId);
         return;
     }
-    
+
     const isEditing = element.classList.contains('editing');
-    
+
     if (isEditing) {
         element.classList.remove('editing');
         // Save changes
@@ -365,9 +365,9 @@ function saveContent(elementId) {
         console.error('Element not found:', elementId);
         return;
     }
-    
+
     element.contentEditable = false;
-    
+
     // Here you would typically send the content to the server
     // For now, we'll just show a success message
     showAlert('Content saved successfully!', 'success');
@@ -393,7 +393,7 @@ function previewFile(input) {
 function updateImageDimensions(input) {
     const width = document.getElementById('imageWidth').value;
     const height = document.getElementById('imageHeight').value;
-    
+
     if (width && height) {
         const preview = document.getElementById('filePreview');
         if (preview) {
@@ -407,7 +407,7 @@ function updateImageDimensions(input) {
 function addService() {
     const servicesList = document.getElementById('servicesList');
     const serviceInput = document.getElementById('newService');
-    
+
     if (serviceInput.value.trim()) {
         const serviceItem = document.createElement('div');
         serviceItem.className = 'input-group mb-2';
@@ -417,7 +417,7 @@ function addService() {
                 <i class="fas fa-trash"></i>
             </button>
         `;
-        
+
         servicesList.appendChild(serviceItem);
         serviceInput.value = '';
     }
@@ -437,9 +437,9 @@ function validateVideoUrl(input) {
         /instagram\.com\/reel\//,
         /tiktok\.com\//
     ];
-    
+
     const isValid = validPatterns.some(pattern => pattern.test(url));
-    
+
     if (url && !isValid) {
         showAlert('Please enter a valid YouTube, Instagram, or TikTok URL.', 'error');
         input.setCustomValidity('Invalid video URL');
@@ -453,13 +453,13 @@ function calculateTotal() {
     const people = parseInt(document.getElementById('people').value) || 0;
     const days = parseInt(document.getElementById('days').value) || 0;
     const selectedPackages = document.querySelectorAll('input[name="packages"]:checked');
-    
+
     let total = 0;
     selectedPackages.forEach(pkg => {
         const price = parseFloat(pkg.dataset.price) || 0;
         total += price * people * days;
     });
-    
+
     const totalElement = document.getElementById('estimatedTotal');
     if (totalElement) {
         totalElement.textContent = `Estimated Total: $${total.toFixed(2)}`;
@@ -489,7 +489,7 @@ function toggleMobileMenu() {
 document.addEventListener('click', function(e) {
     const mobileMenu = document.getElementById('mobileMenu');
     const navbarToggler = document.querySelector('.navbar-toggler');
-    
+
     if (mobileMenu && !mobileMenu.contains(e.target) && !navbarToggler.contains(e.target)) {
         mobileMenu.classList.remove('show');
     }
@@ -498,7 +498,7 @@ document.addEventListener('click', function(e) {
 // Lazy loading for images
 function initializeLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     const imageObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -509,9 +509,62 @@ function initializeLazyLoading() {
             }
         });
     });
-    
+
     images.forEach(img => imageObserver.observe(img));
 }
 
 // Initialize lazy loading
 document.addEventListener('DOMContentLoaded', initializeLazyLoading);
+
+// Initialize page
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize navbar toggle
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    if (navbarToggler) {
+        navbarToggler.addEventListener('click', function() {
+            const navbar = document.querySelector('.navbar-collapse');
+            if (navbar) {
+                navbar.classList.toggle('show');
+            }
+        });
+    }
+
+    // Initialize fade-in animations
+    const fadeElements = document.querySelectorAll('.fade-in');
+    if (fadeElements.length > 0) {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate');
+                }
+            });
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+    }
+
+    // Initialize forms
+    initializeForms();
+
+    // Initialize service card animations
+    initializeServiceCards();
+});
+
+function initializeForms() {
+    // Add any form-specific JavaScript here
+    console.log('Forms initialized');
+}
+
+function initializeServiceCards() {
+    // Add hover effects to service cards
+    const serviceCards = document.querySelectorAll('.service-card');
+    serviceCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+        });
+
+        card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+        });
+    });
+}

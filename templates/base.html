@@ -4,28 +4,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}254 KENYA SAFARIS{% endblock %}</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    
+
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    
+
     <!-- Custom CSS -->
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
-    
+
     <!-- SEO Meta Tags -->
     <meta name="description" content="254 Kenya Safaris - Experience the wild beauty of Kenya with our expertly crafted safari tours. Professional safari coordination, wildlife photography, and cultural experiences.">
     <meta name="keywords" content="Kenya safari, wildlife tours, Maasai Mara, Amboseli, safari packages, Kenya travel">
     <meta name="author" content="254 Kenya Safaris">
-    
+
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="254 KENYA SAFARIS - Experience Wild Kenya">
+    <meta property="og:title" content="254 KENYA SAFRIS - Experience Wild Kenya">
     <meta property="og:description" content="Discover Kenya's breathtaking landscapes and incredible wildlife with our expertly crafted safari experiences.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ request.url }}">
     <meta property="og:image" content="https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
 </head>
@@ -46,11 +46,11 @@
                          style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
                 {% endif %}
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            
+
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
@@ -67,6 +67,9 @@
                         <a class="nav-link" href="{{ url_for('activities') }}">
                             <i class="fas fa-binoculars"></i> Activities
                         </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('services') }}">Services</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('packages') }}">
@@ -131,7 +134,7 @@
                         <a href="#" class="me-3"><i class="fab fa-youtube fa-2x"></i></a>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
                     <h5>Quick Links</h5>
                     <ul class="list-unstyled">
@@ -143,7 +146,7 @@
                         <li><a href="{{ url_for('contact') }}">Contact</a></li>
                     </ul>
                 </div>
-                
+
                 <div class="col-md-4">
                     <h5>Contact Info</h5>
                     <p><i class="fas fa-map-marker-alt"></i> {{ content.contact.address }}</p>
@@ -152,9 +155,9 @@
                     <p><i class="fas fa-clock"></i> {{ content.contact.hours }}</p>
                 </div>
             </div>
-            
+
             <hr class="my-4">
-            
+
             <div class="row">
                 <div class="col-md-6">
                     <p>&copy; 2024 254 Kenya Safaris. All rights reserved.</p>
@@ -170,10 +173,10 @@
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <!-- Custom JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-    
+
     <!-- Additional Scripts -->
     {% block scripts %}{% endblock %}
 </body>

@@ -1,0 +1,109 @@
+
+{% extends "base.html" %}
+
+{% block title %}Services - 254 Kenya Safaris{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section d-flex align-items-center" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg') center/cover;">
+    <div class="container text-center text-white">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 fade-in">
+                <h1 class="display-4 mb-3">{{ content.services.title }}</h1>
+                <p class="lead mb-4">{{ content.services.description }}</p>
+                <a href="{{ url_for('contact') }}" class="btn btn-primary btn-lg">
+                    <i class="fas fa-envelope"></i> Get Quote
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Services Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            {% for category in content.services.categories %}
+            <div class="col-lg-6 col-xl-4 mb-4 fade-in">
+                <div class="card h-100 service-card">
+                    <div class="card-body">
+                        <div class="service-icon text-center mb-3">
+                            <span class="display-4">{{ category.icon }}</span>
+                        </div>
+                        <h5 class="card-title text-center mb-3">{{ category.name }}</h5>
+                        <ul class="list-unstyled">
+                            {% for item in category.items %}
+                            <li class="mb-2">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                {{ item }}
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 fade-in">
+                <h2 class="mb-3">Ready to Experience Kenya?</h2>
+                <p class="lead mb-4">Let us handle all the details while you focus on creating memories that will last a lifetime.</p>
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a href="{{ url_for('packages') }}" class="btn btn-light btn-lg">
+                        <i class="fas fa-gift"></i> View Packages
+                    </a>
+                    <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-phone"></i> Contact Us
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+.service-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.service-icon {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 15px;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.fade-in {
+    animation: fadeInUp 0.8s ease-out;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+{% endblock %}
