@@ -37,7 +37,7 @@ body {
     color: var(--kenyan-white) !important;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 2px;
 }
 
 .navbar-nav .nav-link {
@@ -51,6 +51,9 @@ body {
     color: var(--kenyan-gold) !important;
 }
 
+.navbar-nav .nav-link:active {
+    color: #ffcc00 !important;
+}
 /* Hero Section */
 .hero-section {
     background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 

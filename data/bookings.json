@@ -40,5 +40,39 @@
       "Bird Watching"
     ],
     "message": "sim cards and wifi"
+  },
+  {
+    "name": "VINCENT NGUTHIRU",
+    "email": "vincentnguthiru123@gmail.com",
+    "phone": "0791584278",
+    "people": "6",
+    "days": "8",
+    "destinations": [
+      "Amboseli National Park"
+    ],
+    "activities": [
+      "Game Drives",
+      "Wildlife Photography",
+      "Cultural Village Visits",
+      "Hot Air Balloon Safaris",
+      "Nature Walks",
+      "Bird Watching"
+    ],
+    "message": "wifi"
+  },
+  {
+    "name": "VINCENT NGUTHIRU",
+    "email": "vincentnguthiru123@gmail.com",
+    "phone": "0791584278",
+    "people": "5",
+    "days": "7",
+    "destinations": [
+      "Maasai Mara National Reserve"
+    ],
+    "activities": [
+      "Game Drives",
+      "Cultural Village Visits"
+    ],
+    "message": "sim Card"
   }
 ]

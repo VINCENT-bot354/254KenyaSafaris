@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://pixabay.com/get/g720840d246bc43ddba254d9c1aa1ec6c0237f74765a0a2366dc01c7ea559cf2cd4cf121043d179b16ad52ec3983bb4626efcb80697fe15b4f386f18b5a9e7d10_1280.jpg'); background-size: cover; background-position: center;">
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://github.com/VINCENT-bot354/IMAGES/blob/main/images%20(10).jpeg?raw=true'); background-size: cover; background-position: center; margin-top: 128px;">
     <div class="container">
         <div class="hero-content fade-in">
             <h1>{{ content.about.title }}</h1>
@@ -29,8 +29,8 @@
                 <p>We believe that every safari should be more than just a trip - it should be a transformative experience that connects you with nature, wildlife, and the rich cultural heritage of Kenya. Our team of experienced guides and safari coordinators work tirelessly to ensure that your adventure exceeds your expectations.</p>
             </div>
             <div class="col-lg-6 fade-in">
-                <img src="https://pixabay.com/get/g36c3885c540e9e48f036586713c0bd3f7b74d15e8261905a2a79e1dc873bca3a87c2bc81488f2c7bc8c8f9536e532b5254df00d1c6f92c241e19fc885ddba372_1280.jpg" 
-                     alt="Kenya Safari Team" class="img-fluid rounded">
+               <!--<img src="https://pixabay.com/get/g36c3885c540e9e48f036586713c0bd3f7b74d15e8261905a2a79e1dc873bca3a87c2bc81488f2c7bc8c8f9536e532b5254df00d1c6f92c241e19fc885ddba372_1280.jpg" 
+                     alt="Kenya Safari Team" class="img-fluid rounded">-->
             </div>
         </div>
     </div>
@@ -71,7 +71,7 @@
                             <i class="fas fa-heart"></i>
                         </div>
                         <h4>Our Values</h4>
-                        <p>{{ content.about.values }}</p>
+                        <p>{{ content.about["values"] }}</p>
                     </div>
                 </div>
             </div>

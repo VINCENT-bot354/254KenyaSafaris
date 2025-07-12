@@ -59,24 +59,31 @@
                 <h5 class="modal-title">Add Image to Gallery</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
-            <form method="POST" action="{{ url_for('add_gallery_item') }}">
+            <form method="POST" action="{{ url_for('add_gallery_item') }}" enctype="multipart/form-data">
                 <input type="hidden" name="type" value="image">
                 <div class="modal-body">
                     <div class="mb-3">
                         <label class="form-label">Title *</label>
                         <input type="text" class="form-control" name="title" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
-                    
+
                     <div class="mb-3">
-                        <label class="form-label">Image URL *</label>
-                        <input type="url" class="form-control" name="url" required placeholder="https://example.com/image.jpg">
+                        <label class="form-label">Image File (optional)</label>
+                        <input type="file" class="form-control" name="file" accept="image/*">
+                        <small class="form-text text-muted">Upload a file instead of using a link</small>
                     </div>
-                    
+
+                    <div class="mb-3">
+                        <label class="form-label">Image URL (optional)</label>
+                        <input type="url" class="form-control" name="url" placeholder="https://example.com/image.jpg">
+                        <small class="form-text text-muted">Use a link instead of uploading</small>
+                    </div>
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -116,18 +123,18 @@
                         <label class="form-label">Title *</label>
                         <input type="text" class="form-control" name="title" required>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">Description</label>
                         <textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
-                    
+
                     <div class="mb-3">
                         <label class="form-label">Video URL *</label>
                         <input type="url" class="form-control" name="url" required placeholder="YouTube, Instagram, or TikTok URL" oninput="validateVideoUrl(this)">
                         <small class="form-text text-muted">Supported: YouTube, Instagram, TikTok links</small>
                     </div>
-                    
+
                     <div class="row">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -206,7 +213,6 @@
 
 <script>
 function editGalleryItem(itemId) {
-    // Implementation for editing gallery items
     alert('Edit functionality - to be implemented based on item type');
 }
 </script>

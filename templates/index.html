@@ -4,7 +4,7 @@
 
 {% block content %}
 <!-- Hero Section -->
-<section class="hero-section">
+<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://github.com/VINCENT-bot354/IMAGES/blob/main/new%20sunset%20lion.jpg?raw=true'); background-size: cover; background-position: center; margin-top: 128px;">
     <div class="container">
         <div class="hero-content fade-in">
             <h1>{{ content.homepage.hero_title }}</h1>
@@ -29,9 +29,19 @@
 
 <!-- About Section -->
 <section class="py-5 tribal-pattern">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-6 slide-in-left">
+    <div class="container-fluid">
+        <div class="row align-items-center flex-column-reverse flex-md-row">
+            <!-- Image Column -->
+            <div class="col-12 col-md-6 mb-4 mb-md-0">
+                <img 
+                    src="https://github.com/VINCENT-bot354/IMAGES/blob/main/elephant2.jpeg?raw=true" 
+                    class="img-fluid w-100" 
+                    alt="Elephant"
+                >
+            </div>
+
+            <!-- Text Content Column -->
+            <div class="col-12 col-md-6 slide-in-left">
                 <h2>{{ content.homepage.about_title }}</h2>
                 <p class="lead">{{ content.homepage.about_description }}</p>
                 <div class="row">
@@ -50,25 +60,14 @@
                         <p>Capture stunning moments with expert guidance</p>
                     </div>
                 </div>
-                <a href="{{ url_for('about') }}" class="btn btn-primary">
+                <a href="{{ url_for('about') }}" class="btn btn-primary mt-3">
                     <i class="fas fa-arrow-right"></i> Learn More
                 </a>
-            </div>
-            <div class="col-lg-6 slide-in-right">
-                <div class="row">
-                    <div class="col-md-6 mb-3">
-                        <img src="https://pixabay.com/get/g599e0c061cf6ffeb62964ebb8335cd5d47efafdd5c8272e5cda2f2e306f328a7704c43a0a216a9945a53393d3aa7589c98ec74f92995319604dfc00515375578_1280.jpg" 
-                             alt="African Elephant" class="img-fluid rounded">
-                    </div>
-                    <div class="col-md-6 mb-3">
-                        <img src="https://pixabay.com/get/gb4b7fb8e67e1002ddb9b62fa04fa9e7dc424a3a1e35ceb356cd10a0700b56f84ea12236f462eb198c0896242d372173f59c6e626d66cc109b4114fdd66b9584f_1280.jpg" 
-                             alt="African Lions" class="img-fluid rounded">
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 </section>
+
 
 <!-- Services Section -->
 <section class="py-5">

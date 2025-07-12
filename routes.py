@@ -503,12 +503,23 @@ def add_gallery_item():
     try:
         gallery = load_data('gallery.json')
 
+        image_url = request.form.get('url', '').strip()
+        file = request.files.get('file')
+        filename = None
+
+        # If file uploaded and allowed
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.static_folder, 'uploads', filename)
+            file.save(filepath)
+            image_url = url_for('static', filename=f'uploads/{filename}')
+
         new_item = {
             'id': len(gallery) + 1,
             'type': request.form.get('type'),
             'title': request.form.get('title'),
             'description': request.form.get('description'),
-            'url': request.form.get('url'),
+            'url': image_url,
             'width': request.form.get('width', '400'),
             'height': request.form.get('height', '300')
         }
@@ -523,7 +534,12 @@ def add_gallery_item():
         flash('Error adding gallery item. Please try again.', 'error')
         return redirect(url_for('admin_gallery'))
 
-@app.route('/admin/delete_gallery_item/<int:item_id>')
+    except Exception as e:
+        app.logger.error(f"Gallery add error: {str(e)}")
+        flash('Error adding gallery item. Please try again.', 'error')
+        return redirect(url_for('admin_gallery'))
+
+@app.route('/admin/delete_gallery_item/<int:item_id>', methods=['POST'])
 @admin_required
 def delete_gallery_item(item_id):
     try:
@@ -543,23 +559,32 @@ def delete_gallery_item(item_id):
 def add_service_category():
     try:
         content = load_data('content.json')
-        
+
+        # ✅ Ensure the nested structure exists
+        if 'services' not in content:
+            content['services'] = {}
+
+        if 'categories' not in content['services']:
+            content['services']['categories'] = []
+
         new_category = {
             'id': len(content['services']['categories']) + 1,
             'icon': request.form.get('icon'),
             'name': request.form.get('name'),
-            'items': []
+            'items': []  # You can allow adding items later
         }
-        
+
         content['services']['categories'].append(new_category)
         save_data('content.json', content)
+
         flash('Service category added successfully!', 'success')
         return redirect(url_for('admin_services'))
-    
+
     except Exception as e:
         app.logger.error(f"Service category add error: {str(e)}")
         flash('Error adding service category. Please try again.', 'error')
         return redirect(url_for('admin_services'))
+
 
 @app.route('/admin/update_service_category', methods=['POST'])
 @admin_required

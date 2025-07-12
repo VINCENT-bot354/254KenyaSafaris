@@ -29,7 +29,7 @@ def save_data(filename, data):
 
 def allowed_file(filename):
     """Check if file extension is allowed"""
-    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'svg'}
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jfif', 'jpeg', 'gif', 'webp', 'svg'}
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def get_file_url(filename):

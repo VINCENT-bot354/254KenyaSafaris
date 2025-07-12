@@ -37,13 +37,13 @@
                 {% if content.settings.logo.filename %}
                     <img src="{{ url_for('static', filename='uploads/' + content.settings.logo.filename) }}" 
                          alt="254 Kenya Safaris Logo" 
-                         style="height: {{ content.settings.logo.height }}px; width: {{ content.settings.logo.width }}px;">
+                         style="height: {{ content.settings.logo.height }}px; width: {{ content.settings.logo.width }}px; margin-left: -25px;">
                 {% endif %}
                 254 KENYA SAFARIS
                 {% if content.settings.flag.filename %}
                     <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
                          alt="Kenya Flag" 
-                         style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
+                         style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 5px;">
                 {% endif %}
             </a>
 
@@ -81,7 +81,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('gallery') }}">
                             <i class="fas fa-camera"></i> Gallery
-                        </a>
+                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{{ url_for('about') }}">
@@ -106,7 +106,7 @@
     <!-- Flash Messages -->
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
-            <div class="container" style="margin-top: 100px;">
+            <div class="container" style="margin-top: 128px;">
                 {% for category, message in messages %}
                     <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show">
                         {{ message }}
@@ -131,9 +131,12 @@
                     <p>Experience the wild beauty of Kenya with our expertly crafted safari tours and cultural experiences.</p>
                     <div class="social-links">
                         <a href="#" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
-                        <a href="#" class="me-3"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="https://www.instagram.com/254kenyasafaris?igsh=ZHZnOTE3c2ltcjJy" class="me-3" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="https://www.tiktok.com/@ke254safari?is_from_webapp=1&sender_device=pc" class="me-3" target="_blank"><i class="fab fa-tiktok fa-2x"></i></a> 
                         <a href="#" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
                         <a href="#" class="me-3"><i class="fab fa-youtube fa-2x"></i></a>
+
+ 
                     </div>
                 </div>
 
@@ -183,8 +186,4 @@
     {% block scripts %}{% endblock %}
 </body>
 </html>
-```
 
-```analysis
-The `services` link has been removed from the navigation bar as requested.
-```

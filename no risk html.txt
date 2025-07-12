@@ -1,0 +1,46 @@
+<!-- About Section -->
+<section class="py-5 tribal-pattern">
+    <div class="container-fluid">
+        <div class="row align-items-center">
+            <div class="col-lg-6 slide-in-left">
+                <h2>{{ content.homepage.about_title }}</h2>
+                <p class="lead">{{ content.homepage.about_description }}</p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="safari-icon d-inline-block">
+                            <i class="fas fa-binoculars"></i>
+                        </div>
+                        <h5>Wildlife Tours</h5>
+                        <p>Professional guided wildlife viewing experiences</p>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="safari-icon d-inline-block">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h5>Photography</h5>
+                        <p>Capture stunning moments with expert guidance</p>
+                    </div>
+                </div>
+                <a href="{{ url_for('about') }}" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Learn More
+                </a>
+            </div>
+           <div class="container">
+            <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="row">
+                    <div class="col-12 col-md-6 mb-3">
+<img 
+src="https://github.com/VINCENT-bot354/IMAGES/blob/main/elephant2.jpeg?raw=true" 
+class= "img-fluid w-100"
+
+                    
+                    </div>
+                    <div class="col-md-6 mb-3">
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -24,24 +24,26 @@
     "title": "Explore Kenya's Premier Destinations",
     "description": "From the world-famous Maasai Mara to the pristine beaches of the coast, Kenya offers diverse landscapes and incredible wildlife experiences.",
     "featured_destinations": [
-      "Maasai Mara National Reserve",
-      "Amboseli National Park",
-      "Tsavo East & West",
-      "Lake Nakuru National Park",
-      "Mount Kenya National Park",
-      "Samburu National Reserve"
+      "Maasai Mara National Reserve\r",
+      "Amboseli National Park\r",
+      "Tsavo East & West\r",
+      "Lake Nakuru National Park\r",
+      "Mount Kenya National Park\r",
+      "Samburu National Reserve\r",
+      "Other Destinations"
     ]
   },
   "activities": {
     "title": "Safari Activities & Adventures",
     "description": "Experience Kenya through various exciting activities designed to showcase the country's natural beauty and wildlife.",
     "featured_activities": [
-      "Game Drives",
-      "Wildlife Photography",
-      "Cultural Village Visits",
-      "Hot Air Balloon Safaris",
-      "Nature Walks",
-      "Bird Watching"
+      "Game Drives\r",
+      "Wildlife Photography\r",
+      "Cultural Village Visits\r",
+      "Hot Air Balloon Safaris\r",
+      "Nature Walks\r",
+      "Bird Watching\r",
+      "Other Activities"
     ]
   },
   "about": {
@@ -49,15 +51,20 @@
     "description": "Your trusted partner for authentic Kenyan safari experiences.",
     "mission": "To provide exceptional safari experiences that showcase Kenya's natural beauty while supporting local communities and conservation efforts.",
     "vision": "To be Kenya's leading safari operator, known for our commitment to sustainable tourism and unforgettable wildlife encounters.",
-    "values": "Conservation, Community, Authenticity, Excellence, and Sustainability are at the heart of everything we do."
+    "values": "honesty, passionate, welcoming"
   },
   "contact": {
     "title": "Contact Us",
     "description": "Get in touch with our safari experts to plan your perfect Kenyan adventure.",
     "address": "Nairobi, Kenya",
-    "phone": "+254 706 079 535",
+    "phone": "+254 706 379 395, +254 718 804 959",
     "email": "254kenyasafaris@gmail.com",
-    "hours": "OPEN 24/7"
+    "hours": "OPEN 24/7",
+    "instagram": "https://www.instagram.com/254kenyasafaris?igsh=ZHZnOTE3c2ltcjJy",
+    "tiktok": "https://www.tiktok.com/@ke254safari?lang=en&is_from_webapp=1&sender_device=mobile&sender_web_id=7526164570744079878",
+    "whatsapp": "",
+    "twitter": "",
+    "facebook": ""
   },
   "services": {
     "title": "Our Services",
@@ -65,116 +72,109 @@
     "categories": [
       {
         "id": 1,
-        "icon": "✈️",
+        "icon": "✈️  ",
         "name": "Travel Coordination",
         "items": [
-          "Flight Booking Support",
+          "Flight Booking and Support",
           "Custom Travel Itinerary Planning",
           "Hotel or Lodge Reservations",
           "Local SIM Card Pre-Order or Provision",
-          "Prepaid Internet Packages / WiFi Device Rental"
+          "Prepaid Internet Packages/ Wi-Fi Device Rental"
         ]
       },
       {
         "id": 2,
-        "icon": "🚖",
+        "icon": " 🚖",
         "name": "Arrival & Airport Services",
         "items": [
-          "Airport Pickup / Meet & Greet",
-          "Luggage Assistance or Porters",
+          "Airport Pickup / Meet And Greet",
+          "Luggage Assistance Or Porters",
           "Currency Exchange Assistance"
         ]
       },
       {
         "id": 3,
-        "icon": "🛏️",
-        "name": "Accommodation & Hospitality",
+        "icon": " 🛏️",
+        "name": "Accommodation And Hospitality",
         "items": [
           "Hotel Check-in Support",
-          "Alternative Accommodation (Airbnb, homestays, lodges)",
-          "Daily Housekeeping (for longer stays)",
+          "Alternative Accommodation (Airbnb, Home stays, Lodges)",
+          "Daily Housekeeping (For Longer Stays)",
           "24/7 Local Support / Hotline"
         ]
       },
       {
         "id": 4,
-        "icon": "🚗",
-        "name": "Transport Services",
-        "items": [
-          "Car Rental with or without Driver",
-          "Chauffeur Services",
-          "Motorbike or Scooter Rental",
-          "Airport Drop-Off",
-          "Shuttle Transfers (Hotel ⇄ Parks ⇄ City ⇄ Airport)"
-        ]
+        "icon": " 🚗",
+        "name": "transport services",
+        "items": []
       },
       {
         "id": 5,
-        "icon": "🌍",
-        "name": "Tour & Activity Services",
+        "icon": " 🌍",
+        "name": "Tour And Activity Changes",
         "items": [
           "City Tours & Excursions",
           "National Park Safaris",
-          "Cultural Tours / Village Visits",
-          "Adventure Activities (hiking, rafting, ziplining)",
-          "Beach Trips / Coastal Excursions",
-          "Photography & Drone Packages",
+          "Cultural Course / Village Visit",
+          "Adventure Activities (Hiking, Rafting, Ziplining)",
+          "Beach Trips/costal Excursions",
+          "Photography And Drone Packages",
           "Wildlife Guide Services"
         ]
       },
       {
         "id": 6,
-        "icon": "🍽️",
-        "name": "Food & Dining Support",
+        "icon": " 🍽️",
+        "name": "Food And Dining Support",
         "items": [
           "Restaurant Booking",
           "Local Cuisine Recommendations",
-          "Private Chef or Catering",
-          "Halal / Vegan / Special Diet Meals"
+          "Private Chef Or Catering",
+          "Halal / Vegan/special Diet Meals"
         ]
       },
       {
         "id": 7,
-        "icon": "💬",
-        "name": "Communication & Connectivity",
+        "icon": " 💬",
+        "name": "Communication And Connectivity",
         "items": [
-          "Local SIM Card + Airtime / Data",
-          "WiFi Hotspot Rental",
-          "Translation / Interpreter Services",
-          "Tour Guide with Multilingual Skills"
+          "Local Sim Card + Airtime/data",
+          "Wi-fi Hotspot Rental",
+          "Translation/interpreter Services"
         ]
       },
       {
         "id": 8,
-        "icon": "🛍️",
-        "name": "Shopping & Local Experience",
+        "icon": " 🛍️",
+        "name": "Shopping And Local Experience",
         "items": [
           "Souvenir Recommendations",
-          "Shopping Tour with Local Guide",
-          "Bargaining Help in Local Markets"
+          "Shopping Tour With Local Guide",
+          "Bargaining Help In Local Markets"
         ]
       },
       {
         "id": 9,
-        "icon": "🧘",
-        "name": "Wellness & Emergency Support",
+        "icon": " 🧘",
+        "name": "Wellness And Emergency Support",
         "items": [
           "Medical Assistance / Travel Clinic Info",
           "Pharmacy Access",
-          "COVID-19 Testing (if needed)",
-          "Massage, Spa, or Wellness Booking"
+          "COVUD-19 Testing (If Needed)",
+          "Massage, Spa, Or Wellness Booking"
         ]
       },
       {
         "id": 10,
-        "icon": "🧾",
+        "icon": " 🧾",
         "name": "Other Add-ons",
         "items": [
-          "Photography & Videography Services",
+          "Photography And Videography Services",
           "Laundry Services",
-          "Special Event Planning (e.g., Honeymoon setup, Birthdays)",
+          "Special Event Planning (E.g, Honeymoon Setups, Birthdays)",
           "Childcare or Babysitting",
-          "Luggage Storage or Delivery"
+          "Market Storage Or Delivery"
         ]
       }
     ]

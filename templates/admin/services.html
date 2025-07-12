@@ -82,7 +82,7 @@
                             </div>
                             <div class="card-body">
                                 <ul class="list-unstyled mb-0">
-                                    {% for item in category.items %}
+                                    {% for item in category['items'] %}
                                     <li class="mb-1">
                                         <i class="fas fa-check text-success me-2"></i>
                                         {{ item }}
@@ -155,7 +155,7 @@
                     <div class="mb-3">
                         <label class="form-label">Service Items</label>
                         <small class="form-text text-muted">Enter each service item on a new line</small>
-                        <textarea class="form-control" name="items" rows="10">{% for item in category.items %}{{ item }}
+                        <textarea class="form-control" name="items" rows="10">{% for item in category['items'] %}{{ item }}
 {% endfor %}</textarea>
                     </div>
                 </div>

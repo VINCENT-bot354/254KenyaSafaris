@@ -14,41 +14,41 @@
       "Game drives\r",
       "Cultural village visit"
     ],
-    "image": "https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg"
+    "image": "https://github.com/VINCENT-bot354/IMAGES/blob/main/Maasai%20Mara%20Cheetah.jpeg?raw=true"
   },
   {
     "id": 2,
     "name": "Amboseli Elephant Safari",
     "description": "Witness the majestic elephants of Amboseli with the stunning backdrop of Mount Kilimanjaro.",
-    "price_usd": "380",
-    "price_ksh": "49400",
+    "price_usd": "",
+    "price_ksh": "",
     "duration": "2 Days / 1 Night",
     "services": [
-      "Transport in safari vehicle",
-      "Professional guide",
-      "Lodge accommodation",
-      "Meals included",
-      "Game drives",
+      "Transport in safari vehicle\r",
+      "Professional guide\r",
+      "Lodge accommodation\r",
+      "Meals included\r",
+      "Game drives\r",
       "Photography opportunities"
     ],
-    "image": "https://pixabay.com/get/g258f08c919a8441dc0cb8ad34afa7798fe7d1167f6c6b4495b8200d8ac1816c254e10b08622b82d88add5849151e92747af3969299a26a57d3ec6d44a1ae189a_1280.jpg"
+    "image": "https://github.com/VINCENT-bot354/IMAGES/blob/main/Amboseli%20Elephant.jpeg?raw=true"
   },
   {
     "id": 3,
     "name": "Kenya Grand Safari",
     "description": "Comprehensive safari covering multiple parks including Maasai Mara, Amboseli, and Lake Nakuru.",
-    "price_usd": "850",
-    "price_ksh": "110500",
+    "price_usd": "",
+    "price_ksh": "",
     "duration": "7 Days / 6 Nights",
     "services": [
-      "Transport in 4WD safari vehicle",
-      "Professional guide",
-      "Accommodation in lodges",
-      "All meals",
-      "Game drives",
-      "Park fees",
+      "Transport in 4WD safari vehicle\r",
+      "Professional guide\r",
+      "Accommodation in lodges\r",
+      "All meals\r",
+      "Game drives\r",
+      "Park fees\r",
       "Cultural experiences"
     ],
-    "image": "https://pixabay.com/get/g0f3dd39779974552feb01ccfd9b948a4e049739c1f1fb736f8353e749672118a7b68530c54003de89d7820c3d86966ce777a9ca68307065136d12b9bf595caab_1280.jpg"
+    "image": "https://github.com/VINCENT-bot354/IMAGES/blob/main/Kenya%20ground%20tour.jpg?raw=true"
   }
 ]
