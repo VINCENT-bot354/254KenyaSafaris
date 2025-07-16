@@ -164,5 +164,18 @@
 
 <!-- Additional Page-Specific Scripts -->
 {% block scripts %}{% endblock %}
+<script>
+  document.addEventListener('click', function (event) {
+    const navMenu = document.getElementById('navbarNav'); // your nav ID
+    const toggleButton = document.querySelector('.navbar-toggler');
+
+    if (navMenu.classList.contains('show') &&
+        !navMenu.contains(event.target) &&
+        !toggleButton.contains(event.target)) {
+      toggleButton.click();  // Collapse menu
+    }
+  });
+</script>
+    
 </body>
 </html>
