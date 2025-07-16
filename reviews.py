@@ -15,7 +15,8 @@ def init_db():
         )''')
 init_db()
 
-@reviews_bp.route('/reviews', methods=['GET', 'POST'])
+@reviews_bp.route('/reviews', methods=['GET', 'POST'], endpoint='reviews')
+
 def get_top_reviews(limit=5, min_stars=4):
     with sqlite3.connect('reviews.db') as conn:
         cur = conn.cursor()
