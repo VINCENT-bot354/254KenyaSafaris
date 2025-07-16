@@ -2,6 +2,7 @@ import os
 import logging
 from flask import Flask
 from flask_mail import Mail
+from reviews import reviews_bp
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Configure logging
