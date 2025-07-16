@@ -29,6 +29,35 @@
     </div>
 </section>
 
+<section id="testimonials" class="bg-light py-5">
+  <div class="container">
+    <h2 class="text-center mb-4">What Our Customers Say</h2>
+    <div class="row">
+      {% for name, country, comment, stars in reviews %}
+      <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100">
+          <div class="card-body">
+            <h5 class="card-title">{{ name }} <small class="text-muted">from {{ country }}</small></h5>
+            <p class="card-text">"{{ comment }}"</p>
+            <p class="star-rating">
+              {% for i in range(1, 6) %}
+                {% if i <= stars %}
+                  <span>★</span>
+                {% elif i - 0.5 == stars %}
+                  <span>☆</span>
+                {% else %}
+                  <span style="color: lightgray;">★</span>
+                {% endif %}
+              {% endfor %}
+            </p>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
 <!-- Hardcoded Reviews Section -->
 <section class="py-5">
     <div class="container">
