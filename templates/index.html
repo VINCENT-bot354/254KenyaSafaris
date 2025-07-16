@@ -31,7 +31,8 @@
 
 <section id="testimonials" class="bg-light py-5">
   <div class="container">
-    <h2 class="text-center mb-4">What Our Customers Say</h2>
+    <h2 class="text-center mb-4" style="color: green;">What Our Customers Say</h2>
+
     <div class="row">
       {% for name, country, comment, stars in reviews %}
       <div class="col-md-4 mb-4">
@@ -90,47 +91,7 @@
 
 <!-- Hardcoded Reviews Section -->
 <section class="py-5">
-    <div class="container">
-        <div class="text-center mb-5 fade-in">
-            <h2 style="color: #2ecc71;">What Our Customers Say</h2>
-        </div>
 
-        <!-- Review 1 -->
-        <div style="border: 1px solid #ddd; border-left: 5px solid #2ecc71; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa;">
-            <strong>Emily Wanjiku from Kenya</strong><br>
-            Kenya is magical, and 254 Kenya Safaris made it perfect
-            <span style="color: #f1c40f; font-weight: bold;">Rating: 5 ⭐</span>
-        </div>
-
-        <!-- Review 2 -->
-        <div style="border: 1px solid #ddd; border-left: 5px solid #2ecc71; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa;">
-            <strong>Lucas Smith from Canada</strong><br>
-            254 Kenya Safaris gave us the best tour experience ever
-            <span style="color: #f1c40f; font-weight: bold;">Rating: 5 ⭐</span>
-        </div>
-
-        <!-- Review 3 -->
-        <div style="border: 1px solid #ddd; border-left: 5px solid #2ecc71; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa;">
-            <strong>Amina Yusuf from Nigeria</strong><br>
-            Kenya’s wildlife and landscapes are absolutely breathtaking
-            <span style="color: #f1c40f; font-weight: bold;">Rating: 5 ⭐</span>
-        </div>
-
-        <!-- Review 4 -->
-        <div style="border: 1px solid #ddd; border-left: 5px solid #2ecc71; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa;">
-            <strong>Raj Patel from India</strong><br>
-            Loved every moment in Kenya, thanks to 254 Kenya Safaris
-            <span style="color: #f1c40f; font-weight: bold;">Rating: 4 ⭐</span>
-        </div>
-
-        <!-- Review 5 -->
-        <div style="border: 1px solid #ddd; border-left: 5px solid #2ecc71; padding: 15px; margin-bottom: 15px; border-radius: 6px; background-color: #fafafa;">
-            <strong>Sarah Johnson from USA</strong><br>
-            Kenya is the best place to visit and I'm glad I trusted 254 Kenya Safaris to take care of everything
-            <span style="color: #f1c40f; font-weight: bold;">Rating: 5 ⭐</span>
-        </div>
-    </div>
-</section>
 <div style="text-align: center; margin-top: -40px;">
     <a href="{{ url_for('reviews.reviews') }}">
         <button style="padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 5px;">
