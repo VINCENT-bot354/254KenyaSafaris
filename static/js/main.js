@@ -485,15 +485,21 @@ function toggleMobileMenu() {
     }
 }
 
-// Close mobile menu when clicking outside
+// Enhanced: Close mobile menu when clicking outside it
 document.addEventListener('click', function(e) {
     const mobileMenu = document.getElementById('mobileMenu');
     const navbarToggler = document.querySelector('.navbar-toggler');
 
-    if (mobileMenu && !mobileMenu.contains(e.target) && !navbarToggler.contains(e.target)) {
+    if (
+        mobileMenu &&
+        mobileMenu.classList.contains('show') &&
+        !mobileMenu.contains(e.target) &&
+        !navbarToggler.contains(e.target)
+    ) {
         mobileMenu.classList.remove('show');
     }
 });
+
 
 // Lazy loading for images
 function initializeLazyLoading() {
