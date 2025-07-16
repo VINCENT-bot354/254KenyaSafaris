@@ -36,7 +36,8 @@
       {% for name, country, comment, stars in reviews %}
       <div class="col-md-4 mb-4">
         <div class="card shadow-sm h-100" style="border-left: 8px solid #2ecc71;">
-          <div class="card-body">
+          <div class="card-body pb-1">
+
             <h5 class="card-title">{{ name }} <small class="fw-bold">from {{ country }}</small></h5>
             <p class="card-text" style="margin: 0;">"{{ comment }}"</p>
             <p class="star-rating" style="margin: 0;">
