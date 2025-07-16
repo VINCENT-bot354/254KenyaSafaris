@@ -17,14 +17,6 @@ init_db()
 
 @reviews_bp.route('/reviews', methods=['GET', 'POST'], endpoint='reviews')
 
-def get_top_reviews(limit=5, min_stars=4):
-    with sqlite3.connect('reviews.db') as conn:
-        cur = conn.cursor()
-        cur.execute('SELECT name, country, comment, stars FROM reviews WHERE stars >= ? ORDER BY stars DESC LIMIT ?', (min_stars, limit))
-        rows = cur.fetchall()
-
-    # Round star ratings to the nearest 0.5
-    return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
 
 def reviews():
     if request.method == 'POST':
@@ -48,6 +40,15 @@ def reviews():
     for r in all_reviews:
         rounded = round(r[3] * 2) / 2
         processed_reviews.append((r[0], r[1], r[2], rounded))
+        
+def get_top_reviews(limit=5, min_stars=4):
+    with sqlite3.connect('reviews.db') as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT name, country, comment, stars FROM reviews WHERE stars >= ? ORDER BY stars DESC LIMIT ?', (min_stars, limit))
+        rows = cur.fetchall()
+
+    # Round star ratings to the nearest 0.5
+    return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
 
     return render_template('review.html', reviews=processed_reviews)
 
