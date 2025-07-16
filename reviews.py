@@ -41,6 +41,9 @@ def reviews():
         rounded = round(r[3] * 2) / 2
         processed_reviews.append((r[0], r[1], r[2], rounded))
         
+
+    return render_template('review.html', reviews=processed_reviews)
+
 def get_top_reviews(limit=5, min_stars=4):
     with sqlite3.connect('reviews.db') as conn:
         cur = conn.cursor()
@@ -50,7 +53,6 @@ def get_top_reviews(limit=5, min_stars=4):
     # Round star ratings to the nearest 0.5
     return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
 
-    return render_template('review.html', reviews=processed_reviews)
 
 @reviews_bp.route('/manage-reviews', methods=['GET'])
 def manage_reviews():
