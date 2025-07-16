@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Reviews</title>
+    <style>
+        body { font-family: Arial; padding: 20px; background-color: #f0f0f0; }
+        .review {
+            border: 1px solid #ccc;
+            border-left: 4px solid red;
+            padding: 10px;
+            margin: 10px 0;
+            background: white;
+            border-radius: 5px;
+        }
+        .stars { color: orange; }
+        form { display: inline; }
+        button.delete-btn {
+            background-color: red;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Manage Reviews (Admin Panel)</h2>
+
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="review">
+                <strong>{{ review[1] }} from {{ review[2] }}</strong><br>
+                <div class="stars">Rating: {{ review[4] }} ⭐</div>
+                <p>{{ review[3] }}</p>
+                <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
+                    <button class="delete-btn" onclick="return confirm('Delete this review?');">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews to manage.</p>
+    {% endif %}
+
+</body>
+</html>
