@@ -65,29 +65,39 @@
         }
 
         form input,
-        form textarea,
-        form select {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            margin-bottom: 15px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+form textarea,
+form select {
+    width: 100%;
+    padding: 15px;
+    font-size: 1.2rem;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+}
 
-        form button {
-            background-color: #2ecc71;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
+form textarea {
+    height: 150px; /* More space for comments */
+    resize: vertical;
+}
 
-        form button:hover {
-            background-color: #27ae60;
-        }
+form button {
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 14px 20px;
+    border-radius: 6px;
+    font-size: 1.3rem;
+    font-weight: bold;
+    cursor: pointer;
+    width: 100%;
+}
+
+form button:hover {
+    background-color: #27ae60;
+}
+
     </style>
 </head>
 <body>
