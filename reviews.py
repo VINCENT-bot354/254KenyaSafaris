@@ -16,6 +16,15 @@ def init_db():
 init_db()
 
 @reviews_bp.route('/reviews', methods=['GET', 'POST'])
+def get_top_reviews(limit=5, min_stars=4):
+    with sqlite3.connect('reviews.db') as conn:
+        cur = conn.cursor()
+        cur.execute('SELECT name, country, comment, stars FROM reviews WHERE stars >= ? ORDER BY stars DESC LIMIT ?', (min_stars, limit))
+        rows = cur.fetchall()
+
+    # Round star ratings to the nearest 0.5
+    return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
+
 def reviews():
     if request.method == 'POST':
         name = request.form['name']
