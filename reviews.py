@@ -9,64 +9,95 @@ import os
 import psycopg2
 from dotenv import load_dotenv
 
-load_dotenv()
-#Load environment variables from .env file
-
+# Load environment variables from .env file
 load_dotenv()
 
-#Define Blueprint
+# Define Blueprint
+reviews_bp = Blueprint('reviews', __name__)
 
-reviews_bp = Blueprint('reviews', name)
+# PostgreSQL connection helper
+def get_connection():
+    return psycopg2.connect(
+        host=os.getenv("DB_HOST"),
+        dbname=os.getenv("DB_NAME"),
+        user=os.getenv("DB_USER"),
+        password=os.getenv("DB_PASSWORD"),
+        sslmode="require"
+    )
 
---- PostgreSQL connection helper ---
-
-def get_connection(): return psycopg2.connect( host=os.getenv("DB_HOST"), dbname=os.getenv("DB_NAME"), user=os.getenv("DB_USER"), password=os.getenv("DB_PASSWORD"), sslmode="require" )
-
---- Create table if not exists ---
-
-def init_db(): with get_connection() as conn: with conn.cursor() as cur: cur.execute(''' CREATE TABLE IF NOT EXISTS reviews ( id SERIAL PRIMARY KEY, name TEXT NOT NULL, country TEXT NOT NULL, comment TEXT NOT NULL, stars INTEGER NOT NULL CHECK (stars >= 1 AND stars <= 5) ) ''') conn.commit()
-
-Initialize the database
-
-init_db()
-
---- Route: /reviews ---
-
-@reviews_bp.route('/reviews', methods=['GET', 'POST'], endpoint='reviews') def reviews(): if request.method == 'POST': name = request.form['name'] country = request.form['country'] comment = request.form['comment'] stars = int(request.form['stars'])
-
-with get_connection() as conn:
+# Create table if not exists
+def init_db():
+    with get_connection() as conn:
         with conn.cursor() as cur:
-            cur.execute(
-                'INSERT INTO reviews (name, country, comment, stars) VALUES (%s, %s, %s, %s)',
-                (name, country, comment, stars)
-            )
+            cur.execute('''
+                CREATE TABLE IF NOT EXISTS reviews (
+                    id SERIAL PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    country TEXT NOT NULL,
+                    comment TEXT NOT NULL,
+                    stars INTEGER NOT NULL CHECK (stars >= 1 AND stars <= 5)
+                )
+            ''')
             conn.commit()
 
-    return redirect(url_for('reviews.reviews'))
+# Initialize the database
+init_db()
 
-with get_connection() as conn:
-    with conn.cursor() as cur:
-        cur.execute('SELECT name, country, comment, stars FROM reviews')
-        all_reviews = cur.fetchall()
+# Route: /reviews
+@reviews_bp.route('/reviews', methods=['GET', 'POST'], endpoint='reviews')
+def reviews():
+    if request.method == 'POST':
+        name = request.form['name']
+        country = request.form['country']
+        comment = request.form['comment']
+        stars = int(request.form['stars'])
 
-processed_reviews = [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in all_reviews]
-return render_template('review.html', reviews=processed_reviews)
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    'INSERT INTO reviews (name, country, comment, stars) VALUES (%s, %s, %s, %s)',
+                    (name, country, comment, stars)
+                )
+                conn.commit()
 
---- Helper: Top reviews ---
+        return redirect(url_for('reviews.reviews'))
 
-def get_top_reviews(limit=5, min_stars=4): with get_connection() as conn: with conn.cursor() as cur: cur.execute( 'SELECT name, country, comment, stars FROM reviews WHERE stars >= %s ORDER BY stars DESC LIMIT %s', (min_stars, limit) ) rows = cur.fetchall()
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT name, country, comment, stars FROM reviews')
+            all_reviews = cur.fetchall()
 
-return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
+    processed_reviews = [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in all_reviews]
+    return render_template('review.html', reviews=processed_reviews)
 
---- Route: /manage-reviews ---
+# Helper: Top reviews
+def get_top_reviews(limit=5, min_stars=4):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute(
+                'SELECT name, country, comment, stars FROM reviews WHERE stars >= %s ORDER BY stars DESC LIMIT %s',
+                (min_stars, limit)
+            )
+            rows = cur.fetchall()
 
-@reviews_bp.route('/manage-reviews', methods=['GET']) def manage_reviews(): with get_connection() as conn: with conn.cursor() as cur: cur.execute('SELECT id, name, country, comment, stars FROM reviews') all_reviews = cur.fetchall()
+    return [(r[0], r[1], r[2], round(r[3] * 2) / 2) for r in rows]
 
-return render_template('manage_reviews.html', reviews=all_reviews)
+# Route: /manage-reviews
+@reviews_bp.route('/manage-reviews', methods=['GET'])
+def manage_reviews():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT id, name, country, comment, stars FROM reviews')
+            all_reviews = cur.fetchall()
 
---- Route: /delete-review/<id> ---
+    return render_template('manage_reviews.html', reviews=all_reviews)
 
-@reviews_bp.route('/delete-review/int:review_id', methods=['POST']) def delete_review(review_id): with get_connection() as conn: with conn.cursor() as cur: cur.execute('DELETE FROM reviews WHERE id = %s', (review_id,)) conn.commit()
+# Route: /delete-review/<id>
+@reviews_bp.route('/delete-review/<int:review_id>', methods=['POST'])
+def delete_review(review_id):
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('DELETE FROM reviews WHERE id = %s', (review_id,))
+            conn.commit()
 
-return redirect(url_for('reviews.manage_reviews'))
-
+    return redirect(url_for('reviews.manage_reviews'))
