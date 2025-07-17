@@ -14,7 +14,7 @@ load_dotenv()
 
 load_dotenv()
 
-Define Blueprint
+#Define Blueprint
 
 reviews_bp = Blueprint('reviews', name)
 
