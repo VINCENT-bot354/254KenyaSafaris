@@ -1,47 +1,76 @@
-{% extends "base.html" %}
-
-{% block title %}Nairobi Chat Assistant - 254 Kenya Safaris{% endblock %}
-
-{% block content %}
-<section class="py-5 mt-5">
-    <div class="container">
-        <h1 class="text-center mb-4">Ask Us Anything About Nairobi Safaris</h1>
-
-        <div class="ratio ratio-16x9">
-            <iframe
-                src="https://www.chatbase.co/chatbot-iframe/DW5hU9kMkFoN18ooKFNIy"
-                width="100%"
-                style="height: 700px; border: none;"
-                frameborder="0"
-                allow="microphone;"
-            ></iframe>
-        </div>
-    </div>
-</section>
-{% endblock %}
-
-{% block scripts %}
-{{ super() }}
-<script>
-    // Any custom JS you want for the Nairobi page
-</script>
-{% endblock %}
-
-{% set content = {
-    "about": {
-        "title": "Nairobi Safaris",
-        "description": "Explore safari experiences and personalized trips around Nairobi, Kenya."
-    },
-    "settings": {
-        "logo": {
-            "filename": "default-logo.png",
-            "height": 50,
-            "width": 50
-        },
-        "flag": {
-            "filename": "kenya-flag.png",
-            "height": 25,
-            "width": 40
-        }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Nairobi – AI Assistant</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f7f7f7;
     }
-} %}
+
+    .top-right-home {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      z-index: 999;
+    }
+
+    .home-button {
+      padding: 10px 16px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-size: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+
+    .home-button:hover {
+      background-color: #0056b3;
+    }
+
+    .iframe-container {
+      margin-top: 60px;
+      width: 100%;
+      height: calc(100vh - 60px);
+    }
+
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      min-height: 700px;
+    }
+
+    @media (max-width: 600px) {
+      .home-button {
+        font-size: 13px;
+        padding: 8px 12px;
+      }
+
+      .iframe-container {
+        margin-top: 55px;
+        height: calc(100vh - 55px);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-right-home">
+    <a href="/" class="home-button">Home</a>
+  </div>
+
+  <div class="iframe-container">
+    <iframe
+      src="https://www.chatbase.co/chatbot-iframe/DW5hU9kMkFoN18ooKFNIy"
+      allow="microphone"
+    ></iframe>
+  </div>
+
+</body>
+</html>
