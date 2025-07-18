@@ -30,8 +30,8 @@ def index():
 
 @app.route("/nairobi")
 def nairobi():
+    # You can leave it empty because the content is already set in the template
     return render_template("nairobi.html")
-    
 @app.route('/destinations')
 def destinations():
     content = load_data('content.json')
