@@ -26,13 +26,16 @@
                 </a>
                 
 <!-- HTML -->
-<button class="nairobi-button">Chat with Nairobi<br><span>Your AI assistant</span></button>
+<button class="nairobi-button" onclick="window.location.href='/nairobi'">
+  Chat with Nairobi<br>
+  <span>Your AI assistant</span>
+</button>
 
 <!-- CSS -->
 <style>
   .nairobi-button {
     display: block;
-    margin: 40px auto 0 auto; /* top margin = 40px, left/right auto = center */
+    margin: 40px auto 0 auto; /* Top spacing and horizontal centering */
     padding: 12px 20px;
     font-size: 16px;
     background-color: #ff6600;
@@ -41,7 +44,7 @@
     border-radius: 25px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s ease;
     text-align: center;
   }
 
