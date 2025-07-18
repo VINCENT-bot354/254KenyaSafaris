@@ -24,34 +24,36 @@
                 <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
                     <i class="fas fa-suitcase"></i> View Packages
                 </a>
-                <style>
+                
+<!-- HTML -->
+<button class="nairobi-button">Chat with Nairobi<br><span>Your AI assistant</span></button>
+
+<!-- CSS -->
+<style>
   .nairobi-button {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background-color: #1e88e5;
+    display: block;
+    margin: 40px auto 0 auto; /* top margin = 40px, left/right auto = center */
+    padding: 12px 20px;
+    font-size: 16px;
+    background-color: #ff6600;
     color: white;
-    font-size: 14px;
-    padding: 10px 16px;
     border: none;
-    border-radius: 8px;
+    border-radius: 25px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     cursor: pointer;
-    z-index: 1000;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+
+  .nairobi-button span {
+    display: block;
+    font-size: 12px;
+    margin-top: 4px;
+    color: #fff3e6;
   }
 
   .nairobi-button:hover {
-    background-color: #1565c0;
-  }
-
-  @media (max-width: 600px) {
-    .nairobi-button {
-      font-size: 12px;
-      padding: 8px 12px;
-      top: 15px;
-      right: 15px;
-    }
+    background-color: #e65c00;
   }
 </style>
 
