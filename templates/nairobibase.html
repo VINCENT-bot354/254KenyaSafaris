@@ -10,14 +10,15 @@
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: #005f25;
     }
+
     .top-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       background-color: #005f25;
       border-bottom: 1px solid #ddd;
-      height: 50px;
-      padding: 0 15px;
+      height: 75px; /* 1.5x original 50px */
+      padding: 0 22px;
       box-sizing: border-box;
       position: fixed;
       top: 0;
@@ -25,30 +26,46 @@
       right: 0;
       z-index: 999;
     }
+
     .left-section {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px; /* increased spacing */
     }
+
     .left-section img.logo {
-      height: 30px; width: 30px;
+      height: 45px; /* 1.5x original 30px */
+      width: 45px;
     }
+
     .left-section span.brand-name {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 24px; /* 1.5x original 16px */
+      color: #ffffff;
     }
+
     .left-section img.flag {
-      height: 18px;
+      height: 27px; /* 1.5x original 18px */
       border-radius: 3px;
     }
-    .home-link {
+
+    .home-button {
+      background-color: #ffffff;
+      color: #005f25;
+      border: 1px solid #ffffff;
+      padding: 10px 22px; /* slightly larger padding */
+      border-radius: 25px;
+      font-size: 21px; /* 1.5x original 14px */
+      font-weight: 600;
       text-decoration: none;
-      color: #007bff;
-      font-weight: 500;
-      font-size: 14px;
+      transition: background-color 0.3s, color 0.3s;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-    .home-link:hover {
-      text-decoration: underline;
+
+    .home-button:hover {
+      background-color: #e0ffe6;
+      color: #003d18;
+      border-color: #c4f5d0;
     }
   </style>
   {% block extra_styles %}{% endblock %}
@@ -61,7 +78,7 @@
       <span class="brand-name">254 Kenya Safaris</span>
       <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg" alt="Flag" class="flag">
     </div>
-    <a href="/" class="home-link">Home</a>
+    <a href="/" class="home-button">🏠 Home</a>
   </div>
 
   {% block content %}{% endblock %}
