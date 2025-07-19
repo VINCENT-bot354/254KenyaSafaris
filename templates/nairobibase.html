@@ -16,7 +16,7 @@
       justify-content: space-between;
       background-color: #005f25;
       border-bottom: 1px solid #ddd;
-      height: 50px; /* reverted to original */
+      height: 50px;
       padding: 0 15px;
       box-sizing: border-box;
       position: fixed;
@@ -31,22 +31,24 @@
       gap: 8px;
     }
     .left-section img.logo {
-      height: 40px; /* slightly larger than original 30px */
+      height: 40px; /* slightly enlarged */
       width: 40px;
     }
     .left-section span.brand-name {
       font-weight: bold;
-      font-size: 16px; /* original size */
+      font-size: 16px;
     }
     .left-section img.flag {
-      height: 18px; /* original size */
+      height: 18px;
       border-radius: 3px;
     }
     .home-link {
       text-decoration: none;
       color: #007bff;
       font-weight: 500;
-      font-size: 14px; /* original size */
+      font-size: 18px;
+      display: flex;
+      align-items: center;
     }
     .home-link:hover {
       text-decoration: underline;
@@ -62,7 +64,7 @@
       <span class="brand-name">254 Kenya Safaris</span>
       <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg" alt="Flag" class="flag">
     </div>
-    <a href="/" class="home-link">Home</a>
+    <a href="/" class="home-link" title="Home">🏠</a>
   </div>
 
   {% block content %}{% endblock %}
