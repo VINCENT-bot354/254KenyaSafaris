@@ -1,6 +1,12 @@
 {% extends "nairobibase.html" %}
 {% block content %}
 <style>
+    .page-wrapper {
+        margin-top: 60px; /* Prevents overlap with the fixed top bar */
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+
     .top-bar {
         display: flex;
         justify-content: space-between;
@@ -81,23 +87,25 @@
     }
 </style>
 
-<div class="top-bar">
-    <h2>Manage Reviews (Admin Panel)</h2>
-    <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
-</div>
+<div class="page-wrapper">
+    <div class="top-bar">
+        <h2>Manage Reviews (Admin Panel)</h2>
+        <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
+    </div>
 
-{% if reviews %}
-    {% for review in reviews %}
-        <div class="review">
-            <strong>{{ review[1] }} from {{ review[2] }}</strong>
-            <div class="stars">Rating: {{ review[4] }} ⭐</div>
-            <p>{{ review[3] }}</p>
-            <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
-                <button class="delete-btn" onclick="return confirm('Delete this review?');">Delete</button>
-            </form>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No reviews to manage.</p>
-{% endif %}
+    {% if reviews %}
+        {% for review in reviews %}
+            <div class="review">
+                <strong>{{ review[1] }} from {{ review[2] }}</strong>
+                <div class="stars">Rating: {{ review[4] }} ⭐</div>
+                <p>{{ review[3] }}</p>
+                <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
+                    <button class="delete-btn" onclick="return confirm('Delete this review?');">Delete</button>
+                </form>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No reviews to manage.</p>
+    {% endif %}
+</div>
 {% endblock %}
