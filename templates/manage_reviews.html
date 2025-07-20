@@ -12,6 +12,7 @@
     .top-bar h2 {
         margin: 0;
         font-size: 1.5rem;
+        color: #222;
     }
 
     .home-btn {
@@ -32,16 +33,24 @@
     .review {
         border: 1px solid #ccc;
         border-left: 4px solid red;
-        padding: 10px;
-        margin: 10px 0;
+        padding: 10px 15px;
+        margin: 15px 0;
         background: white;
         border-radius: 5px;
         word-wrap: break-word;
     }
 
+    .review strong {
+        display: block;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+        color: #000;
+    }
+
     .stars {
         color: orange;
         margin: 5px 0;
+        font-weight: bold;
     }
 
     form {
@@ -55,6 +64,7 @@
         padding: 5px 10px;
         cursor: pointer;
         border-radius: 5px;
+        font-size: 0.9rem;
     }
 
     @media screen and (max-width: 600px) {
@@ -79,7 +89,7 @@
 {% if reviews %}
     {% for review in reviews %}
         <div class="review">
-            <strong>{{ review[1] }} from {{ review[2] }}</strong><br>
+            <strong>{{ review[1] }} from {{ review[2] }}</strong>
             <div class="stars">Rating: {{ review[4] }} ⭐</div>
             <p>{{ review[3] }}</p>
             <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
