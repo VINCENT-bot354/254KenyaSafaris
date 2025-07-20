@@ -28,6 +28,10 @@ def index():
     reviews = get_top_reviews(limit=5, min_stars=4)
     return render_template('index.html', content=content, packages=packages[:3], gallery=gallery[:6], reviews=reviews)
 
+@app.route("/kenyalive")
+def live_stream():
+    return render_template("kenyalive.html")
+    
 @app.route("/nairobi")
 def nairobi():
     return render_template("nairobi.html")
