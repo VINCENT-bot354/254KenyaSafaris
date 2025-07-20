@@ -8,7 +8,7 @@
     body {
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #005f25;
+      background-color: #f7f7f7;
     }
     .top-bar {
       display: flex;
@@ -16,7 +16,7 @@
       justify-content: space-between;
       background-color: #005f25;
       border-bottom: 1px solid #ddd;
-      height: 50px;
+      height: 60px;
       padding: 0 15px;
       box-sizing: border-box;
       position: fixed;
@@ -28,25 +28,26 @@
     .left-section {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
     }
     .left-section img.logo {
-      height: 40px; /* slightly enlarged */
-      width: 40px;
+      height: 48px;
+      width: 48px;
     }
     .left-section span.brand-name {
       font-weight: bold;
-      font-size: 16px;
+      font-size: 18px;
+      color: white;
     }
     .left-section img.flag {
-      height: 18px;
+      height: 22px;
       border-radius: 3px;
     }
     .home-link {
       text-decoration: none;
-      color: #007bff;
+      color: white;
       font-weight: 500;
-      font-size: 18px;
+      font-size: 20px;
       display: flex;
       align-items: center;
     }
@@ -57,7 +58,7 @@
   {% block extra_styles %}{% endblock %}
 </head>
 <body>
-  <!-- Top bar -->
+  <!-- Top Navigation Bar -->
   <div class="top-bar">
     <div class="left-section">
       <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg" alt="Logo" class="logo">
@@ -67,6 +68,7 @@
     <a href="/" class="home-link" title="Home">🏠</a>
   </div>
 
+  <!-- Page Content -->
   {% block content %}{% endblock %}
 </body>
 </html>
