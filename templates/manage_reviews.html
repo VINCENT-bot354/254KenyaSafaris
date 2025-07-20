@@ -1,111 +1,93 @@
 {% extends "nairobibase.html" %}
 {% block content %}
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Manage Reviews</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- Makes it responsive -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Font Awesome for the icon -->
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background-color: #f0f0f0;
-            margin: 0;
-        }
+<style>
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+    }
 
+    .top-bar h2 {
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .home-btn {
+        text-decoration: none;
+        color: white;
+        background-color: #3498db;
+        padding: 8px 12px;
+        border-radius: 5px;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .home-btn i {
+        margin-right: 6px;
+    }
+
+    .review {
+        border: 1px solid #ccc;
+        border-left: 4px solid red;
+        padding: 10px;
+        margin: 10px 0;
+        background: white;
+        border-radius: 5px;
+        word-wrap: break-word;
+    }
+
+    .stars {
+        color: orange;
+        margin: 5px 0;
+    }
+
+    form {
+        display: inline;
+    }
+
+    button.delete-btn {
+        background-color: red;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        border-radius: 5px;
+    }
+
+    @media screen and (max-width: 600px) {
         .top-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .top-bar h2 {
-            margin: 0;
-            font-size: 1.5rem;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
         }
 
         .home-btn {
-            text-decoration: none;
-            color: white;
-            background-color: #3498db;
-            padding: 8px 12px;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
+            font-size: 0.85rem;
+            padding: 6px 10px;
         }
+    }
+</style>
 
-        .home-btn i {
-            margin-right: 6px;
-        }
+<div class="top-bar">
+    <h2>Manage Reviews (Admin Panel)</h2>
+    <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
+</div>
 
-        .review {
-            border: 1px solid #ccc;
-            border-left: 4px solid red;
-            padding: 10px;
-            margin: 10px 0;
-            background: white;
-            border-radius: 5px;
-            word-wrap: break-word;
-        }
-
-        .stars {
-            color: orange;
-            margin: 5px 0;
-        }
-
-        form {
-            display: inline;
-        }
-
-        button.delete-btn {
-            background-color: red;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-
-        @media screen and (max-width: 600px) {
-            .top-bar {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-
-            .home-btn {
-                font-size: 0.85rem;
-                padding: 6px 10px;
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="top-bar">
-        <h2>Manage Reviews (Admin Panel)</h2>
-        <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
-    </div>
-
-    {% if reviews %}
-        {% for review in reviews %}
-            <div class="review">
-                <strong>{{ review[1] }} from {{ review[2] }}</strong><br>
-                <div class="stars">Rating: {{ review[4] }} ⭐</div>
-                <p>{{ review[3] }}</p>
-                <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
-                    <button class="delete-btn" onclick="return confirm('Delete this review?');">Delete</button>
-                </form>
-            </div>
-        {% endfor %}
-    {% else %}
-        <p>No reviews to manage.</p>
-    {% endif %}
-
-</body>
-</html>
+{% if reviews %}
+    {% for review in reviews %}
+        <div class="review">
+            <strong>{{ review[1] }} from {{ review[2] }}</strong><br>
+            <div class="stars">Rating: {{ review[4] }} ⭐</div>
+            <p>{{ review[3] }}</p>
+            <form method="POST" action="{{ url_for('reviews.delete_review', review_id=review[0]) }}">
+                <button class="delete-btn" onclick="return confirm('Delete this review?');">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+{% else %}
+    <p>No reviews to manage.</p>
+{% endif %}
 {% endblock %}
