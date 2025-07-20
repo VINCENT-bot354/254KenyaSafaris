@@ -1,13 +1,15 @@
 {% extends "nairobibase.html" %}
-{% block content %}
+{% block title %}Manage Reviews | 254 Kenya Safaris{% endblock %}
+
+{% block extra_styles %}
 <style>
     .page-wrapper {
-        margin-top: 60px; /* Prevents overlap with the fixed top bar */
-        padding: 0 10px;
+        margin-top: 70px; /* Prevents overlap with fixed top bar */
+        padding: 0 15px;
         box-sizing: border-box;
     }
 
-    .top-bar {
+    .top-bar-section {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -15,25 +17,10 @@
         flex-wrap: wrap;
     }
 
-    .top-bar h2 {
+    .top-bar-section h2 {
         margin: 0;
         font-size: 1.5rem;
         color: #222;
-    }
-
-    .home-btn {
-        text-decoration: none;
-        color: white;
-        background-color: #3498db;
-        padding: 8px 12px;
-        border-radius: 5px;
-        font-size: 0.9rem;
-        display: flex;
-        align-items: center;
-    }
-
-    .home-btn i {
-        margin-right: 6px;
     }
 
     .review {
@@ -74,23 +61,19 @@
     }
 
     @media screen and (max-width: 600px) {
-        .top-bar {
+        .top-bar-section {
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
         }
-
-        .home-btn {
-            font-size: 0.85rem;
-            padding: 6px 10px;
-        }
     }
 </style>
+{% endblock %}
 
+{% block content %}
 <div class="page-wrapper">
-    <div class="top-bar">
+    <div class="top-bar-section">
         <h2>Manage Reviews (Admin Panel)</h2>
-        <a href="/" class="home-btn"><i class="fas fa-home"></i> Home</a>
     </div>
 
     {% if reviews %}
