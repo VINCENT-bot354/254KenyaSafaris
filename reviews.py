@@ -16,16 +16,18 @@ load_dotenv()
 reviews_bp = Blueprint('reviews', __name__)
 
 # PostgreSQL connection helper
+#def get_connection():
+    #return psycopg2.connect(
+        #host=os.getenv("DB_HOST"),
+        #dbname=os.getenv("DB_NAME"),
+        #user=os.getenv("DB_USER"),
+        #password=os.getenv("DB_PASSWORD"),
+        #db_url = os.environ.get("DATABASE_URL"),
+        #sslmode="require"
+    #)
 def get_connection():
-    return psycopg2.connect(
-        host=os.getenv("DB_HOST"),
-        dbname=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        db_url = os.environ.get("DATABASE_URL"),
-        sslmode="require"
-    )
-
+    db_url = os.environ.get("DATABASE_URL")  # <--- the only line you actually need
+    return psycopg2.connect(db_url)
 # Create table if not exists
 def init_db():
     with get_connection() as conn:
