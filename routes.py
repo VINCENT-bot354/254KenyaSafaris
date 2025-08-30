@@ -1,5 +1,6 @@
 import os
 import json
+import requests
 from flask import render_template, request, redirect, url_for, flash, jsonify, session
 from flask_mail import Message
 from werkzeug.utils import secure_filename
@@ -74,11 +75,27 @@ def services():
     content = load_data('content.json')
     return render_template('services.html', content=content)
 
+@import requests  # ⬅️ add this at the top of routes.py if not already there
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     content = load_data('content.json')
 
     if request.method == 'POST':
+        # 🔐 Get reCAPTCHA response
+        recaptcha_response = request.form.get("g-recaptcha-response")
+        verify_url = "https://www.google.com/recaptcha/api/siteverify"
+        payload = {
+            "secret": "6LfQzbcrAAAAAOxU6VSlAP7TaRVeFgFlIsB_LTSi",  # your backend secret key
+            "response": recaptcha_response
+        }
+        r = requests.post(verify_url, data=payload)
+        result = r.json()
+
+        if not result.get("success"):
+            flash("reCAPTCHA verification failed. Please try again.", "error")
+            return render_template('contact.html', content=content)
+
         # Get form data
         name = request.form.get('name')
         email = request.form.get('email')
@@ -161,7 +178,6 @@ This is an automated confirmation. Please do not reply to this email.
             return render_template('contact.html', content=content)
 
     return render_template('contact.html', content=content)
-
 # Admin login
 @app.route('/admin/login', methods=['GET', 'POST'])
 def admin_login():
