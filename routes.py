@@ -75,7 +75,6 @@ def services():
     content = load_data('content.json')
     return render_template('services.html', content=content)
 
-@import requests  # ⬅️ add this at the top of routes.py if not already there
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
