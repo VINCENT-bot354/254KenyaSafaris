@@ -85,7 +85,7 @@ def contact():
         recaptcha_response = request.form.get("g-recaptcha-response")
         verify_url = "https://www.google.com/recaptcha/api/siteverify"
         payload = {
-            "secret": "6LfQzbcrAAAAAOxU6VSlAP7TaRVeFgFlIsB_LTSi",  # your backend secret key
+            "secret": "6Ldj1bcrAAAAAJZYwFkjBZm55ObDGmmWynpi1EwP",  # your backend secret key
             "response": recaptcha_response
         }
         r = requests.post(verify_url, data=payload)
