@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6">Latest Updates</h1>
+
+    {% if updates %}
+        <div class="space-y-8">
+            {% for update in updates %}
+                <article class="bg-white shadow-md rounded-2xl p-6">
+                    <h2 class="text-2xl font-semibold mb-2">{{ update[1] }}</h2>
+                    
+                    {% if update[2] %}
+                        <img src="{{ update[2] }}" alt="{{ update[1] }}" class="w-full h-auto rounded-lg mb-4">
+                    {% endif %}
+                    
+                    <p class="text-gray-700 mb-3">{{ update[3] }}</p>
+                    
+                    <p class="text-sm text-gray-500">Posted on {{ update[4].strftime("%B %d, %Y") }}</p>
+                </article>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No updates available yet. Stay tuned!</p>
+    {% endif %}
+</section>
+{% endblock %}
