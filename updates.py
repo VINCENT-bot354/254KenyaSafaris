@@ -47,11 +47,7 @@ def updates():
             cur.execute('SELECT id, title, image_url, description, created_at FROM updates ORDER BY created_at DESC')
             all_updates = cur.fetchall()
 
-    # ⚠️ IMPORTANT: Make sure you import/load content from wherever about.html gets it.
-    # Example: if you have a content_loader.py or CMS config, pull it here
-    from content_loader import content   # adjust import based on your project
-
-    return render_template('updates.html', updates=all_updates, content=content)
+    return render_template('updates.html', updates=all_updates)
 
 # Route: Add update (admin form submits here)
 @updates_bp.route('/add-update', methods=['POST'])
