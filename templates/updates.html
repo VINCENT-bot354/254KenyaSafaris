@@ -1,38 +1,27 @@
 {% extends "base.html" %}
 
-{% block title %}Updates - 254 Kenya Safaris{% endblock %}
-
 {% block content %}
-<!-- Hero Section -->
-<section class="hero-section" style="background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://github.com/VINCENT-bot354/IMAGES/blob/main/images%20(10).jpeg?raw=true'); background-size: cover; background-position: center; margin-top: 128px;">
-    <div class="container">
-        <div class="hero-content fade-in">
-            <h1>Latest Updates</h1>
-            {% if content.settings.flag.filename %}
-                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}" 
-                     alt="Kenya Flag" 
-                     style="height: {{ content.settings.flag.height }}px; width: {{ content.settings.flag.width }}px; margin-left: 10px;">
-            {% endif %}
-            <p class="lead">Stay up to date with our new safaris and adventures.</p>
-        </div>
-    </div>
+<section class="bg-gradient-to-r from-green-600 to-green-800 text-white py-12">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h1 class="text-3xl font-bold">Latest Updates</h1>
+    <p class="mt-2">Stay tuned with our latest safaris, trips, and experiences.</p>
+  </div>
 </section>
 
-<!-- Updates List -->
-<section class="py-5">
-    <div class="container">
-        {% for update in updates %}
-            <div class="mb-5">
-                <h2>{{ update[1] }}</h2>
-                {% if update[2] %}
-                    <img src="{{ update[2] }}" class="img-fluid rounded mb-3">
-                {% endif %}
-                <p>{{ update[3] }}</p>
-                <small class="text-muted">Posted on {{ update[4] }}</small>
-            </div>
-        {% else %}
-            <p>No updates yet. Check back soon!</p>
-        {% endfor %}
-    </div>
+<div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+  {% for update in updates %}
+  <div class="mb-8 border-b pb-4">
+    <h2 class="text-xl font-bold">{{ update[1] }}</h2>
+    {% if update[2] %}
+    <img src="{{ update[2] }}" alt="Update image" class="my-4 w-full rounded">
+    {% endif %}
+    <p>{{ update[3] }}</p>
+    <small class="text-gray-500">Posted on {{ update[4] }}</small>
+  </div>
+  {% else %}
+  <p>No updates yet. Check back soon!</p>
+  {% endfor %}
+</div>
+{% endblock %}
 </section>
 {% endblock %}
