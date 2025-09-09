@@ -3,6 +3,9 @@ import logging
 from flask import Flask
 from flask_mail import Mail
 from reviews import reviews_bp
+from updates import updates_bp
+app.register_blueprint(updates_bp)
+
 from werkzeug.middleware.proxy_fix import ProxyFix
 
 # Configure logging
