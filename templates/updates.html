@@ -1,69 +1,64 @@
 {% extends "Newbase.html" %}
 
 {% block content %}
-<section class="max-w-5xl mx-auto py-12 px-6">
-    <h1 class="text-4xl font-extrabold text-center text-primary-700 mb-10">
-        🌍 Latest Updates & News
-    </h1>
+<section class="max-w-4xl mx-auto py-10 px-4">
+    <h1 class="text-3xl font-bold mb-6">Latest Updates</h1>
 
     {% if updates %}
-        <div class="space-y-10">
+        <div class="space-y-8">
             {% for update in updates %}
-                <article class="bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
-                    <h2 class="text-2xl font-bold text-primary-800 mb-4">{{ update[1] }}</h2>
+                <article class="bg-white shadow-md rounded-2xl p-6">
+                    <h2 class="text-2xl font-semibold mb-2">{{ update[1] }}</h2>
                     
                     {% if update[2] %}
-                        <img src="{{ update[2] }}" alt="{{ update[1] }}" 
-                             class="w-full h-auto rounded-lg mb-6 shadow-md">
+                        <img src="{{ update[2] }}" 
+                             alt="{{ update[1] }}" 
+                             class="w-full h-auto rounded-lg mb-4">
                     {% endif %}
                     
-                    <p class="text-gray-700 leading-relaxed mb-4">{{ update[3] }}</p>
+                    <p class="text-gray-700 mb-3">{{ update[3] }}</p>
                     
-                    <p class="text-sm text-gray-500 italic">
-                        📅 Posted on {{ update[4].strftime("%B %d, %Y") }}
-                    </p>
+                    <p class="text-sm text-gray-500">Posted on {{ update[4].strftime("%B %d, %Y") }}</p>
                 </article>
             {% endfor %}
         </div>
     {% else %}
-        <!-- No Updates Section -->
-        <div class="text-center py-12">
-            <h2 class="text-3xl font-extrabold text-red-600 drop-shadow mb-6">
-                🚫 No Updates Available
-            </h2>
-            <p class="text-lg font-medium text-gray-800 mb-3">
-                ✨ This is where we’ll keep you informed with our <span class="text-primary-600 font-semibold">latest plans, adventures, and safari news</span>.
+        <div class="text-center py-10">
+            <h2 class="text-3xl font-bold text-red-600 mb-6">🚫 No updates available</h2>
+            <p class="text-lg text-gray-700 mb-4">
+                Here’s where we share our latest plans, stories, and news so you can stay up to date with 254 Kenya Safaris.
             </p>
-            <p class="text-md text-gray-600 mb-10">
-                🌱 Check back soon to discover what’s new. We love keeping you up to date!
+            <p class="text-md text-gray-600 mb-8">
+                Please check back later for more exciting updates and announcements.
             </p>
 
-            <!-- Images as Cards -->
+            <!-- Four smaller static images as cards -->
             <div class="grid grid-cols-2 gap-6 justify-center">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
-                     onclick="openImageModal('https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg')">
+                <div class="bg-white shadow-md rounded-xl overflow-hidden">
                     <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
                          alt="Logo"
-                         class="w-full h-44 object-contain bg-gray-100 p-3" />
+                         class="w-full h-40 object-contain p-2 bg-gray-100" />
                 </div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
-                     onclick="openImageModal('https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg')">
+                <div class="bg-white shadow-md rounded-xl overflow-hidden">
                     <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
                          alt="Flag"
-                         class="w-full h-44 object-contain bg-gray-100 p-3" />
+                         class="w-full h-40 object-contain p-2 bg-gray-100" />
                 </div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
-                     onclick="openImageModal('https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg')">
+                <div class="bg-white shadow-md rounded-xl overflow-hidden">
                     <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
                          alt="Logo"
-                         class="w-full h-44 object-contain bg-gray-100 p-3" />
+                         class="w-full h-40 object-contain p-2 bg-gray-100" />
                 </div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer hover:scale-105 transition"
-                     onclick="openImageModal('https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg')">
+                <div class="bg-white shadow-md rounded-xl overflow-hidden">
                     <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
                          alt="Flag"
-                         class="w-full h-44 object-contain bg-gray-100 p-3" />
+                         class="w-full h-40 object-contain p-2 bg-gray-100" />
                 </div>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}
             </div>
         </div>
 
