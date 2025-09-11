@@ -5,25 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}254 KENYA SAFARIS{% endblock %}</title>
     <!-- Standard favicon -->
-<link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
-<!-- 32x32 favicon -->
-<link rel="icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.ico') }}">
+    <!-- 32x32 favicon -->
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.ico') }}">
 
-<!-- 16x16 favicon -->
-<link rel="icon" type="image/x-icon" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.ico') }}">
+    <!-- 16x16 favicon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.ico') }}">
 
-<!-- Apple Touch Icon (180x180) -->
-<link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon-180x180.ico') }}">
- <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "254 Kenya Safaris",
-  "url": "https://254kenyasafaris.africa",
-  "logo": "https://254kenyasafaris.africa/static/favicon.png"
-}
-</script>
+    <!-- Apple Touch Icon (180x180) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon-180x180.ico') }}">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "254 Kenya Safaris",
+      "url": "https://254kenyasafaris.africa",
+      "logo": "https://254kenyasafaris.africa/static/favicon.png"
+    }
+    </script>
    
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -49,7 +50,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100"><!-- ✅ Changed -->
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
@@ -107,12 +108,12 @@
 {% endwith %}
 
 <!-- Main Content -->
-<main>
+<main class="flex-grow-1"><!-- ✅ Changed -->
     {% block content %}{% endblock %}
 </main>
 
 <!-- Footer -->
-<footer class="footer bg-dark text-light py-4 mt-5">
+<footer class="footer bg-dark text-light py-4 mt-auto"><!-- ✅ Changed -->
     <div class="container">
         <div class="row">
             <div class="col-md-4">
