@@ -1,32 +1,29 @@
-{% extends "base.html" %}
-
-{% block title %}Nairobi – AI Assistant{% endblock %}
-
 {% block extra_styles %}
 <style>
+  html, body {
+    height: 100%;
+    margin: 0;
+  }
+
   main {
     min-height: 0 !important;   /* cancel 1200px from base */
+    display: flex;
+    flex-direction: column;
   }
+
   .iframe-container {
-    margin-top: 55px;
-    width: 100%;
-    height: calc(100vh - 55px); /* take full screen below navbar */
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 55px; /* space for navbar */
+    height: calc(100vh - 55px); /* full viewport minus navbar */
   }
+
   .iframe-container iframe {
+    flex-grow: 1;
     width: 100%;
-    height: 100%;               /* fill container */
     border: none;
+    height: 100%; /* fill container */
   }
 </style>
 {% endblock %}
-
-{% block content %}
-<div class="iframe-container">
-  <iframe
-    src="https://www.chatbase.co/chatbot-iframe/DW5hU9kMkFoN18ooKFNIy"
-    allow="microphone"
-  ></iframe>
-</div>
-{% endblock %}
-
-{% block footer %}{% endblock %}
