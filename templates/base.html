@@ -119,6 +119,7 @@
     {% block content %}{% endblock %}
 </main>
 
+{% block footer %}
 <!-- Footer -->
 <footer class="footer bg-dark text-light py-4 mt-auto"><!-- ✅ Changed -->
     <div class="container">
@@ -174,7 +175,8 @@
         </div>
     </div>
 </footer>
-
+{% endblock %}
+    
 <!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
