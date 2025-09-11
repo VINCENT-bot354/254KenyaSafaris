@@ -1,3 +1,4 @@
+# please specify the size for the images that will show as a result of the links, I want two images to fit in a phones width 
 {% extends "Newbase.html" %}
 
 {% block content %}
@@ -11,8 +12,7 @@
                     <h2 class="text-2xl font-semibold mb-2">{{ update[1] }}</h2>
                     
                     {% if update[2] %}
-                        <img src="{{ update[2] }}" alt="{{ update[1] }}" 
-                             class="w-full h-60 object-cover rounded-lg mb-4">
+                        <img src="{{ update[2] }}" alt="{{ update[1] }}" class="w-full h-auto rounded-lg mb-4">
                     {% endif %}
                     
                     <p class="text-gray-700 mb-3">{{ update[3] }}</p>
@@ -26,15 +26,20 @@
             <h2 class="text-2xl font-bold text-red-600 mb-4">🚫 No updates available</h2>
             <p class="text-lg text-gray-700 mb-6">Check back later for the latest safari news and packages.</p>
 
-            <!-- Random hardcoded images (two per row on phone) -->
-            <div class="grid grid-cols-2 gap-4">
+            <!-- Random hardcoded images -->
+            <div class="grid grid-cols-2 gap-6 justify-center">
                 <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
                      alt="Logo"
-                     class="w-full h-40 object-cover rounded-xl shadow-md" />
+                     class="rounded-xl shadow-md max-h-48 mx-auto" />
 
                 <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
                      alt="Kenya Flag"
-                     class="w-full h-40 object-cover rounded-xl shadow-md" />
+                     class="rounded-xl shadow-md max-h-48 mx-auto" />
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}                     class="w-full h-40 object-cover rounded-xl shadow-md" />
             </div>
         </div>
     {% endif %}
