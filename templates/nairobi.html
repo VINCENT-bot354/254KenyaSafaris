@@ -1,22 +1,21 @@
-
-
-{% extends "nairobibase.html" %}
+{% extends "base.html" %}
 
 {% block title %}Nairobi – AI Assistant{% endblock %}
 
 {% block extra_styles %}
 <style>
+  main {
+    min-height: 0 !important;   /* cancel 1200px from base */
+  }
   .iframe-container {
     margin-top: 55px;
     width: 100%;
-    height: calc(100vh - 55px);
+    height: calc(100vh - 55px); /* take full screen below navbar */
   }
-
-  iframe {
+  .iframe-container iframe {
     width: 100%;
-    height: 91%;
+    height: 100%;               /* fill container */
     border: none;
-    min-height: 350px;
   }
 </style>
 {% endblock %}
