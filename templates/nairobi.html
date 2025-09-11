@@ -5,10 +5,11 @@
 {% block extra_styles %}
 <style>
   .iframe-container {
-    margin-top: 55px;
-    width: 100%;
-    height: calc(100vh - 55px);
-  }
+  margin-top: 55px;
+  width: 100%;
+  height: calc(100vh - 55px - 1000px); /* ✅ leave room for footer */
+}
+
 
   iframe {
     width: 100%;
