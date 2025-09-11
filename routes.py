@@ -29,6 +29,13 @@ def index():
     reviews = get_top_reviews(limit=5, min_stars=4)
     return render_template('index.html', content=content, packages=packages[:3], gallery=gallery[:6], reviews=reviews)
 
+@app.context_processor
+def inject_content():
+    """Make `content` available in all templates (especially base.html)."""
+    return {
+        "content": load_data("content.json")
+    }
+    
 @app.route("/kenyalive")
 def live_stream():
     return render_template("kenyalive.html")
