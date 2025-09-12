@@ -4,11 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}254 KENYA SAFARIS{% endblock %}</title>
-
-    <!-- Favicon -->
+    <!-- Standard favicon -->
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
-    <!-- JSON-LD Schema -->
+    <!-- 32x32 favicon -->
+    <link rel="icon" type="image/x-icon" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.ico') }}">
+
+    <!-- 16x16 favicon -->
+    <link rel="icon" type="image/x-icon" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.ico') }}">
+
+    <!-- Apple Touch Icon (180x180) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='favicon-180x180.ico') }}">
+
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -18,10 +25,14 @@
       "logo": "https://254kenyasafaris.africa/static/favicon.png"
     }
     </script>
-
+   
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
     <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
 
     <!-- SEO Meta Tags -->
@@ -35,22 +46,30 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="{{ request.url }}" />
     <meta property="og:image" content="https://pixabay.com/get/gd4ce8562a698a347be5d199d7e78e63b38593d5f1d3fe1b1867ba44874575baa0238283fde2be284a79a8cf3cf7b6c4226edc52c486d015147849cc1cd5cbbe3_1280.jpg" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}" />
+
+    
+    
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100" style="padding-top:0px;"><!-- ✅ Added padding -->
 
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light shadow-sm">
     <div class="container">
         <a class="navbar-brand" href="{{ url_for('index') }}">
-            <!-- Hardcoded logo left -->
-            <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
-                 alt="254 Kenya Safaris Logo"
-                 style="height:45px; width:45px; margin-left: -25px;" />
+            {% if content and content.settings and content.settings.logo and content.settings.logo.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.logo.filename) }}"
+                     alt="254 Kenya Safaris Logo"
+                     style="height: {{ content.settings.logo.height if content.settings.logo.height else 45 }}px; width: {{ content.settings.logo.width if content.settings.logo.width else 45 }}px; margin-left: -25px;" />
+            {% endif %}
             254 KENYA SAFARIS
-            <!-- Hardcoded flag right -->
-            <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
-                 alt="Kenya Flag"
-                 style="height:27px; width:40px; margin-left: 5px;" />
+            {% if content and content.settings and content.settings.flag and content.settings.flag.filename %}
+                <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}"
+                     alt="Kenya Flag"
+                     style="height: {{ content.settings.flag.height if content.settings.flag.height else 27 }}px; width: {{ content.settings.flag.width if content.settings.flag.width else 40 }}px; margin-left: 5px;" />
+            {% endif %}
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -92,59 +111,13 @@
 {% endwith %}
 
 <!-- Main Content -->
-<main>
+<main class="flex-grow-1"><!-- ✅ Changed -->
     {% block content %}{% endblock %}
 </main>
 
-<!-- Footer -->
-<footer class="footer bg-dark text-light py-4 mt-5">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <h5>254 KENYA SAFARIS</h5>
-                <p>Experience the wild beauty of Kenya with our expertly crafted safari tours and cultural experiences.</p>
-                <div class="social-links">
-                    <a href="#" class="me-3"><i class="fab fa-facebook fa-2x"></i></a>
-                    <a href="https://www.instagram.com/254kenyasafaris?igsh=ZHZnOTE3c2ltcjJy" class="me-3" target="_blank"><i class="fab fa-instagram fa-2x"></i></a>
-                    <a href="https://www.tiktok.com/@ke254safari?is_from_webapp=1&sender_device=pc" class="me-3" target="_blank"><i class="fab fa-tiktok fa-2x"></i></a>
-                    <a href="#" class="me-3"><i class="fab fa-twitter fa-2x"></i></a>
-                    <a href="#" class="me-3"><i class="fab fa-youtube fa-2x"></i></a>
-                </div>
-            </div>
+{% block footer %}
 
-            <div class="col-md-4">
-                <h5>Quick Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="{{ url_for('destinations') }}">Destinations</a></li>
-                    <li><a href="{{ url_for('activities') }}">Activities</a></li>
-                    <li><a href="{{ url_for('packages') }}">Safari Packages</a></li>
-                    <li><a href="{{ url_for('gallery') }}">Photo Gallery</a></li>
-                    <li><a href="{{ url_for('about') }}">About Us</a></li>
-                    <li><a href="{{ url_for('contact') }}">Contact</a></li>
-                </ul>
-            </div>
-
-            <div class="col-md-4">
-                <h5>Contact Info</h5>
-                <p><i class="fas fa-info-circle"></i> Contact details coming soon.</p>
-            </div>
-        </div>
-
-        <hr class="my-4" />
-
-        <div class="row">
-            <div class="col-md-6">
-                <p>&copy; 2024 254 Kenya Safaris. All rights reserved.</p>
-            </div>
-            <div class="col-md-6 text-md-end">
-                <a href="{{ url_for('admin_index') }}" class="btn btn-sm btn-outline-light">
-                    <i class="fas fa-cog"></i> Admin
-                </a>
-            </div>
-        </div>
-    </div>
-</footer>
-
+    
 <!-- Bootstrap Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -164,6 +137,8 @@
 <!-- Custom JS -->
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
+<!-- Page-Specific Scripts -->
 {% block scripts %}{% endblock %}
+
 </body>
 </html>
