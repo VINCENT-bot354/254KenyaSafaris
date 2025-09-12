@@ -1,20 +1,20 @@
-{% extends "nairobibase.html" %}
+{% extends "Nairobi_base.html" %}
 
 {% block content %}
 <h1>Updates</h1>
 {% for item in updates %}
     <div style="border:1px solid #ccc; margin-bottom:20px; padding:10px;">
-        <h2>{{ item.update.title }} ({{ item.update.type }})</h2>
-        {% if item.update.type == 'news' %}
-            <p>{{ item.update.story }}</p>
-        {% elif item.update.type == 'trip' %}
-            {% if item.update.destination %}<p><strong>Destination:</strong> {{ item.update.destination }}</p>{% endif %}
-            {% if item.update.description %}<p>{{ item.update.description }}</p>{% endif %}
+        <h2>{{ item.title }} ({{ item.type }})</h2>
+        {% if item.type == 'news' %}
+            <p>{{ item.story }}</p>
+        {% elif item.type == 'trip' %}
+            {% if item.destination %}<p><strong>Destination:</strong> {{ item.destination }}</p>{% endif %}
+            {% if item.description %}<p>{{ item.description }}</p>{% endif %}
         {% endif %}
         {% if item.photos %}
             <div>
-                {% for photo in item.photos %}
-                    <img src="{{ photo.photo_url }}" style="max-width:200px; margin:5px;">
+                {% for photo_url in item.photos %}
+                    <img src="{{ photo_url }}" style="max-width:200px; margin:5px;">
                 {% endfor %}
             </div>
         {% endif %}
