@@ -27,4 +27,16 @@
         </td>
         <td>{{ u.description }}</td>
         <td>
-            {%
+            {% for p in u.photos %}
+                <img src="{{ p }}" style="max-width:100px; margin:2px;">
+            {% endfor %}
+        </td>
+        <td>
+            <form method="POST" action="{{ url_for('updates.delete_update', update_id=u.id) }}">
+                <button type="submit" onclick="return confirm('Delete this update?')">Delete</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
