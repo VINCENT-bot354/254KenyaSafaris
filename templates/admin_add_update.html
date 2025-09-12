@@ -1,0 +1,41 @@
+{% extends "Nairobi_base.html" %}
+
+{% block content %}
+<h1>Add Update</h1>
+<form method="POST">
+    <label>Type:</label>
+    <select name="type" id="type" onchange="toggleFields()">
+        <option value="news">News</option>
+        <option value="trip">Trip</option>
+    </select><br><br>
+
+    <label>Title:</label>
+    <input type="text" name="title"><br><br>
+
+    <div id="newsFields">
+        <label>Story:</label>
+        <textarea name="story"></textarea><br><br>
+    </div>
+
+    <div id="tripFields" style="display:none;">
+        <label>Destination:</label>
+        <input type="text" name="destination"><br><br>
+
+        <label>Description:</label>
+        <textarea name="description"></textarea><br><br>
+    </div>
+
+    <label>Image URLs (one per line):</label><br>
+    <textarea name="photo_urls"></textarea><br><br>
+
+    <button type="submit">Add Update</button>
+</form>
+
+<script>
+function toggleFields() {
+    var type = document.getElementById('type').value;
+    document.getElementById('newsFields').style.display = type === 'news' ? 'block' : 'none';
+    document.getElementById('tripFields').style.display = type === 'trip' ? 'block' : 'none';
+}
+</script>
+{% endblock %}
