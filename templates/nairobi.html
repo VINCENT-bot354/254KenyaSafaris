@@ -1,37 +1,25 @@
-{% extends "nairobibase.html" %}
+
+
+{% extends "nairibibase.html" %}
 
 {% block title %}Nairobi – AI Assistant{% endblock %}
 
 {% block extra_styles %}
 <style>
-  html, body {
-    height: 100%;
-    margin: 0;
-  }
-
-  main {
-    min-height: 0 !important;   /* cancel 1200px from base */
-    display: flex;
-    flex-direction: column;
-  }
-
   .iframe-container {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    margin-top: 55px; /* space for navbar */
-    height: calc(100vh - 55px); /* full viewport minus navbar */
+    margin-top: 55px;
+    width: 100%;
+    height: calc(100vh - 55px);
   }
 
-  .iframe-container iframe {
-    flex-grow: 1;
+  iframe {
     width: 100%;
+    height: 91%;
     border: none;
-    height: 100%; /* fill container */
+    min-height: 350px;
   }
 </style>
 {% endblock %}
-
 
 {% block content %}
 <div class="iframe-container">
@@ -41,5 +29,3 @@
   ></iframe>
 </div>
 {% endblock %}
-
-{% block footer %}{% endblock %}
