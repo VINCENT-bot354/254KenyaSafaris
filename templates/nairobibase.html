@@ -67,21 +67,35 @@
              style="height: 45px; width: 45px; margin-left:-25px;" />
       {% endif %}
       254 KENYA SAFARIS
+      {% if content and content.settings and content.settings.flag and content.settings.flag.filename %}
+        <img src="{{ url_for('static', filename='uploads/' + content.settings.flag.filename) }}"
+             alt="Flag"
+             style="height: 27px; width: 40px; margin-left:5px;" />
+      {% endif %}
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('destinations') }}">Destinations</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('activities') }}">Activities</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('packages') }}">Packages</a></li>
-        <li class="nav-item"><a class="nav-link btn btn-primary text-white ms-2" href="{{ url_for('bookings') }}">Book Now</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}"><i class="fas fa-home"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('destinations') }}"><i class="fas fa-map-marker-alt"></i> Destinations</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('activities') }}"><i class="fas fa-binoculars"></i> Activities</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('services') }}"><i class="fas fa-concierge-bell"></i> Services</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('packages') }}"><i class="fas fa-suitcase"></i> Packages</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('gallery') }}"><i class="fas fa-camera"></i> Gallery</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('about') }}"><i class="fas fa-info-circle"></i> About</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li class="nav-item">
+          <a class="nav-link btn btn-primary text-white ms-2" href="{{ url_for('bookings') }}">
+            <i class="fas fa-calendar-check"></i> Book Now
+          </a>
+        </li>
       </ul>
     </div>
   </div>
 </nav>
+
 
 <!-- Flash messages -->
 {% with messages = get_flashed_messages(with_categories=true) %}
