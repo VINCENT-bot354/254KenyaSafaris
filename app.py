@@ -2,7 +2,7 @@ import os
 import logging
 from flask import Flask
 from flask_mail import Mail
-from reviews import reviews_bp
+from updates import reviews_bp
 from updates import updates_bp
 
 
