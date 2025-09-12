@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for
 import os
 import psycopg2
+from psycopg2 import sql
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -13,46 +14,55 @@ updates_bp = Blueprint('updates', __name__)
 # ----------------------------
 def get_connection():
     db_url = os.environ.get("DATABASE_URL")
-    return psycopg2.connect(db_url, sslmode='require')  # SSL required on Render
+    if not db_url:
+        raise Exception("DATABASE_URL environment variable not set")
+    # SSL required on Render
+    return psycopg2.connect(db_url, sslmode='require')
 
 # ----------------------------
 # Initialize tables
 # ----------------------------
 def init_db():
-    with get_connection() as conn:
-        with conn.cursor() as cur:
-            # Updates table
-            cur.execute('''
-                CREATE TABLE IF NOT EXISTS updates (
-                    id SERIAL PRIMARY KEY,
-                    type TEXT NOT NULL,  -- 'news' or 'trip'
-                    title TEXT,
-                    story TEXT,
-                    destination TEXT,
-                    description TEXT
-                )
-            ''')
-            # Update photos table
-            cur.execute('''
-                CREATE TABLE IF NOT EXISTS update_photos (
-                    id SERIAL PRIMARY KEY,
-                    update_id INTEGER REFERENCES updates(id) ON DELETE CASCADE,
-                    photo_url TEXT
-                )
-            ''')
-            conn.commit()
+    try:
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                # Main updates table
+                cur.execute('''
+                    CREATE TABLE IF NOT EXISTS updates (
+                        id SERIAL PRIMARY KEY,
+                        type TEXT NOT NULL CHECK (type IN ('news', 'trip')),
+                        title TEXT,
+                        story TEXT,
+                        destination TEXT,
+                        description TEXT
+                    )
+                ''')
 
-# Call initialization
+                # Photos table
+                cur.execute('''
+                    CREATE TABLE IF NOT EXISTS update_photos (
+                        id SERIAL PRIMARY KEY,
+                        update_id INTEGER REFERENCES updates(id) ON DELETE CASCADE,
+                        photo_url TEXT
+                    )
+                ''')
+                conn.commit()
+                print("Tables checked/created successfully")
+    except Exception as e:
+        print("ERROR initializing database:", e)
+        raise
+
+# Initialize on import
 init_db()
 
 # ----------------------------
-# Admin page: add updates
-# Route: /admin/updates
+# Admin: Add update
 # ----------------------------
 @updates_bp.route('/admin/updates', methods=['GET', 'POST'])
 def admin_updates():
-    try:
-        if request.method == 'POST':
+    if request.method == 'POST':
+        try:
+            # Get form data
             type_ = request.form.get('type') or ''
             title = request.form.get('title') or ''
             story = request.form.get('story') or None
@@ -63,9 +73,9 @@ def admin_updates():
             photo_urls_text = request.form.get('photo_urls', '')
             photo_urls = [url.strip() for url in photo_urls_text.splitlines() if url.strip()]
 
+            # Insert into updates table
             with get_connection() as conn:
                 with conn.cursor() as cur:
-                    # Insert update
                     cur.execute(
                         '''
                         INSERT INTO updates (type, title, story, destination, description)
@@ -74,11 +84,11 @@ def admin_updates():
                         (type_, title, story, destination, description)
                     )
                     update_id_row = cur.fetchone()
-                    if update_id_row is None:
-                        raise Exception("Failed to retrieve update ID after insert")
+                    if not update_id_row:
+                        raise Exception("Failed to retrieve update ID")
                     update_id = update_id_row[0]
 
-                    # Insert photo URLs
+                    # Insert photos if any
                     for url in photo_urls:
                         cur.execute(
                             'INSERT INTO update_photos (update_id, photo_url) VALUES (%s, %s)',
@@ -88,27 +98,25 @@ def admin_updates():
 
             return redirect(url_for('updates.admin_updates'))
 
-        # GET: render form
-        return render_template('admin_updates.html')
+        except Exception as e:
+            print("ERROR in /admin/updates POST:", e)
+            raise
 
-    except Exception as e:
-        print("ERROR in /admin/updates:", e)
-        raise
+    # GET: render form
+    return render_template('admin_updates.html')
+
 
 # ----------------------------
-# Public page: view updates
-# Route: /updates
+# Public: View updates
 # ----------------------------
 @updates_bp.route('/updates')
 def view_updates():
-    updates_with_photos = []
     try:
+        updates_with_photos = []
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute('''
-                    SELECT id, type, title, story, destination, description
-                    FROM updates ORDER BY id DESC
-                ''')
+                # Get all updates
+                cur.execute('SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC')
                 updates = cur.fetchall()
                 for u in updates:
                     update_dict = {
@@ -120,30 +128,29 @@ def view_updates():
                         'description': u[5] or '',
                         'photos': []
                     }
+
+                    # Get associated photos
                     cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
                     photos = cur.fetchall()
                     update_dict['photos'] = [p[0] for p in photos if p[0]]
                     updates_with_photos.append(update_dict)
+        return render_template('updates.html', updates=updates_with_photos)
+
     except Exception as e:
-        print("ERROR in /updates:", e)
+        print("ERROR in /updates GET:", e)
         raise
 
-    return render_template('updates.html', updates=updates_with_photos)
 
 # ----------------------------
-# Admin: manage/delete updates
-# Route: /admin/manage-updates
+# Admin: Manage updates
 # ----------------------------
 @updates_bp.route('/admin/manage-updates', methods=['GET'])
 def manage_updates():
-    updates_list = []
     try:
+        updates_list = []
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute('''
-                    SELECT id, type, title, story, destination, description
-                    FROM updates ORDER BY id DESC
-                ''')
+                cur.execute('SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC')
                 updates = cur.fetchall()
                 for u in updates:
                     cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
@@ -157,18 +164,21 @@ def manage_updates():
                         'description': u[5] or '',
                         'photos': [p[0] for p in photos if p[0]]
                     })
+        return render_template('manage_updates.html', updates=updates_list)
     except Exception as e:
-        print("ERROR in /admin/manage-updates:", e)
+        print("ERROR in /admin/manage-updates GET:", e)
         raise
 
-    return render_template('manage_updates.html', updates=updates_list)
 
+# ----------------------------
+# Admin: Delete update
+# ----------------------------
 @updates_bp.route('/admin/delete-update/<int:update_id>', methods=['POST'])
 def delete_update(update_id):
     try:
         with get_connection() as conn:
             with conn.cursor() as cur:
-                # delete photos first (optional due to ON DELETE CASCADE)
+                # Delete photos first (optional, but safe)
                 cur.execute('DELETE FROM update_photos WHERE update_id=%s', (update_id,))
                 cur.execute('DELETE FROM updates WHERE id=%s', (update_id,))
                 conn.commit()
