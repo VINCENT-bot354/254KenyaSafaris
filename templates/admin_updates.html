@@ -1,41 +1,66 @@
-{% extends "nairobibase.html" %}
+{% extends "adminbase.html" %}
 
 {% block content %}
-<h1>Add Update</h1>
-<form method="POST">
-    <label>Type:</label>
-    <select name="type" id="type" onchange="toggleFields()">
-        <option value="news">News</option>
-        <option value="trip">Trip</option>
-    </select><br><br>
+<div class="container my-5">
+  <div class="card shadow-lg rounded-4">
+    <div class="card-body p-4">
+      <h2 class="text-center text-primary mb-4">Add Update</h2>
 
-    <label>Title:</label>
-    <input type="text" name="title"><br><br>
+      <form method="POST">
+        <!-- Type -->
+        <div class="mb-3">
+          <label for="type" class="form-label fw-bold">Update Type</label>
+          <select class="form-select" name="type" id="type" onchange="toggleFields()">
+            <option value="news">News</option>
+            <option value="trip">Trip</option>
+          </select>
+        </div>
 
-    <div id="newsFields">
-        <label>Story:</label>
-        <textarea name="story"></textarea><br><br>
+        <!-- Title -->
+        <div class="mb-3">
+          <label for="title" class="form-label fw-bold">Title</label>
+          <input type="text" class="form-control" name="title" id="title" placeholder="Enter update title">
+        </div>
+
+        <!-- News Fields -->
+        <div id="newsFields" class="mb-3">
+          <label for="story" class="form-label fw-bold">Story</label>
+          <textarea class="form-control" name="story" id="story" rows="4" placeholder="Write the news story..."></textarea>
+        </div>
+
+        <!-- Trip Fields -->
+        <div id="tripFields" style="display:none;">
+          <div class="mb-3">
+            <label for="destination" class="form-label fw-bold">Destination</label>
+            <input type="text" class="form-control" name="destination" id="destination" placeholder="E.g. Nairobi, Maasai Mara, etc.">
+          </div>
+
+          <div class="mb-3">
+            <label for="description" class="form-label fw-bold">Description</label>
+            <textarea class="form-control" name="description" id="description" rows="3" placeholder="Brief trip description..."></textarea>
+          </div>
+        </div>
+
+        <!-- Image URLs -->
+        <div class="mb-3">
+          <label for="photo_urls" class="form-label fw-bold">Image URLs</label>
+          <textarea class="form-control" name="photo_urls" id="photo_urls" rows="3" placeholder="Paste each image URL on a new line"></textarea>
+        </div>
+
+        <!-- Submit -->
+        <div class="d-grid">
+          <button type="submit" class="btn btn-primary btn-lg">Add Update</button>
+        </div>
+      </form>
     </div>
-
-    <div id="tripFields" style="display:none;">
-        <label>Destination:</label>
-        <input type="text" name="destination"><br><br>
-
-        <label>Description:</label>
-        <textarea name="description"></textarea><br><br>
-    </div>
-
-    <label>Image URLs (one per line):</label><br>
-    <textarea name="photo_urls"></textarea><br><br>
-
-    <button type="submit">Add Update</button>
-</form>
+  </div>
+</div>
 
 <script>
 function toggleFields() {
-    var type = document.getElementById('type').value;
-    document.getElementById('newsFields').style.display = type === 'news' ? 'block' : 'none';
-    document.getElementById('tripFields').style.display = type === 'trip' ? 'block' : 'none';
+  var type = document.getElementById('type').value;
+  document.getElementById('newsFields').style.display = (type === 'news') ? 'block' : 'none';
+  document.getElementById('tripFields').style.display = (type === 'trip') ? 'block' : 'none';
 }
 </script>
 {% endblock %}
