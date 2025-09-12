@@ -1,61 +1,102 @@
 from flask import Blueprint, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy
 import os
+import psycopg2
+from dotenv import load_dotenv
 
-# Create Blueprint
+# Load environment variables
+load_dotenv()
+
+# Blueprint
 updates_bp = Blueprint('updates', __name__)
 
-# Assume db is imported from main app or initialized here
-from main import db  # or wherever your db object is
+# PostgreSQL connection helper
+def get_connection():
+    db_url = os.environ.get("DATABASE_URL")
+    return psycopg2.connect(db_url)
 
-# Models
-class Update(db.Model):
-    __tablename__ = 'updates'
-    id = db.Column(db.Integer, primary_key=True)
-    type = db.Column(db.String(50))
-    title = db.Column(db.String(200))
-    story = db.Column(db.Text, nullable=True)
-    destination = db.Column(db.String(200), nullable=True)
-    description = db.Column(db.Text, nullable=True)
+# Initialize tables
+def init_db():
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('''
+                CREATE TABLE IF NOT EXISTS updates (
+                    id SERIAL PRIMARY KEY,
+                    type TEXT NOT NULL,  -- 'news' or 'trip'
+                    title TEXT,
+                    story TEXT,
+                    destination TEXT,
+                    description TEXT
+                )
+            ''')
+            cur.execute('''
+                CREATE TABLE IF NOT EXISTS update_photos (
+                    id SERIAL PRIMARY KEY,
+                    update_id INTEGER REFERENCES updates(id) ON DELETE CASCADE,
+                    photo_url TEXT
+                )
+            ''')
+            conn.commit()
 
-class UpdatePhoto(db.Model):
-    __tablename__ = 'update_photos'
-    id = db.Column(db.Integer, primary_key=True)
-    update_id = db.Column(db.Integer, db.ForeignKey('updates.id', ondelete="CASCADE"))
-    photo_url = db.Column(db.String(500))
+# Call initialization
+init_db()
 
-# Admin Route
+# ----------------------
+# Admin Route: Add Update
+# ----------------------
 @updates_bp.route('/admin/add-update', methods=['GET', 'POST'])
 def add_update():
     if request.method == 'POST':
-        type = request.form.get('type')
+        type_ = request.form.get('type')
         title = request.form.get('title')
-        story = request.form.get('story') if type == 'news' else None
-        destination = request.form.get('destination') if type == 'trip' else None
-        description = request.form.get('description') if type == 'trip' else None
+        story = request.form.get('story') if type_ == 'news' else None
+        destination = request.form.get('destination') if type_ == 'trip' else None
+        description = request.form.get('description') if type_ == 'trip' else None
 
-        update = Update(type=type, title=title, story=story, destination=destination, description=description)
-        db.session.add(update)
-        db.session.commit()
+        photo_urls_text = request.form.get('photo_urls', '')
+        photo_urls = [url.strip() for url in photo_urls_text.splitlines() if url.strip()]
 
-        # handle multiple image URLs
-        photo_urls = request.form.get('photo_urls', '').splitlines()
-        for url in photo_urls:
-            if url.strip():
-                db.session.add(UpdatePhoto(update_id=update.id, photo_url=url.strip()))
-        db.session.commit()
+        with get_connection() as conn:
+            with conn.cursor() as cur:
+                cur.execute(
+                    'INSERT INTO updates (type, title, story, destination, description) VALUES (%s, %s, %s, %s, %s) RETURNING id',
+                    (type_, title, story, destination, description)
+                )
+                update_id = cur.fetchone()[0]
+
+                for url in photo_urls:
+                    cur.execute(
+                        'INSERT INTO update_photos (update_id, photo_url) VALUES (%s, %s)',
+                        (update_id, url)
+                    )
+                conn.commit()
 
         return redirect(url_for('updates.add_update'))
 
     return render_template('admin_add_update.html')
 
-
-# Public Route
+# ----------------------
+# Public Route: View Updates
+# ----------------------
 @updates_bp.route('/updates')
 def view_updates():
-    updates = Update.query.order_by(Update.id.desc()).all()
     updates_with_photos = []
-    for u in updates:
-        photos = UpdatePhoto.query.filter_by(update_id=u.id).all()
-        updates_with_photos.append({'update': u, 'photos': photos})
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC')
+            updates = cur.fetchall()
+            for u in updates:
+                update_dict = {
+                    'id': u[0],
+                    'type': u[1],
+                    'title': u[2],
+                    'story': u[3],
+                    'destination': u[4],
+                    'description': u[5],
+                    'photos': []
+                }
+                cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
+                photos = cur.fetchall()
+                update_dict['photos'] = [p[0] for p in photos]
+                updates_with_photos.append(update_dict)
+
     return render_template('public_updates.html', updates=updates_with_photos)
