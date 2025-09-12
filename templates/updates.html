@@ -1,70 +1,25 @@
-# please specify the size for the images that will show as a result of the links, I want two images to fit in a phones width 
-{% extends "Newbase.html" %}
+{% extends "nairobibase.html" %}
 
 {% block content %}
-<section class="max-w-4xl mx-auto py-10 px-4">
-    <h1 class="text-3xl font-bold mb-6">Latest Updates</h1>
+<h1>Updates</h1>
+{% for item in updates %}
+<div style="border:1px solid #ccc; margin-bottom:20px; padding:10px;">
+    <h2>{{ item.title }} ({{ item.type }})</h2>
 
-    {% if updates %}
-        <div class="space-y-8">
-            {% for update in updates %}
-                <article class="bg-white shadow-md rounded-2xl p-6">
-                    <h2 class="text-2xl font-semibold mb-2">{{ update[1] }}</h2>
-                    
-                    {% if update[2] %}
-                        <img src="{{ update[2] }}" alt="{{ update[1] }}" class="w-full h-auto rounded-lg mb-4">
-                    {% endif %}
-                    
-                    <p class="text-gray-700 mb-3">{{ update[3] }}</p>
-                    
-                    <p class="text-sm text-gray-500">Posted on {{ update[4].strftime("%B %d, %Y") }}</p>
-                </article>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="text-center py-10">
-            <h2 class="text-2xl font-bold text-red-600 mb-4">🚫 No updates available</h2>
-            <p class="text-lg text-gray-700 mb-6">Check back later for the latest safari news and packages.</p>
-
-            <!-- Random hardcoded images -->
-            <div class="grid grid-cols-2 gap-6 justify-center">
-                <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
-                     alt="Logo"
-                     class="rounded-xl shadow-md max-h-48 mx-auto" />
-
-                <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
-                     alt="Kenya Flag"
-                     class="rounded-xl shadow-md max-h-48 mx-auto" />
-            </div>
-        </div>
+    {% if item.type == 'news' %}
+        <p>{{ item.story }}</p>
+    {% elif item.type == 'trip' %}
+        {% if item.destination %}<p><strong>Destination:</strong> {{ item.destination }}</p>{% endif %}
+        {% if item.description %}<p>{{ item.description }}</p>{% endif %}
     {% endif %}
-</section>
-{% endblock %}                     class="w-full h-40 object-cover rounded-xl shadow-md" />
-            </div>
-        </div>
-    {% endif %}
-</section>
-{% endblock %}
-                     class="rounded-xl shadow-md max-h-48 w-full object-contain bg-white p-2" />
 
-                <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
-                     alt="Kenya Flag"
-                     class="rounded-xl shadow-md max-h-48 w-full object-contain bg-white p-2" />
-
-                <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/logo.jpg"
-                     alt="Logo"
-                     class="rounded-xl shadow-md max-h-48 w-full object-contain bg-white p-2" />
-
-                <img src="https://raw.githubusercontent.com/VINCENT-bot354/IMAGES/refs/heads/main/1000235717.jpg"
-                     alt="Kenya Flag"
-                     class="rounded-xl shadow-md max-h-48 w-full object-contain bg-white p-2" />
-            </div>
-        </div>
+    {% if item.photos %}
+    <div>
+        {% for photo_url in item.photos %}
+            <img src="{{ photo_url }}" style="max-width:200px; margin:5px;">
+        {% endfor %}
+    </div>
     {% endif %}
-</section>
-{% endblock %}
-            </div>
-        </div>
-    {% endif %}
-</section>
+</div>
+{% endfor %}
 {% endblock %}
