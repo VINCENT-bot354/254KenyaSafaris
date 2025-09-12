@@ -16,44 +16,64 @@ def get_connection():
     db_url = os.environ.get("DATABASE_URL")
     if not db_url:
         raise Exception("DATABASE_URL environment variable not set")
-    # SSL required on Render
     return psycopg2.connect(db_url, sslmode='require')
 
+
 # ----------------------------
-# Initialize tables
+# Initialize tables safely
 # ----------------------------
 def init_db():
     try:
         with get_connection() as conn:
             with conn.cursor() as cur:
-                # Main updates table
-                cur.execute('''
-                    CREATE TABLE IF NOT EXISTS updates (
-                        id SERIAL PRIMARY KEY,
-                        type TEXT NOT NULL CHECK (type IN ('news', 'trip')),
-                        title TEXT,
-                        story TEXT,
-                        destination TEXT,
-                        description TEXT
-                    )
-                ''')
+                # Check if 'updates' table exists
+                cur.execute("SELECT to_regclass('public.updates');")
+                if not cur.fetchone()[0]:
+                    # Table does not exist, create it
+                    cur.execute('''
+                        CREATE TABLE updates (
+                            id SERIAL PRIMARY KEY,
+                            type TEXT NOT NULL CHECK (type IN ('news','trip')) DEFAULT 'news',
+                            title TEXT,
+                            story TEXT,
+                            destination TEXT,
+                            description TEXT
+                        )
+                    ''')
 
-                # Photos table
-                cur.execute('''
-                    CREATE TABLE IF NOT EXISTS update_photos (
-                        id SERIAL PRIMARY KEY,
-                        update_id INTEGER REFERENCES updates(id) ON DELETE CASCADE,
-                        photo_url TEXT
-                    )
-                ''')
+                else:
+                    # Table exists, check for 'type' column
+                    cur.execute("""
+                        SELECT column_name FROM information_schema.columns
+                        WHERE table_name='updates' AND column_name='type'
+                    """)
+                    if not cur.fetchone():
+                        # Add 'type' column safely
+                        cur.execute("""
+                            ALTER TABLE updates
+                            ADD COLUMN type TEXT CHECK (type IN ('news','trip')) DEFAULT 'news'
+                        """)
+
+                # Check if 'update_photos' table exists
+                cur.execute("SELECT to_regclass('public.update_photos');")
+                if not cur.fetchone()[0]:
+                    cur.execute('''
+                        CREATE TABLE update_photos (
+                            id SERIAL PRIMARY KEY,
+                            update_id INTEGER REFERENCES updates(id) ON DELETE CASCADE,
+                            photo_url TEXT
+                        )
+                    ''')
+
                 conn.commit()
-                print("Tables checked/created successfully")
+                print("Tables initialized successfully")
     except Exception as e:
         print("ERROR initializing database:", e)
         raise
 
-# Initialize on import
+# Initialize database on import
 init_db()
+
 
 # ----------------------------
 # Admin: Add update
@@ -62,18 +82,15 @@ init_db()
 def admin_updates():
     if request.method == 'POST':
         try:
-            # Get form data
-            type_ = request.form.get('type') or ''
+            type_ = request.form.get('type') or 'news'
             title = request.form.get('title') or ''
             story = request.form.get('story') or None
             destination = request.form.get('destination') or None
             description = request.form.get('description') or None
 
-            # Parse image URLs (one per line)
             photo_urls_text = request.form.get('photo_urls', '')
             photo_urls = [url.strip() for url in photo_urls_text.splitlines() if url.strip()]
 
-            # Insert into updates table
             with get_connection() as conn:
                 with conn.cursor() as cur:
                     cur.execute(
@@ -102,7 +119,6 @@ def admin_updates():
             print("ERROR in /admin/updates POST:", e)
             raise
 
-    # GET: render form
     return render_template('admin_updates.html')
 
 
@@ -115,25 +131,22 @@ def view_updates():
         updates_with_photos = []
         with get_connection() as conn:
             with conn.cursor() as cur:
-                # Get all updates
-                cur.execute('SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC')
+                cur.execute(
+                    'SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC'
+                )
                 updates = cur.fetchall()
                 for u in updates:
-                    update_dict = {
+                    cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
+                    photos = cur.fetchall()
+                    updates_with_photos.append({
                         'id': u[0],
                         'type': u[1] or '',
                         'title': u[2] or '',
                         'story': u[3] or '',
                         'destination': u[4] or '',
                         'description': u[5] or '',
-                        'photos': []
-                    }
-
-                    # Get associated photos
-                    cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
-                    photos = cur.fetchall()
-                    update_dict['photos'] = [p[0] for p in photos if p[0]]
-                    updates_with_photos.append(update_dict)
+                        'photos': [p[0] for p in photos if p[0]]
+                    })
         return render_template('updates.html', updates=updates_with_photos)
 
     except Exception as e:
@@ -150,7 +163,9 @@ def manage_updates():
         updates_list = []
         with get_connection() as conn:
             with conn.cursor() as cur:
-                cur.execute('SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC')
+                cur.execute(
+                    'SELECT id, type, title, story, destination, description FROM updates ORDER BY id DESC'
+                )
                 updates = cur.fetchall()
                 for u in updates:
                     cur.execute('SELECT photo_url FROM update_photos WHERE update_id=%s', (u[0],))
@@ -178,7 +193,6 @@ def delete_update(update_id):
     try:
         with get_connection() as conn:
             with conn.cursor() as cur:
-                # Delete photos first (optional, but safe)
                 cur.execute('DELETE FROM update_photos WHERE update_id=%s', (update_id,))
                 cur.execute('DELETE FROM updates WHERE id=%s', (update_id,))
                 conn.commit()
