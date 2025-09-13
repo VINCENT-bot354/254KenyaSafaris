@@ -1,25 +1,53 @@
 {% extends "nairobibase.html" %}
 
 {% block content %}
-<h1>Updates</h1>
-{% for item in updates %}
-<div style="border:1px solid #ccc; margin-bottom:20px; padding:10px;">
-    <h2>{{ item.title }} ({{ item.type }})</h2>
+<div class="container my-5">
+  <h1 class="text-center text-primary fw-bold mb-5">Latest Updates</h1>
 
-    {% if item.type == 'news' %}
-        <p>{{ item.story }}</p>
-    {% elif item.type == 'trip' %}
-        {% if item.destination %}<p><strong>Destination:</strong> {{ item.destination }}</p>{% endif %}
-        {% if item.description %}<p>{{ item.description }}</p>{% endif %}
-    {% endif %}
+  <div class="row g-4">
+    {% for item in updates %}
+    <div class="col-md-6 col-lg-4">
+      <div class="card h-100 shadow-lg border-0 rounded-4">
+        {% if item.photos %}
+        <div id="carousel-{{ item.id }}" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner rounded-top">
+            {% for photo_url in item.photos %}
+            <div class="carousel-item {% if loop.first %}active{% endif %}">
+              <img src="{{ photo_url }}" class="d-block w-100" style="height:220px; object-fit:cover;">
+            </div>
+            {% endfor %}
+          </div>
+          {% if item.photos|length > 1 %}
+          <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ item.id }}" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ item.id }}" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+          </button>
+          {% endif %}
+        </div>
+        {% endif %}
 
-    {% if item.photos %}
-    <div>
-        {% for photo_url in item.photos %}
-            <img src="{{ photo_url }}" style="max-width:200px; margin:5px;">
-        {% endfor %}
+        <div class="card-body">
+          <span class="badge bg-{{ 'info' if item.type == 'news' else 'success' }} mb-2">
+            {{ item.type | capitalize }}
+          </span>
+          <h5 class="card-title fw-bold text-dark">{{ item.title }}</h5>
+
+          {% if item.type == 'news' %}
+            <p class="text-muted">{{ item.story }}</p>
+          {% elif item.type == 'trip' %}
+            {% if item.destination %}
+              <p><strong>Destination:</strong> {{ item.destination }}</p>
+            {% endif %}
+            {% if item.description %}
+              <p class="text-muted">{{ item.description }}</p>
+            {% endif %}
+          {% endif %}
+        </div>
+      </div>
     </div>
-    {% endif %}
+    {% endfor %}
+  </div>
 </div>
-{% endfor %}
 {% endblock %}
