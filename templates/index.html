@@ -16,7 +16,6 @@
             <p class="lead">{{ content.homepage.hero_subtitle }}</p>
             <p>{{ content.homepage.hero_description }}</p>
             
-            
             <div class="mt-4">
                 <a href="{{ url_for('bookings') }}" class="btn btn-primary btn-lg me-3">
                     <i class="fas fa-calendar-check"></i> Book Your Safari
@@ -24,56 +23,87 @@
                 <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
                     <i class="fas fa-suitcase"></i> View Packages
                 </a>
-                
-<!-- HTML -->
-<button class="nairobi-button" onclick="window.location.href='/nairobi'">
-  Chat with Nairobi<br>
-  <span>Your AI assistant</span>
-</button>
 
-<!-- CSS -->
-<style>
-  .nairobi-button {
-    display: block;
-    margin: 40px auto 0 auto; /* Top spacing and horizontal centering */
-    padding: 12px 20px;
-    font-size: 16px;
-    background-color: #ff6600;
-    color: white;
-    border: none;
-    border-radius: 25px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    text-align: center;
-  }
+                <!-- Bubble Buttons Wrapper -->
+                <div class="bubble-wrapper">
+                    <button class="nairobi-bubble" onclick="window.location.href='/nairobi'">
+                        Chat with Nairobi<br>
+                        <span>Your AI assistant</span>
+                    </button>
 
-  .nairobi-button span {
-    display: block;
-    font-size: 12px;
-    margin-top: 4px;
-    color: #fff3e6;
-  }
+                    {% if updates %}
+                    <button class="updates-bubble" onclick="window.location.href='/updates'">
+                        See New Update
+                    </button>
+                    {% endif %}
+                </div>
 
-  .nairobi-button:hover {
-    background-color: #e65c00;
-  }
-</style>
-
-
+            </div>
+        </div>
     </div>
 </section>
 
+<!-- CSS for Bubbles -->
+<style>
+.bubble-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+/* Nairobi Bubble */
+.nairobi-bubble {
+    position: relative;
+    background: #ff6600;
+    border: none;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    padding: 20px 30px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    animation: float 2s ease-in-out infinite;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.nairobi-bubble span {
+    display: block;
+    font-size: 12px;
+    color: #fff3e6;
+}
+
+/* Updates Bubble */
+.updates-bubble {
+    position: relative;
+    background: #2ecc71;
+    border: none;
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    padding: 18px 28px;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    animation: float 1.8s ease-in-out infinite alternate;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+/* Dancing Animation */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(-2deg); }
+    50% { transform: translateY(-6px) rotate(2deg); }
+    100% { transform: translateY(0px) rotate(-2deg); }
+}
+</style>
+
+<!-- Testimonials / Reviews -->
 <section id="testimonials" class="bg-light py-5">
   <div class="container">
     <h2 class="text-center mb-4" style="color: green;">What Our Customers Say</h2>
-
     <div class="row">
       {% for name, country, comment, stars in reviews %}
       <div class="col-md-4 mb-4">
         <div class="card shadow-sm h-100" style="border-left: 8px solid #2ecc71;">
           <div class="card-body pb-1">
-
             <h5 class="card-title">{{ name }} <small class="fw-bold">from {{ country }}</small></h5>
             <p class="card-text" style="margin: 0;">"{{ comment }}"</p>
             <p class="star-rating" style="margin: 0;">
@@ -105,13 +135,11 @@
       display: inline-block;
       transform: scale(1.05);
     }
-
     .gold-star.half {
       background: linear-gradient(90deg, #FFC107 50%, #e0e0e0 50%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-
     .gold-star.faded {
       color: lightgray;
       text-shadow: none;
@@ -121,62 +149,44 @@
   </style>
 </section>
 
-    
-
-
-<!-- Hardcoded Reviews Section -->
+<!-- Leave Review Button -->
 <section class="py-1">
-
-<div style="text-align: center; margin-top: -40px;">
-    <a href="{{ url_for('reviews.reviews') }}">
-        <button style="padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 5px;">
-            Leave a Review
-        </button>
-    </a>
-</div>
+  <div style="text-align: center; margin-top: -40px;">
+      <a href="{{ url_for('reviews.reviews') }}">
+          <button style="padding: 10px 20px; background-color: #2ecc71; color: white; border: none; border-radius: 5px;">
+              Leave a Review
+          </button>
+      </a>
+  </div>
 </section>
 
 <!-- About Section -->
 <section class="py-5 tribal-pattern">
     <div class="container-fluid">
         <div class="row align-items-center flex-column-reverse flex-md-row">
-            <!-- Image Column -->
             <div class="col-12 col-md-6 mb-4 mb-md-0">
-                <img 
-                    src="https://github.com/VINCENT-bot354/IMAGES/blob/main/elephant2.jpeg?raw=true" 
-                    class="img-fluid w-100" 
-                    alt="Elephant"
-                >
+                <img src="https://github.com/VINCENT-bot354/IMAGES/blob/main/elephant2.jpeg?raw=true" class="img-fluid w-100" alt="Elephant">
             </div>
-
-            <!-- Text Content Column -->
             <div class="col-12 col-md-6 slide-in-left">
                 <h2>{{ content.homepage.about_title }}</h2>
                 <p class="lead">{{ content.homepage.about_description }}</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="safari-icon d-inline-block">
-                            <i class="fas fa-binoculars"></i>
-                        </div>
+                        <div class="safari-icon d-inline-block"><i class="fas fa-binoculars"></i></div>
                         <h5>Wildlife Tours</h5>
                         <p>Professional guided wildlife viewing experiences</p>
                     </div>
                     <div class="col-md-6">
-                        <div class="safari-icon d-inline-block">
-                            <i class="fas fa-camera"></i>
-                        </div>
+                        <div class="safari-icon d-inline-block"><i class="fas fa-camera"></i></div>
                         <h5>Photography</h5>
                         <p>Capture stunning moments with expert guidance</p>
                     </div>
                 </div>
-                <a href="{{ url_for('about') }}" class="btn btn-primary mt-3">
-                    <i class="fas fa-arrow-right"></i> Learn More
-                </a>
+                <a href="{{ url_for('about') }}" class="btn btn-primary mt-3"><i class="fas fa-arrow-right"></i> Learn More</a>
             </div>
         </div>
     </div>
 </section>
-
 
 <!-- Services Section -->
 <section class="py-5">
@@ -185,49 +195,34 @@
             <h2>{{ content.homepage.services_title }}</h2>
             <p class="lead">{{ content.homepage.services_description }}</p>
         </div>
-        
         <div class="row">
             <div class="col-md-4 mb-4 fade-in">
                 <div class="card h-100">
                     <div class="card-body text-center">
-                        <div class="safari-icon d-inline-block mb-3">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
+                        <div class="safari-icon d-inline-block mb-3"><i class="fas fa-map-marker-alt"></i></div>
                         <h5 class="card-title">Premier Destinations</h5>
                         <p class="card-text">Explore Kenya's most iconic national parks and reserves with expert guides.</p>
-                        <a href="{{ url_for('destinations') }}" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i> Explore
-                        </a>
+                        <a href="{{ url_for('destinations') }}" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Explore</a>
                     </div>
                 </div>
             </div>
-            
             <div class="col-md-4 mb-4 fade-in">
                 <div class="card h-100">
                     <div class="card-body text-center">
-                        <div class="safari-icon d-inline-block mb-3">
-                            <i class="fas fa-hiking"></i>
-                        </div>
+                        <div class="safari-icon d-inline-block mb-3"><i class="fas fa-hiking"></i></div>
                         <h5 class="card-title">Adventure Activities</h5>
                         <p class="card-text">From game drives to cultural experiences, discover Kenya's diverse offerings.</p>
-                        <a href="{{ url_for('activities') }}" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i> Activities
-                        </a>
+                        <a href="{{ url_for('activities') }}" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Activities</a>
                     </div>
                 </div>
             </div>
-            
             <div class="col-md-4 mb-4 fade-in">
                 <div class="card h-100">
                     <div class="card-body text-center">
-                        <div class="safari-icon d-inline-block mb-3">
-                            <i class="fas fa-users"></i>
-                        </div>
+                        <div class="safari-icon d-inline-block mb-3"><i class="fas fa-users"></i></div>
                         <h5 class="card-title">Custom Packages</h5>
                         <p class="card-text">Tailored safari experiences designed to match your interests and schedule.</p>
-                        <a href="{{ url_for('packages') }}" class="btn btn-primary">
-                            <i class="fas fa-arrow-right"></i> Packages
-                        </a>
+                        <a href="{{ url_for('packages') }}" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Packages</a>
                     </div>
                 </div>
             </div>
@@ -235,14 +230,13 @@
     </div>
 </section>
 
-<!-- Featured Packages -->
+<!-- Featured Packages Section -->
 <section class="py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5 fade-in">
             <h2>Featured Safari Packages</h2>
             <p class="lead">Discover our most popular safari experiences</p>
         </div>
-        
         <div class="row">
             {% for package in packages %}
             <div class="col-lg-4 col-md-6 mb-4 fade-in">
@@ -262,36 +256,28 @@
                                 KSH {{ package.price_ksh }}
                             {% endif %}
                         </div>
-                        <p class="text-muted">
-                            <i class="fas fa-clock"></i> {{ package.duration }}
-                        </p>
+                        <p class="text-muted"><i class="fas fa-clock"></i> {{ package.duration }}</p>
                     </div>
                     <div class="card-footer bg-transparent">
-                        <a href="{{ url_for('packages') }}" class="btn btn-primary w-100">
-                            <i class="fas fa-eye"></i> View Details
-                        </a>
+                        <a href="{{ url_for('packages') }}" class="btn btn-primary w-100"><i class="fas fa-eye"></i> View Details</a>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
-        
         <div class="text-center mt-4">
-            <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-suitcase"></i> View All Packages
-            </a>
+            <a href="{{ url_for('packages') }}" class="btn btn-outline-primary btn-lg"><i class="fas fa-suitcase"></i> View All Packages</a>
         </div>
     </div>
 </section>
 
-<!-- Gallery Preview -->
+<!-- Gallery Section -->
 <section class="py-5">
     <div class="container">
         <div class="text-center mb-5 fade-in">
             <h2>Safari Gallery</h2>
             <p class="lead">Glimpse the beauty of Kenya's wilderness</p>
         </div>
-        
         <div class="row">
             {% for item in gallery %}
             <div class="col-lg-4 col-md-6 mb-4 fade-in">
@@ -307,11 +293,8 @@
             </div>
             {% endfor %}
         </div>
-        
         <div class="text-center mt-4">
-            <a href="{{ url_for('gallery') }}" class="btn btn-outline-primary btn-lg">
-                <i class="fas fa-camera"></i> View Full Gallery
-            </a>
+            <a href="{{ url_for('gallery') }}" class="btn btn-outline-primary btn-lg"><i class="fas fa-camera"></i> View Full Gallery</a>
         </div>
     </div>
 </section>
@@ -323,14 +306,12 @@
             <h2>Ready for Your Kenya Safari Adventure?</h2>
             <p class="lead">Let us create an unforgettable experience tailored just for you</p>
             <div class="mt-4">
-                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3">
-                    <i class="fas fa-calendar-check"></i> Book Now
-                </a>
-                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">
-                    <i class="fas fa-phone"></i> Contact Us
-                </a>
+                <a href="{{ url_for('bookings') }}" class="btn btn-light btn-lg me-3"><i class="fas fa-calendar-check"></i> Book Now</a>
+                <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg"><i class="fas fa-phone"></i> Contact Us</a>
             </div>
         </div>
     </div>
 </section>
+
 {% endblock %}
+    
