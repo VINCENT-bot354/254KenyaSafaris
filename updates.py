@@ -208,3 +208,17 @@ def delete_update(update_id):
             cur.execute('DELETE FROM updates WHERE id=%s', (update_id,))
             conn.commit()
     return redirect(url_for('updates.manage_updates'))
+
+# ... your existing code above remains unchanged ...
+
+# -----------------------------------------------------
+# HELPER FUNCTION TO CHECK FOR NEW UPDATES
+# -----------------------------------------------------
+def has_new_updates():
+    """Return True if there are any updates in the updates table."""
+    with get_connection() as conn:
+        with conn.cursor() as cur:
+            cur.execute('SELECT EXISTS(SELECT 1 FROM updates)')
+            exists = cur.fetchone()[0]
+    return exists
+        
