@@ -1,7 +1,7 @@
 {% extends "nairobibase.html" %}
 
 {% block content %}
-<div class="container">
+<div class="reviews-container">
     <h2>All Reviews</h2>
     {% if reviews %}
         {% for name, country, comment, stars in reviews %}
@@ -41,9 +41,9 @@
 
 {% block extra_styles %}
 <style>
-    .container {
+    .reviews-container {
         max-width: 800px;
-        margin: 30px auto;
+        margin: 100px auto 60px auto; /* top and bottom margins to show green */
         background: white;
         padding: 25px;
         border-radius: 10px;
