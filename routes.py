@@ -8,7 +8,7 @@ from functools import wraps
 from app import app, mail
 from utils import load_data, save_data, allowed_file, get_file_url
 from reviews import get_top_reviews
-from updates import get_latest_updates  # make sure this exists in updates.py
+
 
 # Admin password
 ADMIN_PASSWORD = "254Safaris@2025"
