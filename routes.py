@@ -39,7 +39,7 @@ def index():
         packages=packages[:3],
         gallery=gallery[:6],
         reviews=reviews,
-        show_update_button=show_update_button  # <-- new
+        updates=show_update_button  # <-- new
     )
 
 @app.context_processor
