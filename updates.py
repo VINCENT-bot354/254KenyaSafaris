@@ -92,6 +92,7 @@ def reviews():
 
 
 @reviews_bp.route('/manage-reviews', methods=['GET'])
+@admin_required
 def manage_reviews():
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -117,6 +118,7 @@ def delete_review(review_id):
 updates_bp = Blueprint('updates', __name__)
 
 @updates_bp.route('/admin/updates', methods=['GET', 'POST'])
+
 def admin_updates():
     if request.method == 'POST':
         type_ = request.form.get('type') or 'news'
