@@ -26,16 +26,16 @@
 
                 <!-- Bubble Buttons Wrapper -->
                 <div class="bubble-wrapper">
+                    {% if updates %}
+                    <button class="updates-bubble" onclick="window.location.href='/updates'">
+                        New Update
+                    </button>
+                    {% endif %}
+
                     <button class="nairobi-bubble" onclick="window.location.href='/nairobi'">
                         Chat with Nairobi<br>
                         <span>Your AI assistant</span>
                     </button>
-
-                    {% if updates %}
-                    <button class="updates-bubble" onclick="window.location.href='/updates'">
-                        See New Update
-                    </button>
-                    {% endif %}
                 </div>
 
             </div>
@@ -48,7 +48,7 @@
 .bubble-wrapper {
     display: flex;
     justify-content: center;
-    gap: 15px;
+    gap: 30px; /* space between buttons */
     margin-top: 30px;
 }
 
@@ -62,7 +62,7 @@
     color: white;
     font-size: 16px;
     cursor: pointer;
-    animation: float 2s ease-in-out infinite;
+    animation: float-majestic 3s ease-in-out infinite;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
@@ -75,23 +75,35 @@
 /* Updates Bubble */
 .updates-bubble {
     position: relative;
-    background: #2ecc71;
+    background: #228B22; /* Forest Green */
     border: none;
     border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
-    padding: 18px 28px;
+    padding: 20px 30px; /* same size as Nairobi */
     color: white;
-    font-size: 15px;
+    font-size: 16px;
     cursor: pointer;
-    animation: float 1.8s ease-in-out infinite alternate;
+    animation: float-alert 1.2s ease-in-out infinite;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 
-/* Dancing Animation */
-@keyframes float {
-    0% { transform: translateY(0px) rotate(-2deg); }
-    50% { transform: translateY(-6px) rotate(2deg); }
-    100% { transform: translateY(0px) rotate(-2deg); }
+/* Majestic Float Animation for Nairobi */
+@keyframes float-majestic {
+    0% { transform: translateY(0px) rotate(-1deg); }
+    25% { transform: translateY(-4px) rotate(1deg); }
+    50% { transform: translateY(0px) rotate(-1deg); }
+    75% { transform: translateY(4px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(-1deg); }
+}
+
+/* Alert Shake Animation for Updates */
+@keyframes float-alert {
+    0% { transform: translateX(0px) rotate(0deg); }
+    20% { transform: translateX(-5px) rotate(-5deg); }
+    40% { transform: translateX(5px) rotate(5deg); }
+    60% { transform: translateX(-5px) rotate(-5deg); }
+    80% { transform: translateX(5px) rotate(5deg); }
+    100% { transform: translateX(0px) rotate(0deg); }
 }
 </style>
 
@@ -314,4 +326,3 @@
 </section>
 
 {% endblock %}
-    
