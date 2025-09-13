@@ -9,6 +9,16 @@ load_dotenv()
 # ----------------------------
 # Database connection helper
 # ----------------------------
+
+def admin_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if not session.get('admin_authenticated'):
+            return redirect(url_for('admin_login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def get_connection():
     db_url = os.environ.get("DATABASE_URL")
     if not db_url:
