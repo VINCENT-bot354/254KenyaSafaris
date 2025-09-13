@@ -1,42 +1,56 @@
 {% extends "admin_base.html" %}
 
 {% block content %}
-<h1>Manage Updates</h1>
+<div class="container py-4">
+    <h1 class="mb-4">Manage Updates</h1>
 
-<table border="1" cellpadding="5" cellspacing="0">
-    <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Title</th>
-        <th>Destination / Story</th>
-        <th>Description</th>
-        <th>Photos</th>
-        <th>Actions</th>
-    </tr>
-    {% for u in updates %}
-    <tr>
-        <td>{{ u.id }}</td>
-        <td>{{ u.type }}</td>
-        <td>{{ u.title }}</td>
-        <td>
-            {% if u.type == 'news' %}
-                {{ u.story }}
-            {% else %}
-                {{ u.destination }}
-            {% endif %}
-        </td>
-        <td>{{ u.description }}</td>
-        <td>
-            {% for p in u.photos %}
-                <img src="{{ p }}" style="max-width:100px; margin:2px;">
-            {% endfor %}
-        </td>
-        <td>
-            <form method="POST" action="{{ url_for('updates.delete_update', update_id=u.id) }}">
-                <button type="submit" onclick="return confirm('Delete this update?')">Delete</button>
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+    <div class="table-responsive">
+        <table class="table table-striped table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Title</th>
+                    <th>Destination / Story</th>
+                    <th>Description</th>
+                    <th>Photos</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in updates %}
+                <tr>
+                    <td>{{ u.id }}</td>
+                    <td class="text-capitalize">{{ u.type }}</td>
+                    <td>{{ u.title or '-' }}</td>
+                    <td>
+                        {% if u.type == 'news' %}
+                            {{ u.story or '-' }}
+                        {% else %}
+                            {{ u.destination or '-' }}
+                        {% endif %}
+                    </td>
+                    <td>{{ u.description or '-' }}</td>
+                    <td>
+                        {% for p in u.photos %}
+                            <img src="{{ p }}" class="img-thumbnail me-1 mb-1" style="max-width:80px; height:auto;">
+                        {% else %}
+                            <span class="text-muted">No photos</span>
+                        {% endfor %}
+                    </td>
+                    <td>
+                        <form method="POST" action="{{ url_for('updates.delete_update', update_id=u.id) }}" onsubmit="return confirm('Are you sure you want to delete this update?');">
+                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    {% if updates|length == 0 %}
+        <p class="text-center text-muted mt-4">No updates available.</p>
+    {% endif %}
+</div>
 {% endblock %}
