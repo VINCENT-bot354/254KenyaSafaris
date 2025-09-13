@@ -8,7 +8,7 @@ from functools import wraps
 from app import app, mail
 from utils import load_data, save_data, allowed_file, get_file_url
 from reviews import get_top_reviews
-
+from updates import has_new_updates
 
 # Admin password
 ADMIN_PASSWORD = "254Safaris@2025"
@@ -29,15 +29,17 @@ def index():
     packages = load_data('packages.json')
     gallery = load_data('gallery.json')
     reviews = get_top_reviews(limit=5, min_stars=4)
-    
-    
+
+    # Check for updates and pass flag to template
+    show_update_button = has_new_updates()
+
     return render_template(
         'index.html',
         content=content,
         packages=packages[:3],
         gallery=gallery[:6],
         reviews=reviews,
-        updates=updates
+        show_update_button=show_update_button  # <-- new
     )
 
 @app.context_processor
