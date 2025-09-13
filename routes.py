@@ -29,7 +29,7 @@ def index():
     packages = load_data('packages.json')
     gallery = load_data('gallery.json')
     reviews = get_top_reviews(limit=5, min_stars=4)
-    updates = get_latest_updates(limit=1)  # change limit as needed
+    
     
     return render_template(
         'index.html',
