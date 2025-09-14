@@ -114,6 +114,7 @@ def manage_reviews():
 
 
 @reviews_bp.route('/delete-review/<int:review_id>', methods=['POST'])
+@admin_required
 def delete_review(review_id):
     with get_connection() as conn:
         with conn.cursor() as cur:
@@ -129,7 +130,7 @@ def delete_review(review_id):
 updates_bp = Blueprint('updates', __name__)
 
 @updates_bp.route('/admin/updates', methods=['GET', 'POST'])
-
+@admin_required
 def admin_updates():
     if request.method == 'POST':
         type_ = request.form.get('type') or 'news'
@@ -190,6 +191,7 @@ def view_updates():
 
 
 @updates_bp.route('/admin/manage-updates', methods=['GET'])
+@admin_required
 def manage_updates():
     updates_list = []
     with get_connection() as conn:
@@ -214,6 +216,7 @@ def manage_updates():
 
 
 @updates_bp.route('/admin/delete-update/<int:update_id>', methods=['POST'])
+@admin_required
 def delete_update(update_id):
     with get_connection() as conn:
         with conn.cursor() as cur:
