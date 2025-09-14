@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, session, render_template, request, redirect, url_for
 import os
 import psycopg2
 from dotenv import load_dotenv
