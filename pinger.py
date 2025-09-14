@@ -4,7 +4,7 @@ import time
 import requests
 
 # URL of the other site to ping
-PING_URL = "https://skillbridge-ajqf.onrender.com/health"
+PING_URL = "https://pinger-b1rg.onrender.com/health"
 PING_INTERVAL = 8 * 60  # 8 minutes
 
 def ping_site():
