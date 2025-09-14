@@ -1,28 +1,23 @@
-# pinger_module.py
+# pinger.py for 254 Kenya Safaris
 import threading
 import time
 import requests
 
-# URL of the other site
-PINGER_URL = "https://skillbridge-ajqf.onrender.com/health"
+# URL of the other site to ping
+PING_URL = "https://skillbridge-ajqf.onrender.com/health"
+PING_INTERVAL = 8 * 60  # 8 minutes
 
-def ping_other_site(interval=660):
-    """Background pinger that runs indefinitely."""
+def ping_site():
+    """Continuously ping the other site every 8 minutes."""
     while True:
         try:
-            r = requests.get(PINGER_URL, timeout=10)
-            print(f"Pinged SkillBridge -> {r.status_code}")
+            response = requests.get(PING_URL)
+            print(f"Pinged {PING_URL} - Status code: {response.status_code}")
         except Exception as e:
-            print(f"Error pinging SkillBridge: {e}")
-        time.sleep(interval)  # default every 11 minutes
+            print(f"Error pinging {PING_URL}: {e}")
+        time.sleep(PING_INTERVAL)
 
-def start_pinger(interval=660):
-    """Start the pinger in a background thread."""
-    thread = threading.Thread(target=ping_other_site, args=(interval,), daemon=True)
+def start_pinger():
+    """Start the pinging in a background thread."""
+    thread = threading.Thread(target=ping_site, daemon=True)
     thread.start()
-
-def register_routes(app):
-    """Register routes to an existing Flask app."""
-    @app.route("/health")
-    def health():
-        return "OK from 254 Kenya Safaris"
