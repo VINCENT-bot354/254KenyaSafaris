@@ -4,7 +4,6 @@ from flask import Flask
 from flask_mail import Mail
 from updates import reviews_bp
 from updates import updates_bp
-import pinger
 
 from werkzeug.middleware.proxy_fix import ProxyFix
 
@@ -63,7 +62,7 @@ app.jinja_env.filters['get_embed_url'] = get_embed_url
 
 # Import routes after app creation
 from routes import *
-
+import pinger
 # Create necessary directories
 os.makedirs('data', exist_ok=True)
 os.makedirs('static/uploads', exist_ok=True)
