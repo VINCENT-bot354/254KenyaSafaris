@@ -4,6 +4,7 @@ from flask import Flask
 from flask_mail import Mail
 from updates import reviews_bp
 from updates import updates_bp
+from pinger import start_pinger  # import the ping logic
 
 from werkzeug.middleware.proxy_fix import ProxyFix
 
