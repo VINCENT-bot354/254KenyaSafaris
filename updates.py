@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 import os
 import psycopg2
 from dotenv import load_dotenv
+from functools import wraps
 
 # Load environment variables
 load_dotenv()
