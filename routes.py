@@ -23,6 +23,11 @@ def admin_required(f):
 
 # Public routes
 
+@app.route("/health")
+def health():
+    return "OK", 200
+    
+
 @app.route('/')
 def index():
     content = load_data('content.json')
